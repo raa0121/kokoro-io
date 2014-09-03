@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :access_tokens
+  resources :users
 
-  get 'users/new'
 
   root to: 'pages#index'
   get '/auth/:privider/callback' => 'sessions#create'

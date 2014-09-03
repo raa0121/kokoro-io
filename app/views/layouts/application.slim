@@ -9,7 +9,13 @@ html
     - if current_user
       p= image_tag current_user.avatar_thumbnail_url
       p= "Hi, #{current_user.screen_name}!"
-      p= link_to t('auth.sign_out'), '/sign_out'
+      p= link_to t('auth.sign_out'), signout_path
     - else
       p= link_to t('auth.sign_in'), '/auth/github'
+    hr
+    ul
+      li= link_to t('index'), root_path
+      li= link_to t('edit user'), edit_user_path(current_user)
+      li= link_to t('access_tokens'), access_tokens_path
+    hr
     = yield
