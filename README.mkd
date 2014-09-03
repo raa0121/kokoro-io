@@ -1,0 +1,19 @@
+## kokoro.io
+
+kokoro.io core repository.
+
+
+### How to run
+
+1. Configure `.env`.
+2. `bundle exec foreman start`
+3. Access to `http://lvh.me:3000` with your web browser.
+
+
+
+## LICENSE
+
+License is not determined yet.
+For now, it's not the open source software.
+
+
