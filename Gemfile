@@ -20,6 +20,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 
+gem 'simple_form', github: 'plataformatec/simple_form'
+
 gem 'unicorn'
 gem 'foreman'
 
