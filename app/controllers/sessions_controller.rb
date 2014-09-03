@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       user.provider = auth.provider
       user.uid = auth.uid
       user.screen_name = auth.info.name
-      user.user_name = auth.info.nickname
+      user.user_name = User.uniq_user_name auth.info.nickname
       user.avatar_url = auth.info.image
       user.save
     end
