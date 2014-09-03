@@ -9,6 +9,15 @@ kokoro.io core repository.
 2. `bundle exec foreman start`
 3. Access to `http://lvh.me:3000` with your web browser.
 
+### Milestones
+
+1. [ ] Basic CRUD functions
+2. [ ] Implement API including realtime-messaging with Grape
+3. [ ] Implement web-based client on this app
+4. [ ] Release closed alpha version
+5. [ ] Benrify design theme of web-based client
+4. [ ] Release closed beta version
+
 
 
 ## LICENSE
