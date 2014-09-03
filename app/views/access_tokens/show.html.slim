@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong User:
+  = @access_token.user
+p
+  strong Name:
+  = @access_token.name
+p
+  strong Token:
+  = @access_token.token
+
+= link_to 'Edit', edit_access_token_path(@access_token)
+'|
+= link_to 'Back', access_tokens_path

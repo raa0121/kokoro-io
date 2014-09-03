@@ -1,0 +1,25 @@
+h1 Listing access_tokens
+
+table
+  thead
+    tr
+      th User
+      th Name
+      th Token
+      th
+      th
+      th
+
+  tbody
+    - @access_tokens.each do |access_token|
+      tr
+        td = access_token.user
+        td = access_token.name
+        td = access_token.token
+        td = link_to 'Show', access_token
+        td = link_to 'Edit', edit_access_token_path(access_token)
+        td = link_to 'Destroy', access_token, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Access token', new_access_token_path

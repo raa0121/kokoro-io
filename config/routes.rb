@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :access_tokens
+
   get 'users/new'
 
   root to: 'pages#index'
