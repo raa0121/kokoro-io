@@ -16,7 +16,7 @@ kokoro.io core repository.
 3. [ ] Implement web-based client on this app
 4. [ ] Release closed alpha version
 5. [ ] Benrify design theme of web-based client
-4. [ ] Release closed beta version
+6. [ ] Release closed beta version
 
 
 
