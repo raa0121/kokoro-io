@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title KokoroIo
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    - if current_user
+      p= image_tag current_user.avatar_thumbnail_url
+      p= "Hi, #{current_user.screen_name}!"
+      p= link_to t('auth.sign_out'), '/sign_out'
+    - else
+      p= link_to t('auth.sign_in'), '/auth/github'
+    = yield
