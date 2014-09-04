@@ -13,7 +13,7 @@ table
   tbody
     - @access_tokens.each do |access_token|
       tr
-        td = access_token.user
+        td = access_token.user.screen_name
         td = access_token.name
         td = access_token.token
         td = link_to 'Show', access_token
