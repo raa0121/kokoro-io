@@ -14,7 +14,7 @@ RSpec.describe "access_tokens/new", :type => :view do
 
     assert_select "form[action=?][method=?]", access_tokens_path, "post" do
 
-      assert_select "input#access_token_user_id[name=?]", "access_token[user_id]"
+      assert_select "select#access_token_user_id[name=?]", "access_token[user_id]"
 
       assert_select "input#access_token_name[name=?]", "access_token[name]"
 

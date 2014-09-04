@@ -6,12 +6,12 @@ RSpec.describe "access_tokens/index", :type => :view do
       AccessToken.create!(
         :user => nil,
         :name => "Name",
-        :token => "Token"
+        :token => "Token1"
       ),
       AccessToken.create!(
         :user => nil,
         :name => "Name",
-        :token => "Token"
+        :token => "Token2"
       )
     ])
   end
@@ -20,6 +20,7 @@ RSpec.describe "access_tokens/index", :type => :view do
     render
     assert_select "tr>td", :text => nil.to_s, :count => 2
     assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Token".to_s, :count => 2
+    assert_select "tr>td", :text => "Token1".to_s, :count => 1
+    assert_select "tr>td", :text => "Token2".to_s, :count => 1
   end
 end
