@@ -23,8 +23,14 @@ RSpec.describe AccessTokensController, :type => :controller do
   # This should return the minimal set of attributes required to create a valid
   # AccessToken. As you add validations to AccessToken, be sure to
   # adjust the attributes here as well.
+  let(:user) { FactoryGirl.create(:user) }
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      user: user,
+      name: 'hi',
+      token: 'token'
+    }
+    # skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
