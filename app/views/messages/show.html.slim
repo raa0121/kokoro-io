@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Room:
+  = @message.room
+p
+  strong Publisher:
+  = @message.publisher
+p
+  strong Content:
+  = @message.content
+p
+  strong Published at:
+  = @message.published_at
+
+= link_to 'Edit', edit_message_path(@message)
+'|
+= link_to 'Back', messages_path

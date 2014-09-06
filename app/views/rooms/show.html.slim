@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Room name:
+  = @room.room_name
+p
+  strong Screen name:
+  = @room.screen_name
+p
+  strong Private:
+  = @room.private
+
+= link_to 'Edit', edit_room_path(@room)
+'|
+= link_to 'Back', rooms_path

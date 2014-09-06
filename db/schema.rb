@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903154433) do
+ActiveRecord::Schema.define(version: 20140906114452) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -22,6 +22,37 @@ ActiveRecord::Schema.define(version: 20140903154433) do
   end
 
   add_index "access_tokens", ["user_id"], name: "index_access_tokens_on_user_id"
+
+  create_table "messages", force: true do |t|
+    t.integer  "room_id"
+    t.integer  "publisher_id"
+    t.string   "publisher_type"
+    t.text     "content"
+    t.datetime "published_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["publisher_id", "publisher_type"], name: "index_messages_on_publisher_id_and_publisher_type"
+  add_index "messages", ["room_id"], name: "index_messages_on_room_id"
+
+  create_table "rooms", force: true do |t|
+    t.string   "room_name"
+    t.string   "screen_name"
+    t.boolean  "private"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_rooms", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "room_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_rooms", ["room_id"], name: "index_user_rooms_on_room_id"
+  add_index "user_rooms", ["user_id"], name: "index_user_rooms_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "provider"
