@@ -26,21 +26,24 @@ RSpec.describe AccessTokensController, :type => :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:valid_attributes) {
     {
-      user: user,
+      user_id: user.id,
       name: 'hi',
-      token: 'token'
+      token: 'token',
     }
-    # skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      user_id: 100,
+      token: 'token',
+    }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # AccessTokensController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) {
+  }
 
   describe "GET index" do
     it "assigns all access_tokens as @access_tokens" do
@@ -83,6 +86,7 @@ RSpec.describe AccessTokensController, :type => :controller do
 
       it "assigns a newly created access_token as @access_token" do
         post :create, {:access_token => valid_attributes}, valid_session
+        p assigns(:access_token)
         expect(assigns(:access_token)).to be_a(AccessToken)
         expect(assigns(:access_token)).to be_persisted
       end
@@ -109,14 +113,18 @@ RSpec.describe AccessTokensController, :type => :controller do
   describe "PUT update" do
     describe "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          user_id: user.id,
+          name: 'hi2',
+          token: 'token',
+        }
       }
 
       it "updates the requested access_token" do
         access_token = AccessToken.create! valid_attributes
         put :update, {:id => access_token.to_param, :access_token => new_attributes}, valid_session
         access_token.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:access_token).name).to eq('hi2')
       end
 
       it "assigns the requested access_token as @access_token" do
@@ -133,6 +141,7 @@ RSpec.describe AccessTokensController, :type => :controller do
     end
 
     describe "with invalid params" do
+      render_views
       it "assigns the access_token as @access_token" do
         access_token = AccessToken.create! valid_attributes
         put :update, {:id => access_token.to_param, :access_token => invalid_attributes}, valid_session
