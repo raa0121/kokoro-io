@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :user_name
 
   validates :user_name, uniqueness: true
   # Github username may only contain alphanumeric

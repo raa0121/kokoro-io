@@ -1,11 +1,11 @@
-class UsersController < ApplicationController
+class UsersController < InheritedResources::Base
+  actions :all, except: [ :index ]
 
-  def edit
+  defaults resource_class: User.friendly
 
-  end
-
-  def update
-
+  private
+  def permitted_params
+    params.permit(user: [:screen_name, :user_name])
   end
 
 end

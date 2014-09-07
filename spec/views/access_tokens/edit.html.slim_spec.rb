@@ -9,6 +9,7 @@ RSpec.describe "access_tokens/edit", :type => :view do
       user_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
+    session[:user_id] = user.id
     @access_token = assign(:access_token, AccessToken.create!(
       :user => user,
       :name => "MyString",
@@ -21,11 +22,9 @@ RSpec.describe "access_tokens/edit", :type => :view do
 
     assert_select "form[action=?][method=?]", access_token_path(@access_token), "post" do
 
-      assert_select "select#access_token_user_id[name=?]", "access_token[user_id]"
 
       assert_select "input#access_token_name[name=?]", "access_token[name]"
 
-      assert_select "input#access_token_token[name=?]", "access_token[token]"
     end
   end
 end
