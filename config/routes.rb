@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  # resources :messages
-
   resources :rooms
-
-  resources :access_tokens
-  resources :users
-
+  resources :access_tokens, except: [ :show ]
+  resources :users, except: [ :index ]
 
   root to: 'pages#index'
+
+  # Auth
   get '/auth/:privider/callback' => 'sessions#create'
   post '/auth/:privider/callback' => 'sessions#create'
   get '/sign_out' => 'sessions#destroy', as: :signout
