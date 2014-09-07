@@ -19,10 +19,10 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+ja:
   hello: "Hello world"
-  'Are you sure?': Are you sure?
-  Operation: 'Operation'
-  Edit: 'Edit'
-  Destroy: 'Delete'
-  'New Access token': Create new access token
+  'Are you sure?': "本当によろしいですか？"
+  Operation: '操作'
+  Edit: '編集'
+  Destroy: '削除'
+  'New Access token': 新しいAPIトークンを作成する
