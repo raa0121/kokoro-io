@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # Github username may only contain alphanumeric
   # characters or dashes and cannot begin with a dash
   validates :user_name, format: { with: /[0-9a-zA-Z][0-9a-zA-Z-]+/ }
-  validates :screen_name, length: { in: 1..39 }
+  validates :user_name, length: { in: 1..39 }
   validates :uid, uniqueness: true
   validates :provider, :uid, :screen_name, :user_name, :avatar_url, presence: true
 
