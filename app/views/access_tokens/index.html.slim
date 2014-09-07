@@ -4,22 +4,27 @@
 table.table.table-bordered.table-collapsed
   thead
     tr
-      th Name
-      th Token
-      th
-      th
-      th
-
+      th= t('access_token.name')
+      th= t('access_token.token')
+      th= t('Operation')
   tbody
     - @access_tokens.each do |access_token|
       tr
         td= access_token.name
         td
           input.form-control[ value=access_token.token ]
-        td= link_to 'Show', access_token, class: 'btn btn-default'
-        td= link_to 'Edit', edit_access_token_path(access_token), class: 'btn btn-primary'
-        td= link_to 'Destroy', access_token, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'
+        td
+          .dropdown
+            button.btn.btn-default.dropdown-toggle[ type="button" data-toggle="dropdown" ]
+              = icon :edit
+              = t('Operation')
+              = caret
+            ul.dropdown-menu[ role="menu" ]
+              li[ role="presentation" ]
+                = link_with_icon_to t('Edit'), :edit, edit_access_token_path(access_token), role: 'menuitem'
+              li[ role="presentation" ]
+                = link_with_icon_to t('Destroy'), :trash, access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }
 
 br
 
-= link_to 'New Access token', new_access_token_path, class: 'btn btn-primary'
+= link_to t('New Access token'), new_access_token_path, class: 'btn btn-primary'
