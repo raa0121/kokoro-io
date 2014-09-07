@@ -21,6 +21,9 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'friendly_id', '~> 5.0.4'
+
+gem 'cancancan', '~> 1.9'
 
 gem 'unicorn'
 gem 'foreman'
