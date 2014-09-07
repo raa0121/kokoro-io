@@ -5,7 +5,15 @@ class AccessTokensController < InheritedResources::Base
     @access_token = AccessToken.new(permitted_params[:access_token])
     @access_token.token = AccessToken.generate_token
     @access_token.user = current_user
-    create!
+    create! do |format|
+      format.html { redirect_to access_tokens_path }
+    end
+  end
+
+  def update
+    super do |format|
+      format.html { redirect_to access_tokens_path }
+    end
   end
 
   protected
