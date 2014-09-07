@@ -1,22 +1,84 @@
+/doctype html
+/html
+/  head
+/    title KokoroIo
+/    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+/    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+/    = csrf_meta_tags
+/  body
+/    - if current_user
+/      p= image_tag current_user.avatar_thumbnail_url
+/      p= "Hi, #{current_user.screen_name}(id:#{current_user.user_name})!"
+/      p= link_to t('auth.sign_out'), signout_path
+/    - else
+/      p= link_to t('auth.sign_in'), '/auth/github'
+/    hr
+/    ul
+/      li= link_to t('index'), root_path
+/      - if current_user
+/        li= link_to t('edit user'), edit_user_path(current_user)
+/        li= link_to t('access_tokens'), access_tokens_path
+/    hr
+/    = yield
+
 doctype html
-html
+html[ lang="ja" ]
   head
-    title KokoroIo
+    meta[ charset="utf-8" ]
+    meta[ http-equiv="X-UA-Compatible" content="IE=edge" ]
+    meta[ name="viewport" content="width=device-width, initial-scale=1" ]
+    title kokoro.io
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    - if current_user
-      p= image_tag current_user.avatar_thumbnail_url
-      p= "Hi, #{current_user.screen_name}(id:#{current_user.user_name})!"
-      p= link_to t('auth.sign_out'), signout_path
-    - else
-      p= link_to t('auth.sign_in'), '/auth/github'
-    hr
-    ul
-      li= link_to t('index'), root_path
-      - if current_user
-        li= link_to t('edit user'), edit_user_path(current_user)
-        li= link_to t('access_tokens'), access_tokens_path
-    hr
-    = yield
+    .navbar.navbar-inverse.navbar-fixed-top[ role="navigation" ]
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed[ type="button" data-toggle="collapse" data-target=".navbar-collapse" ]
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand[ href="/" ] kokoro.io
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a[ href="#" ] Document
+            li
+              a[ href="#" ] Help
+            - if current_user
+              li.dropdown
+                a.dropdown-toggle[href="#" data-toggle="dropdown"]
+                  = image_tag current_user.avatar_thumbnail_url(18)
+                  |  
+                  = current_user.screen_name
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a[href="#"] Benri menu
+                  li
+                    a[href="#"] Benri menu
+                  li
+                    a[href="#"] Benri menu
+                  li.divider
+                  li.dropdown-header Account
+                  li= link_to t('show user'), user_path(current_user)
+                  li= link_to t('edit user'), edit_user_path(current_user)
+                  li= link_to t('access_tokens'), access_tokens_path
+                  li= link_to t('auth.sign_out'), signout_path
+            - else
+              li= link_to t('auth.sign_in'), '/auth/github'
+          form.navbar-form.navbar-right
+            input.form-control[ type="text" placeholder="Search..." ]
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2
+          ul.nav.nav-pills.nav-stacked
+            li.active
+              a[href="#"] Active room
+            - 10.times do
+              li
+                a[href="#"] Room
+        .col-sm-9.col-md-10
+          = yield

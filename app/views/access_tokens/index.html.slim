@@ -1,9 +1,9 @@
-h1 Listing access_tokens
+.page-header
+  h1 Listing access_tokens
 
-table
+table.table.table-bordered.table-collapsed
   thead
     tr
-      th User
       th Name
       th Token
       th
@@ -13,13 +13,13 @@ table
   tbody
     - @access_tokens.each do |access_token|
       tr
-        td = access_token.user.screen_name
-        td = access_token.name
-        td = access_token.token
-        td = link_to 'Show', access_token
-        td = link_to 'Edit', edit_access_token_path(access_token)
-        td = link_to 'Destroy', access_token, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td= access_token.name
+        td
+          input.form-control[ value=access_token.token ]
+        td= link_to 'Show', access_token, class: 'btn btn-default'
+        td= link_to 'Edit', edit_access_token_path(access_token), class: 'btn btn-primary'
+        td= link_to 'Destroy', access_token, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'btn btn-danger'
 
 br
 
-= link_to 'New Access token', new_access_token_path
+= link_to 'New Access token', new_access_token_path, class: 'btn btn-primary'
