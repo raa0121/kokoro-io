@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 
 gem 'rails', '4.1.5'
@@ -8,7 +9,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'omniauth'
 gem 'omniauth-github'
-# gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer',  platforms: :ruby
 
 gem 'jquery-rails'
 gem 'turbolinks'
@@ -27,6 +28,16 @@ gem 'cancancan', '~> 1.9'
 
 gem 'unicorn'
 gem 'foreman'
+
+
+# Assets
+gem 'bootstrap-sass', '~> 3.2.0.2'
+# gem 'rails-assets-bootstrap-sass-official', '~> 3.2.0.2'
+gem 'rails-assets-bootswatch-scss', '~> 3.2.0'
+gem 'twitter-bootswatch-rails', '~> 3.2.0.0'
+gem 'twitter-bootswatch-rails-helpers', '~> 3.2.0.0'
+# gem 'twitter-bootswatch-rails-fontawesome', '~> 4.0.3.0'
+
 
 gem 'sqlite3'
 group :development do
