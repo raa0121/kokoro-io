@@ -6,25 +6,15 @@ table.table.table-bordered.table-collapsed
     tr
       th= t('access_token.name')
       th= t('access_token.token')
-      th= t('Operation')
   tbody
     - @access_tokens.each do |access_token|
       tr
         td= access_token.name
         td
-          input.form-control[ value=access_token.token ]
-        td
-          .dropdown
-            button.btn.btn-default.dropdown-toggle[ type="button" data-toggle="dropdown" ]
-              = icon :edit
-              = t('Operation')
-              = caret
-            ul.dropdown-menu[ role="menu" ]
-              li[ role="presentation" ]
-                = link_with_icon_to t('Edit'), :edit, edit_access_token_path(access_token), role: 'menuitem'
-              li[ role="presentation" ]
-                = link_with_icon_to t('Destroy'), :trash, access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }
-
-br
+          .input-group
+            input.form-control[ type="text" value=access_token.token ]
+            .input-group-btn
+              = link_with_icon_to t('Edit'), :edit, edit_access_token_path(access_token), role: 'menuitem', class: 'btn btn-primary'
+              = link_with_icon_to t('Destroy'), :trash, access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-danger'
 
 = link_to t('New Access token'), new_access_token_path, class: 'btn btn-primary'

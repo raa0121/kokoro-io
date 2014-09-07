@@ -1,8 +1,7 @@
-h1 Editing access_token
+.page-header
+  h1 Editing access_token
 
 == render 'form'
 
-= link_to 'Show', @access_token
-'|
-= link_to 'Back', access_tokens_path
+= link_to t('Back'), access_tokens_path, class: 'btn btn-default'
 
