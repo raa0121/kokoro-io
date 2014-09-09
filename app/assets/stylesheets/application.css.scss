@@ -15,10 +15,8 @@
  *
  */
 
-@import "bootstrap-sprockets";
-@import "bootswatch-scss/flatly/_variables.scss";
-@import "bootstrap";
-// @import "bootswatch-scss/flatly/_bootswatch.scss";
+@import "bootswatch-scss/flatly/variables.scss";
+@import "bootstrap-sass-official/bootstrap.scss";
 
 body{
   padding-top: 74px;

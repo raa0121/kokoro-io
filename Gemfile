@@ -32,11 +32,7 @@ gem 'foreman'
 
 # Assets
 gem 'bootstrap-sass', '~> 3.2.0.2'
-# gem 'rails-assets-bootstrap-sass-official', '~> 3.2.0.2'
 gem 'rails-assets-bootswatch-scss', '~> 3.2.0'
-gem 'twitter-bootswatch-rails', '~> 3.2.0.0'
-gem 'twitter-bootswatch-rails-helpers', '~> 3.2.0.0'
-# gem 'twitter-bootswatch-rails-fontawesome', '~> 4.0.3.0'
 
 
 gem 'sqlite3'
