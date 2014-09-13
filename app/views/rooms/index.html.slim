@@ -1,25 +1,21 @@
-h1 Listing rooms
+.page-header
+  h1= t('Listing rooms')
 
-table
+table.table.table-bordered.table-striped.table-condensed
   thead
     tr
-      th Room name
-      th Screen name
-      th Private
-      th
-      th
-      th
+      th Room
+      th Description
+      th Members
 
   tbody
     - @rooms.each do |room|
       tr
-        td = room.room_name
-        td = room.screen_name
-        td = room.private
-        td = link_to 'Show', room
-        td = link_to 'Edit', edit_room_path(room)
-        td = link_to 'Destroy', room, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td= link_to room.screen_name, room_path(room)
+        td
+        td
+          - room.users.each do |user|
+            = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user)
 
-br
 
-= link_to 'New Room', new_room_path
+= link_to t('New Room'), new_room_path, class: 'btn btn-primary'

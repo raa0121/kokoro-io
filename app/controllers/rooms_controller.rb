@@ -9,6 +9,10 @@ class RoomsController < InheritedResources::Base
     end
   end
 
+  def index
+    @rooms = Room.public_rooms
+  end
+
   private
   def permitted_params
     params.permit(room: [:screen_name, :room_name, :private])

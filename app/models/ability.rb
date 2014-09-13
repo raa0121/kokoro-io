@@ -7,7 +7,9 @@ class Ability
       can :manage, AccessToken, user: user
       can :create, Message
       can :create, Room
-      can :read, Room
+      can :read, Room do |room|
+        room.public? || user.rooms.include?(room)
+      end
     end
     can :read, Message
     can :read, User
