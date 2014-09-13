@@ -7,6 +7,7 @@ class Ability
       can :manage, AccessToken, user: user
       can :create, Message
       can :create, Room
+      can :read, Room
     end
     can :read, Message
     can :read, User

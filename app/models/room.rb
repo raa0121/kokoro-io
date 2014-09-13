@@ -1,4 +1,6 @@
 class Room < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :room_name
 
   validates :room_name, :screen_name, presence: true
   validates :room_name, length: { in: 1..255 }
@@ -9,9 +11,10 @@ class Room < ActiveRecord::Base
   has_many :messages
   has_many :memberships
   has_many :users, through: :memberships
+  accepts_nested_attributes_for :users
 
-  def private?
-    private
-  end
+  # def private?
+  #   private
+  # end
 
 end
