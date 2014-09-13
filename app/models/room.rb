@@ -13,8 +13,8 @@ class Room < ActiveRecord::Base
   has_many :users, through: :memberships
   accepts_nested_attributes_for :users
 
-  # def private?
-  #   private
-  # end
+  def private?
+    private
+  end
 
 end
