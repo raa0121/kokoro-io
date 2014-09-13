@@ -12,7 +12,7 @@ table.table.table-bordered.table-striped.table-condensed
     - @rooms.each do |room|
       tr
         td= link_to room.screen_name, room_path(room)
-        td
+        td= simple_format room.description
         td
           - room.users.each do |user|
             = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user)

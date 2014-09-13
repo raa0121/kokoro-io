@@ -15,7 +15,7 @@ class RoomsController < InheritedResources::Base
 
   private
   def permitted_params
-    params.permit(room: [:screen_name, :room_name, :private])
+    params.permit(room: [:screen_name, :room_name, :description, :private])
   end
 
 end

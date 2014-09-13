@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140913155546) do
+ActiveRecord::Schema.define(version: 20140913225226) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140913155546) do
     t.boolean  "private"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "user_rooms", force: true do |t|
