@@ -10,8 +10,14 @@
 # require bootstrap/transition
 # require bootstrap/scrollspy
 # require bootstrap/modal
-# require bootstrap/tooltip
-# require bootstrap/popover
+#= require bootstrap/tooltip
+#= require bootstrap/popover
 #= require jquery_ujs
 #= require turbolinks
 # require_tree .
+
+$ ->
+  $('.popover-userinfo').popover {
+    placement: 'auto'
+    trigger: 'hover'
+  }

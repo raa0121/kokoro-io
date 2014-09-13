@@ -1,6 +1,10 @@
 .page-header
   h1= t('Listing rooms')
 
+= simple_form_for(:search) do |f|
+  = f.error_notification
+  = f.input :keyword, label: false
+
 table.table.table-bordered.table-striped.table-condensed
   thead
     tr
@@ -15,7 +19,7 @@ table.table.table-bordered.table-striped.table-condensed
         td= simple_format room.description
         td
           - room.users.each do |user|
-            = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user)
+            = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
 
 
 = link_to t('New Room'), new_room_path, class: 'btn btn-primary'
