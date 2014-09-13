@@ -23,3 +23,14 @@
 body{
   padding-top: 74px;
 }
+
+// Workaround
+table,
+.table {
+  a {
+    text-decoration: none;
+  }
+  a:not(.btn) {
+    text-decoration: none;
+  }
+}
