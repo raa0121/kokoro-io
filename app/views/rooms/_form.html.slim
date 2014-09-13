@@ -1,5 +1,5 @@
 .well.well-sm
-  = simple_form_for(@room, html: { class: 'form-vertical' }) do |f|
+  = simple_form_for(@room) do |f|
     = f.error_notification
     = f.input :room_name
     = f.input :screen_name
