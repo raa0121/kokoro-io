@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140906114452) do
+ActiveRecord::Schema.define(version: 20140913155546) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20140906114452) do
   end
 
   add_index "access_tokens", ["user_id"], name: "index_access_tokens_on_user_id"
+
+  create_table "memberships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "room_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "memberships", ["room_id"], name: "index_memberships_on_room_id"
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
 
   create_table "messages", force: true do |t|
     t.integer  "room_id"

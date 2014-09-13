@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
 
   has_many :access_tokens
   has_many :messages, as: :publisher
-  has_many :rooms, through: :user_rooms
+  has_many :memberships
+  has_many :rooms, through: :memberships
 
   def avatar_thumbnail_url size = 64
     "#{avatar_url}&s=#{size}"

@@ -1,4 +1,4 @@
-class UserRooms < ActiveRecord::Base
+class Membership < ActiveRecord::Base
   belongs_to :user
   belongs_to :room
 end

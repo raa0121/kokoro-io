@@ -1,6 +1,6 @@
-class CreateUserRooms < ActiveRecord::Migration
+class CreateMemberships < ActiveRecord::Migration
   def change
-    create_table :user_rooms do |t|
+    create_table :memberships do |t|
       t.references :user, index: true
       t.references :room, index: true
 

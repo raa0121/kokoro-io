@@ -6,7 +6,8 @@ class Room < ActiveRecord::Base
   validates :private, inclusion: {in: [true, false]}
 
   has_many :messages
-  has_many :users, through: :user_rooms
+  has_many :memberships
+  has_many :users, through: :memberships
 
   def private?
     private
