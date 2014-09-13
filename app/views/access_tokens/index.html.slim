@@ -12,7 +12,7 @@ table.table.table-bordered.table-collapsed
         td= access_token.name
         td
           .input-group
-            input.form-control[ type="text" value=access_token.token ]
+            input.form-control[ type="text" value=access_token.token readonly=true]
             .input-group-btn
               = link_with_icon_to t('Edit'), :edit, edit_access_token_path(access_token), role: 'menuitem', class: 'btn btn-primary'
               = link_with_icon_to t('Destroy'), :trash, access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-danger'
