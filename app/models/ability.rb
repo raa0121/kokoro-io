@@ -11,6 +11,7 @@ class Ability
         room.public? || user.rooms.include?(room)
       end
     end
+    can :read, Room, private: false
     can :read, Message
     can :read, User
     # Define abilities for the passed in user here. For example:

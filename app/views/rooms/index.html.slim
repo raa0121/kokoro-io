@@ -22,4 +22,5 @@ table.table.table-bordered.table-striped.table-condensed
             = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
 
 
-= link_to t('New Room'), new_room_path, class: 'btn btn-primary'
+- if current_user
+  = link_to t('New Room'), new_room_path, class: 'btn btn-primary'
