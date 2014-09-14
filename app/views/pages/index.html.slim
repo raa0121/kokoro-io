@@ -1,6 +1,8 @@
 - unless current_user
-  h1 Pages#index
-  p Please sign in.
+  .jumbotron
+    h1 kokoro.io
+    p hi
+    = link_to icon('github', 'Sign in with GitHub'), '/auth/github', class: 'btn btn-success'
 
 - if current_user
   .row

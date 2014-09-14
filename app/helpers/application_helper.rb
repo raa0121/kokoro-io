@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def icon name, space = ' '
+  def icon_gi name, space = ' '
     raw %`<span class="glyphicon glyphicon-#{name}"></span>#{space}`
   end
 

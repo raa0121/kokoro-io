@@ -33,6 +33,7 @@ gem 'foreman'
 # Assets
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'rails-assets-bootswatch-scss', '~> 3.2.0.3'
+gem 'font-awesome-sass', '~> 4.2.0'
 
 
 gem 'sqlite3'
