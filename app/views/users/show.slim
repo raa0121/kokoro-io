@@ -1,1 +1,29 @@
-h2 hi
+.page-header
+  h2
+    = @user.screen_name
+    |  
+    small= @user.user_name
+
+.rows
+  .col-sm-3
+    .thumbnail
+      = image_tag @user.avatar_thumbnail_url(245)
+  .col-sm-9
+    .panel.panel-default
+      .panel-heading= t('List of user rooms')
+      table.table.table-bordered.table-condensed
+        thead
+          tr
+            th Room
+            th Description
+            th Members
+
+        tbody
+          - @user.rooms.public_rooms.each do |room|
+            tr
+              td= link_to room.screen_name, room_path(room)
+              td= simple_format room.description
+              td
+                - room.users.each do |user|
+                  = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
+
