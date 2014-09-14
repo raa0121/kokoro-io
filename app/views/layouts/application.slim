@@ -40,9 +40,10 @@ html[ lang="ja" ]
                     a[href="#"] Benri menu
                   li.divider
                   li.dropdown-header Account
-                  li= link_to t('show user'), user_path(current_user)
-                  li= link_to t('edit user'), edit_user_path(current_user)
+                  li= link_to t('your profile'), user_path(current_user)
+                  li= link_to t('edit your profile'), edit_user_path(current_user)
                   li= link_to t('access_tokens'), access_tokens_path
+                  li.divider
                   li= link_to t('auth.sign_out'), signout_path
             - else
               li= link_to t('auth.sign_in'), '/auth/github'
