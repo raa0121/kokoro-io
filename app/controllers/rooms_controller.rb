@@ -4,6 +4,7 @@ class RoomsController < InheritedResources::Base
 
   def create
     @room = current_user.rooms.create permitted_params[:room]
+    @room.memberships.first.admin!
     create! do |format|
       format.html { redirect_to rooms_path }
     end
