@@ -6,15 +6,16 @@
 
 - if current_user
   .row
-    .col-sm-3.col-md-2
-      ul.nav.nav-pills.nav-stacked
+    .col-sm-4.col-md-3
+      .list-group
         - current_user.rooms.each do |room|
-          li
-            a[href="#"]= room.screen_name
+          = link_to room, class: 'list-group-item' do
+            .badge 10
+            = room.screen_name
       hr
       = link_to t('create_room'), new_room_path, class: 'btn btn-primary btn-block'
       = link_to t('join_room'), rooms_path, class: 'btn btn-default btn-block'
-    .col-sm-9.col-md-10
+    .col-sm-8.col-md-9
       .panel.panel-default
         .panel-heading= t('room')
         table.table.table-bordered.table-condensed
@@ -25,6 +26,6 @@
           tbody
             - current_user.rooms.each do |room|
               tr
-                td= room.screen_name
+                td= link_to room.screen_name, room
                 td= t room.authority(current_user)
 
