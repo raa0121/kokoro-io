@@ -2,7 +2,7 @@
   .jumbotron
     h1 kokoro.io
     p= kakkoii_catch_copy
-    = link_to icon('github', 'Sign in with GitHub'), '/auth/github', class: 'btn btn-success'
+    = link_to icon('github', 'sign_in_with_github'), '/auth/github', class: 'btn btn-success'
 
 - if current_user
   .row
@@ -12,16 +12,16 @@
           li
             a[href="#"]= room.screen_name
       hr
-      = link_to t('Create room'), new_room_path, class: 'btn btn-primary btn-block'
-      = link_to t('Join room'), rooms_path, class: 'btn btn-default btn-block'
+      = link_to t('create_room'), new_room_path, class: 'btn btn-primary btn-block'
+      = link_to t('join_room'), rooms_path, class: 'btn btn-default btn-block'
     .col-sm-9.col-md-10
       .panel.panel-default
-        .panel-heading Rooms
+        .panel-heading= t('room')
         table.table.table-bordered.table-condensed
           thead
             tr
-              th= t('Room')
-              th.col-xs-2.col-sm-3= t('Authority')
+              th= t('room')
+              th.col-xs-2.col-sm-3= t('authority')
           tbody
             - current_user.rooms.each do |room|
               tr

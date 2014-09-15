@@ -30,3 +30,9 @@ en:
   member: Member
   maintainer: Maintainer
   admin: Administer
+  room: Room
+  rooms: Rooms
+  authority: Authority
+  sign_in_with_github: Sign in with GitHub
+  create_room: Create room
+  join_room: Join room

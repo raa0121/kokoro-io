@@ -30,3 +30,9 @@ ja:
   member: ふつう
   maintainer: すごい
   admin: かなりすごい
+  room: ルーム
+  rooms: ルーム一覧
+  authority: 権限
+  sign_in_with_github: GitHubアカウントでログイン
+  create_room: ルームを作成
+  join_room: ルームに入る
