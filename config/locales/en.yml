@@ -27,3 +27,6 @@ en:
   Destroy: 'Delete'
   'New Access token': Create new access token
   Search: Search
+  member: Member
+  maintainer: Maintainer
+  admin: Administer

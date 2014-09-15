@@ -26,4 +26,7 @@ ja:
   Edit: '編集'
   Destroy: '削除'
   'New Access token': 新しいAPIトークンを作成する
-  Search: Search
+  Search: 検索
+  member: ふつう
+  maintainer: すごい
+  admin: かなりすごい
