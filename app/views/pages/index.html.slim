@@ -16,3 +16,16 @@
       = link_to t('Join room'), rooms_path, class: 'btn btn-default btn-block'
     .col-sm-9.col-md-10
       p= "Hi, #{current_user.screen_name}!"
+      .panel.panel-default
+        .panel-heading Admin rooms
+        table.table.table-bordered.table-condensed
+          thead
+            tr
+              th= t('Room')
+              th= t('Last message')
+          tbody
+            - current_user.rooms.each do |room|
+              tr
+                td= room.screen_name
+                td= t room.authority(current_user)
+

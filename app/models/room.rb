@@ -25,4 +25,8 @@ class Room < ActiveRecord::Base
     !private?
   end
 
+  def authority user
+    self.memberships.where( user: user ).first.authority
+  end
+
 end
