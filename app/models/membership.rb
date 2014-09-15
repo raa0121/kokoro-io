@@ -8,6 +8,10 @@ class Membership < ActiveRecord::Base
     admin: 100
   }
 
+  scope :administer, ->{ where authority: self.authorities[:admin] }
+  scope :maintainer, ->{ where authority: self.authorities[:maintainer] }
+  scope :member,     ->{ where authority: self.authorities[:member] }
+
   before_validation :bind_default_values
 
   private

@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :rooms, through: :memberships
 
+  # Has scoped rooms by each authority
+  has_many :administer_memberships, -> { administer }, class_name: 'Membership'
+  has_many :maintainer_memberships, -> { maintainer }, class_name: 'Membership'
+  has_many :member_memberships,     -> { member     }, class_name: 'Membership'
+  has_many :administer_rooms, source: :room, through: :administer_memberships
+  has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
+  has_many :member_rooms,     source: :room, through: :member_memberships
+
   def avatar_thumbnail_url size = 64
     "#{avatar_url}&s=#{size}"
   end
