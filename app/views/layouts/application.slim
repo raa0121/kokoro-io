@@ -20,10 +20,10 @@ html[ lang="ja" ]
           a.navbar-brand[ href="/" ] kokoro.io
         .navbar-collapse.collapse
           ul.nav.navbar-nav.navbar-right
-            li
-              a[ href="#" ] Document
-            li
-              a[ href="#" ] Help
+            li= link_to '#' do
+              = icon :book, t('menu.document')
+            li= link_to '#' do
+              = icon :question, t('menu.help')
             - if current_user
               li.dropdown
                 a.dropdown-toggle[href="#" data-toggle="dropdown"]
@@ -32,23 +32,21 @@ html[ lang="ja" ]
                   = current_user.screen_name
                   b.caret
                 ul.dropdown-menu
-                  li
-                    a[href="#"] Benri menu
-                  li
-                    a[href="#"] Benri menu
-                  li
-                    a[href="#"] Benri menu
-                  li.divider
                   li.dropdown-header Account
-                  li= link_to t('your profile'), user_path(current_user)
-                  li= link_to t('edit your profile'), edit_user_path(current_user)
-                  li= link_to t('access_tokens'), access_tokens_path
+                  li= link_to user_path(current_user) do
+                    = icon :user, t('your_profile')
+                  li= link_to edit_user_path(current_user) do
+                    = icon :edit, t('edit_your_profile')
+                  li= link_to access_tokens_path do
+                    = icon :key, t('access_tokens')
                   li.divider
-                  li= link_to t('auth.sign_out'), signout_path
+                  li= link_to signout_path do
+                    = icon :'sign-out', t('auth.sign_out')
             - else
-              li= link_to t('auth.sign_in'), '/auth/github'
-          form.navbar-form.navbar-right
-            input.form-control[ type="text" placeholder="Search..." ]
+              li= link_to '/auth/github' do
+                = icon :'sign-in', t('auth.sign_in')
+          /form.navbar-form.navbar-right
+          /  input.form-control[ type="text" placeholder="Search..." ]
     .container
       - if notice
         .alert.alert-success.alert-dismissible[ role="alert" ]

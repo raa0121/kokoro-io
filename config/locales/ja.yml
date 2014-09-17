@@ -36,3 +36,12 @@ ja:
   sign_in_with_github: GitHubアカウントでログイン
   create_room: ルームを作成
   join_room: ルームに入る
+  your_profile: プロフィール
+  edit_your_profile: プロフィール編集
+  access_tokens: アクセストークン
+  auth:
+    sign_out: ログアウト
+    sign_in: ログイン
+  menu:
+    document: ドキュメント
+    help: ヘルプ
