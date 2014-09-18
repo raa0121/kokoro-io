@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong User:
+  = @bot.user
+p
+  strong Access token:
+  = @bot.access_token
+p
+  strong Bot name:
+  = @bot.bot_name
+p
+  strong Screen name:
+  = @bot.screen_name
+p
+  strong Status:
+  = @bot.status
+
+= link_to 'Edit', edit_bot_path(@bot)
+'|
+= link_to 'Back', bots_path

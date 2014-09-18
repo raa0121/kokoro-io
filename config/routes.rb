@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :bots
+
   resources :rooms
   resources :access_tokens, except: [ :show ]
   resources :users, except: [ :index ]
