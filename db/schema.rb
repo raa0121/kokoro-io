@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918233652) do
+ActiveRecord::Schema.define(version: 20140919160832) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -36,15 +36,16 @@ ActiveRecord::Schema.define(version: 20140918233652) do
   add_index "bots", ["user_id"], name: "index_bots_on_user_id"
 
   create_table "memberships", force: true do |t|
-    t.integer  "user_id"
     t.integer  "room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "authority"
+    t.integer  "memberable_id"
+    t.string   "memberable_type"
   end
 
+  add_index "memberships", ["memberable_id"], name: "index_memberships_on_memberable_id"
   add_index "memberships", ["room_id"], name: "index_memberships_on_room_id"
-  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
 
   create_table "messages", force: true do |t|
     t.integer  "room_id"

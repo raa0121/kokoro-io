@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   has_many :access_tokens
   has_many :messages, as: :publisher
-  has_many :memberships
+  has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
   # Has scoped rooms by each authority

@@ -11,7 +11,11 @@ class Room < ActiveRecord::Base
 
   has_many :messages
   has_many :memberships
-  has_many :users, through: :memberships
+  has_many :users, { through: :memberships, source: :user },
+    ->{ where(memberable_type: 'User') }
+  has_many :bots, { through: :memberships, source: :bot },
+    -> { where memberable_type: 'Bot' }
+
   accepts_nested_attributes_for :users
 
   scope :public_rooms, -> { where private: false }

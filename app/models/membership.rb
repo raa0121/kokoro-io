@@ -1,6 +1,9 @@
 class Membership < ActiveRecord::Base
-  belongs_to :user
   belongs_to :room
+  belongs_to :memberable, polymorphic: true
+  belongs_to :user, class_name: 'User', foreign_key: :memberable_id
+  belongs_to :bot, class_name: 'Bot', foreign_key: :memberable_id
+
   validates :authority, presence: true
   enum authority: {
     member: 10,
