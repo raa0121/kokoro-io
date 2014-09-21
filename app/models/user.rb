@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates :user_name, uniqueness: true
   # Github username may only contain alphanumeric
   # characters or dashes and cannot begin with a dash
-  validates :user_name, format: { with: /[0-9a-zA-Z][0-9a-zA-Z-]+/ }
+  validates :user_name, format: { with: /[0-9a-z][0-9a-z-]+/ }
   validates :user_name, length: { in: 1..39 }
   validates :uid, uniqueness: true
   validates :provider, :uid, :screen_name, :user_name, :avatar_url, presence: true
@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def self.uniq_user_name github_user_name
+    github_user_name.downcase!
     return github_user_name if User.where(user_name: github_user_name).size == 0
     loop.with_index(2) do |_, i|
       user_name = "#{github_user_name}#{i}"

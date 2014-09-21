@@ -3,6 +3,7 @@ class Room < ActiveRecord::Base
   friendly_id :room_name
 
   validates :room_name, :screen_name, :description, presence: true
+  validates :room_name, format: { with: /[0-9a-z][0-9a-z-_]+/ }
   validates :room_name, length: { in: 1..255 }
   validates :room_name, uniqueness: true
   validates :screen_name, length: { in: 2..64 }
