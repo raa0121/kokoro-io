@@ -8,12 +8,14 @@ class Membership < ActiveRecord::Base
   enum authority: {
     member: 10,
     maintainer: 20,
-    admin: 100
+    admin: 100,
+    invited: 1000
   }
 
   scope :administer, ->{ where authority: self.authorities[:admin] }
   scope :maintainer, ->{ where authority: self.authorities[:maintainer] }
   scope :member,     ->{ where authority: self.authorities[:member] }
+  scope :invited,    ->{ where authority: self.authorities[:invited] }
 
   before_validation :bind_default_values
 
