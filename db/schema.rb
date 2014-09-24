@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919160832) do
+ActiveRecord::Schema.define(version: 20140924112924) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140919160832) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "essential"
   end
 
   add_index "access_tokens", ["user_id"], name: "index_access_tokens_on_user_id"
@@ -68,16 +69,6 @@ ActiveRecord::Schema.define(version: 20140919160832) do
     t.datetime "updated_at"
     t.text     "description"
   end
-
-  create_table "user_rooms", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "room_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_rooms", ["room_id"], name: "index_user_rooms_on_room_id"
-  add_index "user_rooms", ["user_id"], name: "index_user_rooms_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "provider"

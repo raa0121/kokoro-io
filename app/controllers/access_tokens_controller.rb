@@ -4,15 +4,16 @@ class AccessTokensController < InheritedResources::Base
   def create
     @access_token = AccessToken.new(permitted_params[:access_token])
     @access_token.token = AccessToken.generate_token
+    @access_token.essential = false
     @access_token.user = current_user
-    create! do |format|
-      format.html { redirect_to access_tokens_path }
+    create! do |success, failure|
+      success.html { redirect_to access_tokens_path }
     end
   end
 
   def update
-    super do |format|
-      format.html { redirect_to access_tokens_path }
+    super do |success, failure|
+      success.html { redirect_to access_tokens_path }
     end
   end
 

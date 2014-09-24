@@ -9,6 +9,12 @@ class SessionsController < ApplicationController
       user.screen_name = auth.info.name
       user.user_name = User.uniq_user_name auth.info.nickname
       user.avatar_url = auth.info.image
+
+      essential_token = user.access_tokens.new
+      essential_token.name = '-'
+      essential_token.token = AccessToken.generate_token
+      essential_token.essential = true
+
       user.save
     end
     session[:user_id] = user.id

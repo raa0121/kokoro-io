@@ -4,7 +4,9 @@ class Ability
   def initialize(user)
     if user
       can :manage, User, id: user.id
-      can :manage, AccessToken, user: user
+      can [ :read, :create, :update, :destroy ], AccessToken, user: user, essential: false
+      can [ :read ], AccessToken, user: user, essential: true
+
       can :create, Message
       can :create, Room
       can :read, Room do |room|

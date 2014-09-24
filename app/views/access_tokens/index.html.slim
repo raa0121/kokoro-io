@@ -4,20 +4,27 @@
 table.table.table-bordered.table-collapsed
   thead
     tr
-      th= t('access_token.name')
+      th.col-sm-2= t('access_token.name')
       th= t('access_token.token')
   tbody
     - @access_tokens.each do |access_token|
       tr
-        td= access_token.name
         td
-          .input-group
+          - if access_token.essential?
+            = t('primary_token')
+          - else
+            = access_token.name
+        td
+          .input-group.input-group-sm
             input.form-control.input-sm[ type="text" value=access_token.token readonly=true ]
-            .input-group-btn
-              = link_to edit_access_token_path(access_token), role: 'menuitem', class: 'btn btn-primary btn-sm' do
-                = icon :edit, t('Edit')
-              = link_to access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-danger btn-sm'
-                = icon :trash, t('Destroy')
+              - if access_token.essential?
+                .input-group-addon= icon :lock, t('primary_token_is_locked')
+              - else
+                .input-group-btn
+                  = link_to edit_access_token_path(access_token), role: 'menuitem', class: 'btn btn-primary' do
+                    = icon :edit, t('Edit')
+                  = link_to access_token, role: 'menuitem', method: :delete, data: { confirm: t('Are you sure?') }, class: 'btn btn-danger'
+                    = icon :trash, t('Destroy')
 
 = link_to new_access_token_path, class: 'btn btn-primary' do
   = icon :plus, t('New Access token')
