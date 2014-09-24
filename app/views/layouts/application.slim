@@ -48,10 +48,5 @@ html[ lang="ja" ]
           /form.navbar-form.navbar-right
           /  input.form-control[ type="text" placeholder="Search..." ]
     .container
-      - if notice
-        .alert.alert-success.alert-dismissible[ role="alert" ]
-          button.close[ type="button" data-dismiss="alert" ]
-            span[ aria-hidden="true" ] &times;
-            span.sr-only= t('Close')
-          = notice
+      = render partial: 'flash_messages', flash: flash
       = yield

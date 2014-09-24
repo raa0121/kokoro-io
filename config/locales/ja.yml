@@ -44,6 +44,8 @@ ja:
   auth:
     sign_out: ログアウト
     sign_in: ログイン
+    signed_out: ログアウトしました
+    signed_in: ログインしました
   menu:
     document: ドキュメント
     help: ヘルプ

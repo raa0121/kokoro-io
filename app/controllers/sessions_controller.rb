@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       user.save
     end
     session[:user_id] = user.id
-    redirect_to root_path, notice: t('auth.logged_in')
+    redirect_to root_path, notice: t('auth.signed_in')
   end
 
   def destroy
