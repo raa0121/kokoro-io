@@ -4,9 +4,10 @@ class RoomsController < InheritedResources::Base
 
   def create
     @room = current_user.rooms.create permitted_params[:room]
-    @room.memberships.first.admin!
-    create! do |format|
-      format.html { redirect_to rooms_path }
+    membership = @room.memberships.first
+    membership.admin! if membership
+    create! do |success, failure|
+      success.html { redirect_to rooms_path }
     end
   end
 
