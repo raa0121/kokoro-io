@@ -9,6 +9,7 @@ class Ability
 
       can :create, Message
       can :create, Room
+      can :manage, Bot, user: user
       can :read, Room do |room|
         room.public? || user.rooms.include?(room)
       end

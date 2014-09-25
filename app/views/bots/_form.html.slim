@@ -1,12 +1,6 @@
-= simple_form_for(@bot) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.association :user
-    = f.input :access_token
+.well.well-sm
+  = simple_form_for(@bot) do |f|
+    = f.error_notification
     = f.input :bot_name
     = f.input :screen_name
-    = f.input :status
-
-  .form-actions
-    = f.button :submit
+    = f.button :submit, class: 'btn btn-primary'

@@ -1,28 +1,22 @@
-h1 Listing bots
+.page-header
+  h1= t('listing_bots')
 
-table
+table.table.table-bordered.table-collapsed
   thead
     tr
-      th User
-      th Access token
-      th Bot name
-      th Screen name
-      th Status
-      th
-      th
-      th
+      th= t('bot_name')
+      th.col-sm-2= t('status')
+      th.col-sm-2= t('bot_owner')
 
   tbody
     - @bots.each do |bot|
       tr
-        td = bot.user
-        td = bot.access_token
-        td = bot.bot_name
-        td = bot.screen_name
-        td = bot.status
-        td = link_to 'Show', bot
-        td = link_to 'Edit', edit_bot_path(bot)
-        td = link_to 'Destroy', bot, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td= link_to bot.screen_name, bot
+        td= bot.status
+        td= link_to bot.user do
+          = image_tag bot.user.avatar_thumbnail_url(24)
+          |  
+          = bot.user.screen_name
 
 br
 

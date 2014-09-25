@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :messages, as: :publisher
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
+  has_many :bots
 
   # Has scoped rooms by each authority
   has_many :administer_memberships, -> { administer }, class_name: 'Membership'
