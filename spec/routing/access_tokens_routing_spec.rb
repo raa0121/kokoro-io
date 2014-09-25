@@ -11,10 +11,6 @@ RSpec.describe AccessTokensController, :type => :routing do
       expect(:get => "/access_tokens/new").to route_to("access_tokens#new")
     end
 
-    it "routes to #show" do
-      expect(:get => "/access_tokens/1").to route_to("access_tokens#show", :id => "1")
-    end
-
     it "routes to #edit" do
       expect(:get => "/access_tokens/1/edit").to route_to("access_tokens#edit", :id => "1")
     end

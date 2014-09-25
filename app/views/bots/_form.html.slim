@@ -3,4 +3,5 @@
     = f.error_notification
     = f.input :bot_name
     = f.input :screen_name
+    = f.input :status, as: :select, collection: Bot.statuses.keys, include_blank: false
     = f.button :submit, class: 'btn btn-primary'

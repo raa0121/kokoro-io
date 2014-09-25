@@ -23,22 +23,21 @@ RSpec.describe AccessTokensController, :type => :controller do
     session[:user_id] = user.id
   end
 
-  # This should return the minimal set of attributes required to create a valid
-  # AccessToken. As you add validations to AccessToken, be sure to
-  # adjust the attributes here as well.
   let(:user) { FactoryGirl.create(:user) }
   let(:valid_attributes) {
     {
       user_id: user.id,
       name: 'hi',
-      token: 'token'
+      token: 'token',
+      essential: false
     }
   }
 
   let(:invalid_attributes) {
     {
       user_id: user.id,
-      name: ''
+      name: '',
+      essential: false
     }
   }
 
@@ -53,14 +52,6 @@ RSpec.describe AccessTokensController, :type => :controller do
       access_token = AccessToken.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:access_tokens)).to eq([access_token])
-    end
-  end
-
-  describe "GET show" do
-    it "assigns the requested access_token as @access_token" do
-      access_token = AccessToken.create! valid_attributes
-      get :show, {:id => access_token.to_param}, valid_session
-      expect(assigns(:access_token)).to eq(access_token)
     end
   end
 
@@ -137,13 +128,13 @@ RSpec.describe AccessTokensController, :type => :controller do
       it "redirects to the access_token" do
         access_token = AccessToken.create! valid_attributes
         put :update, {:id => access_token.to_param, :access_token => valid_attributes}, valid_session
-        expect(response).to redirect_to(access_token)
+        expect(response).to redirect_to(access_tokens_path)
       end
     end
 
     describe "with invalid params" do
       before do
-        AccessToken.create! user: user, name: 'wow', token: 'exist'
+        AccessToken.create! user: user, name: 'wow', token: 'exist', essential: false
       end
       render_views
       it "assigns the access_token as @access_token" do

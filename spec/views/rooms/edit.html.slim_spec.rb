@@ -3,9 +3,10 @@ require 'rails_helper'
 RSpec.describe "rooms/edit", :type => :view do
   before(:each) do
     @room = assign(:room, Room.create!(
-      :room_name => "MyString",
-      :screen_name => "MyString",
-      :private => false
+      room_name: "MyString",
+      screen_name: "MyString",
+      description: "Hi!",
+      private: false
     ))
   end
 

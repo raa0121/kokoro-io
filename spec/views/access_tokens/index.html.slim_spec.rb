@@ -11,23 +11,26 @@ RSpec.describe "access_tokens/index", :type => :view do
     )
     assign(:access_tokens, [
       AccessToken.create!(
-        :user => user,
-        :name => "Name",
-        :token => "Token1"
+        user: user,
+        name: "Name1",
+        token: "Token1",
+        essential: false
       ),
       AccessToken.create!(
-        :user => user,
-        :name => "Name",
-        :token => "Token2"
+        user: user,
+        name: "Name2",
+        token: "Token2",
+        essential: false
       )
     ])
   end
 
   it "renders a list of access_tokens" do
     render
-    assert_select "tr>td", :text => "UserName".to_s, :count => 2
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => "Token1".to_s, :count => 1
-    assert_select "tr>td", :text => "Token2".to_s, :count => 1
+    assert_select "tr>td", :text => "Name1".to_s, :count => 1
+    assert_select "tr>td", :text => "Name2".to_s, :count => 1
+    assert_select "tr>td>div>input", :count => 2
+    assert_select "tr>td>div>input[value='Token1']", :count => 1
+    assert_select "tr>td>div>input[value='Token2']", :count => 1
   end
 end

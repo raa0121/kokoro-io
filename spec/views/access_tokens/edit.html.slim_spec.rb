@@ -11,9 +11,10 @@ RSpec.describe "access_tokens/edit", :type => :view do
     )
     session[:user_id] = user.id
     @access_token = assign(:access_token, AccessToken.create!(
-      :user => user,
-      :name => "MyString",
-      :token => "MyString"
+      user: user,
+      name: "MyString",
+      token: "MyString",
+      essential: false
     ))
   end
 

@@ -10,9 +10,10 @@ RSpec.describe "access_tokens/show", :type => :view do
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     @access_token = assign(:access_token, AccessToken.create!(
-      :user => user,
-      :name => "Name",
-      :token => "Token"
+      user: user,
+      name: "Name",
+      token: "Token",
+      essential: false
     ))
   end
 
