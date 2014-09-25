@@ -12,10 +12,20 @@ class Room < ActiveRecord::Base
 
   has_many :messages
   has_many :memberships
-  has_many :users, { through: :memberships, source: :user },
-    ->{ where(memberable_type: 'User') }
-  has_many :bots, { through: :memberships, source: :bot },
-    -> { where memberable_type: 'Bot' }
+  has_many :users,
+    ->{ where memberships: { memberable_type: 'User' } },
+    { through: :memberships, source: :user, class_name: 'User' }
+  has_many :bots,
+    -> { where memberships: { memberable_type: 'Bot' } },
+    { through: :memberships, source: :bot, class_name: 'Bot' }
+
+  Membership.authorities.each do |k, v|
+    association_name = "#{k}_users".to_sym
+    has_many association_name,
+      ->{ where memberships: { memberable_type: 'User', authority: v } },
+      { through: :memberships, source: :user, class_name: 'User' }
+  end
+
 
   accepts_nested_attributes_for :users
 
@@ -31,7 +41,14 @@ class Room < ActiveRecord::Base
   end
 
   def authority user
-    self.memberships.where( user: user ).first.authority
+    self.memberships.where( user: user ).first.authority.to_sym
+  end
+
+  def maintainable? user
+    [
+      :administer,
+      :maintainer
+    ].include?(authority user)
   end
 
 end
