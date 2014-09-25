@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
   end
 
   def detect_locale
-    I18n.locale = request.headers['Accept-Language'].scan(/^[a-z]{2}/).first
+    if request.headers['Accept-Language']
+      I18n.locale = request.headers['Accept-Language'].scan(/^[a-z]{2}/).first
+    else
+      'en'
+    end
   end
 
 end
