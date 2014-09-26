@@ -1,5 +1,7 @@
-h1 New bot
+.page-header
+  h1= t('new_bot')
 
 == render 'form'
 
-= link_to 'Back', bots_path
+.btn-group
+  = link_to t('back'), bots_path, class: 'btn btn-default'
