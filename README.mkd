@@ -1,15 +1,16 @@
 ## kokoro.io
 
-kokoro.io core repository.
+kokoro.io is most kokoro-pyon-pyon-able chat service ever.
 
 
 ### How to run
 
-1. Configure `.env`.
-2. `bundle exec foreman start`
-3. Access to `http://lvh.me:3000` with your web browser.
+1. Configure `.env`. Sample file is `.env.sample`.
+2. `bundle install`
+3. `bundle exec foreman start`
+4. Access to `http://lvh.me:3000` with your web browser.
 
-### Milestones
+### Progress
 
 1. [ ] Basic features
   - [X] Account management
@@ -34,16 +35,12 @@ kokoro.io core repository.
     - [ ] Delete bot
     - [X] Edit bot
 2. [ ] Implement API including realtime-messaging with Grape
-3. [ ] Implement web-based client on this app
-4. [ ] Release closed alpha version
-5. [ ] Benrify design theme of web-based client
-6. [ ] Release closed beta version
 
 
 
 ## LICENSE
 
-License is not determined yet.
-For now, it's not the open source software.
+License is not determined yet for now.
+At least, it's not the open source software.
 
 
