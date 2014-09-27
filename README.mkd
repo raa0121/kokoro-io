@@ -11,7 +11,28 @@ kokoro.io core repository.
 
 ### Milestones
 
-1. [ ] Basic CRUD functions
+1. [ ] Basic features
+  - [X] Account management
+    - [X] Sign up
+    - [X] Sign out
+    - [X] Delete account
+    - [X] Edit profile
+  - [X] Access Token management
+    - [X] CRUD
+    - [X] Primary token
+  - [ ] Room management
+    - [X] Create room
+    - [ ] Delete room
+    - [X] Edit room
+    - [ ] Join to the room
+    - [ ] Invite other user to the room
+    - [ ] Kick other user
+    - [ ] Authority management
+    - [ ] Bot management
+  - [ ] Bot management
+    - [X] Create bot
+    - [ ] Delete bot
+    - [X] Edit bot
 2. [ ] Implement API including realtime-messaging with Grape
 3. [ ] Implement web-based client on this app
 4. [ ] Release closed alpha version
