@@ -16,7 +16,7 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
   - [X] Account management
     - [X] Sign up
     - [X] Sign out
-    - [X] Delete account
+    - [ ] Delete account
     - [X] Edit profile
   - [X] Access Token management
     - [X] CRUD
@@ -41,6 +41,6 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 ## LICENSE
 
 License is not determined yet for now.
-At least, it's not the open source software.
+At least, it's not an open source software.
 
 
