@@ -1,6 +1,6 @@
 ## kokoro.io
 
-kokoro.io is most kokoro-pyon-pyon-able chat service ever.
+kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 
 ### How to run
