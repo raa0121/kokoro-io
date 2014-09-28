@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kokoro-io/core.svg)](https://travis-ci.org/kokoro-io/core)
+
 ## kokoro.io
 
 kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
