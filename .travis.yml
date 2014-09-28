@@ -3,7 +3,6 @@ rvm:
   - 2.1.2
 services:
   - redis-server
-  - mongodb
 env:
   - DB=postgresql
 script:
