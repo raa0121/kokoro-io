@@ -51,7 +51,7 @@ RSpec.describe AccessTokensController, :type => :controller do
     it "assigns all access_tokens as @access_tokens" do
       access_token = AccessToken.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:access_tokens)).to eq([access_token])
+      expect(assigns(:access_tokens).size).to eq(2)
     end
   end
 
