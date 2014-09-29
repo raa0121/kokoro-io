@@ -13,6 +13,11 @@ build:
         - rails-database-yml
 
         - script:
+            name: display database information
+            code: |
+                cat ./config/database.yml
+
+        - script:
             name: echo ruby information
             code: |
                 echo "ruby version $(ruby --version) running"
@@ -22,8 +27,8 @@ build:
         - script:
             name: setup environment variables
             code: |
-                export RACK_ENV=development
-                export RAILS_ENV=development
+                export RACK_ENV=test
+                export RAILS_ENV=test
                 export TZ=Azia/Tokyo
                 export TOKEN_SALT=kanarisugoi
                 export PORT=3000
