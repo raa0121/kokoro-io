@@ -26,6 +26,7 @@ build:
                 export RAILS_ENV=development
                 export TZ=Azia/Tokyo
                 export TOKEN_SALT=kanarisugoi
+                export PORT=3000
 
         - script:
                name: rspec
