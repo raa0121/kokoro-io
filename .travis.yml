@@ -13,3 +13,7 @@ before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database kokoro_test' -U postgres
 cache: bundler
+notifications:
+  webhooks:
+    urls:
+      - http://travis-ci.herokuapp.com/imascg
