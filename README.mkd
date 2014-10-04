@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kokoro-io/core.svg)](https://travis-ci.org/kokoro-io/core)
+[![Build Status](https://travis-ci.org/supermomonga/kokoro-io.svg?branch=master)](https://travis-ci.org/supermomonga/kokoro-io)
 
 ## kokoro.io
 
