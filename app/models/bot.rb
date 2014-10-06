@@ -7,7 +7,7 @@ class Bot < ActiveRecord::Base
   has_many :rooms, through: :memberships
 
   validates :bot_name, :screen_name, :access_token, :status, presence: true
-  validates :bot_name, format: { with: /[0-9a-z][0-9a-z\-_]+/ }
+  validates :bot_name, friendly_id: true
   validates :bot_name, length: { in: 1..255 }
   validates :bot_name, uniqueness: true
   validates :access_token, uniqueness: true
