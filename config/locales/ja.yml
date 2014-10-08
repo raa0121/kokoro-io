@@ -20,6 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 ja:
+  activerecord:
+    models:
+      user: User
+    attributes:
+      user:
+        screen_name: Name
+        user_name: UserName
   hello: "Hello world"
   'Are you sure?': "本当によろしいですか？"
   Operation: '操作'

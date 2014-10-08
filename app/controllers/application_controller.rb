@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     if request.headers['Accept-Language']
       I18n.locale = request.headers['Accept-Language'].scan(/^[a-z]{2}/).first
     else
-      'en'
+      ENV['DEFAULT_LOCALE'] || 'en'
     end
   end
 
