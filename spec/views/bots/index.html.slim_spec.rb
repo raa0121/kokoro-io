@@ -9,7 +9,7 @@ RSpec.describe "bots/index", :type => :view do
       user_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
-    view.stub(:current_user) { user }
+    allow(view).to receive(:current_user).and_return(user)
     assign(:bots, [
       Bot.create!(
         :user => user,

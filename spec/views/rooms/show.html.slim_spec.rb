@@ -9,7 +9,7 @@ RSpec.describe "rooms/show", :type => :view do
       user_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
-    view.stub(:current_user) { user }
+    allow(view).to receive(:current_user).and_return(user)
     @room = assign(:room, user.rooms.create!(
       room_name: "room_name",
       screen_name: "Screen Name",
