@@ -45,4 +45,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.from_omniauth auth
+    User.find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.screen_name = auth.info.name
+      user.user_name = uniq_user_name auth.info.nickname
+      user.avatar_url = auth.info.image
+      essential_token = user.access_tokens.new
+      essential_token.name = '-'
+      essential_token.token = AccessToken.generate_token
+      essential_token.essential = true
+    end
+  end
+
 end
