@@ -1,8 +1,8 @@
-h1 Editing room
+.page-header
+  h1= t('.editing_room')
 
 == render 'form', room: @room
 
-= link_to 'Show', @room
-'|
-= link_to 'Back', rooms_path
+.btn-group
+  = link_to t('back'), @room, class: 'btn btn-default'
 

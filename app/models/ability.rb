@@ -13,6 +13,12 @@ class Ability
       can :read, Room do |room|
         room.public? || user.rooms.include?(room)
       end
+      can :update, Room do |room|
+        user.can_update_room? room
+      end
+      can :destroy, Room do |room|
+        user.can_destroy_room? room
+      end
     end
     can :read, Room, private: false
     can :read, Message

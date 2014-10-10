@@ -17,15 +17,23 @@ class User < ActiveRecord::Base
   has_many :bots
 
   # Has scoped rooms by each authority
-  has_many :administer_memberships, -> { administer }, class_name: 'Membership'
-  has_many :maintainer_memberships, -> { maintainer }, class_name: 'Membership'
-  has_many :member_memberships,     -> { member     }, class_name: 'Membership'
+  has_many :administer_memberships, -> { administer }, as: :memberable, class_name: 'Membership'
+  has_many :maintainer_memberships, -> { maintainer }, as: :memberable, class_name: 'Membership'
+  has_many :member_memberships,     -> { member     }, as: :memberable, class_name: 'Membership'
   has_many :administer_rooms, source: :room, through: :administer_memberships
   has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
   has_many :member_rooms,     source: :room, through: :member_memberships
 
   def avatar_thumbnail_url size = 64
     "#{avatar_url}&s=#{size}"
+  end
+
+  def can_update_room? room
+    administer_rooms.include?(room) || maintainer_rooms.include?(room)
+  end
+
+  def can_destroy_room? room
+    administer_rooms.include?
   end
 
   def self.uniq_user_name github_user_name
