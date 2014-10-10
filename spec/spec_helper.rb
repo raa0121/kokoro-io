@@ -1,4 +1,5 @@
 RSpec.configure do |config|
+  $VERBOSE = nil
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
