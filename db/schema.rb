@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140924112924) do
     t.string   "memberable_type"
   end
 
+  add_index "memberships", ["memberable_id", "memberable_type"], name: "index_memberships_on_memberable_id_and_memberable_type"
   add_index "memberships", ["memberable_id"], name: "index_memberships_on_memberable_id"
   add_index "memberships", ["room_id"], name: "index_memberships_on_room_id"
 
