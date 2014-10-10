@@ -1,5 +1,5 @@
 .well.well-sm
-  = simple_form_for(@access_token) do |f|
+  = simple_form_for(access_token) do |f|
     = f.error_notification
     = f.input :name
     = f.button :submit, class: 'btn btn-primary'

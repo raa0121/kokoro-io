@@ -1,6 +1,6 @@
 .page-header
   h1= t('New access_token')
 
-== render 'form'
+== render 'form', access_token: @access_token
 
 = link_to t('Back'), access_tokens_path, class: 'btn btn-default'
