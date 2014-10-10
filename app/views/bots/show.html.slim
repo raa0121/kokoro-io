@@ -14,7 +14,7 @@ table.table.table-bordered.table-collapsed
       th= t('owner')
       td= link_to @bot.user do
         = image_tag @bot.user.avatar_thumbnail_url(24)
-        |  
+        '
         = @bot.user.screen_name
     - if @bot.owner? current_user
       tr

@@ -15,7 +15,7 @@ table.table.table-bordered.table-collapsed
         td= bot.status
         td= link_to bot.user do
           = image_tag bot.user.avatar_thumbnail_url(24)
-          |  
+          '
           = bot.user.screen_name
 
 = link_to t('new_bot'), new_bot_path, class: 'btn btn-primary'
