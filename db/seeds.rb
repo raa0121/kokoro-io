@@ -10,7 +10,7 @@ end
 
 # User and primary access token
 FactoryGirl.create :user,
-  uid: 277237,
+  uid: 377137,
   screen_name: 'supermomonga',
   user_name: 'supermomonga',
   avatar_url: 'https://avatars.githubusercontent.com/u/377137?v=2'
