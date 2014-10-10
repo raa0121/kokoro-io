@@ -5,6 +5,7 @@ class AccessToken < ActiveRecord::Base
   include CanCan::Ability
 
   belongs_to :user
+  delegate :screen_name, to: :user, prefix: true
   validates :user, :name, :token, presence: true
   validates :token, uniqueness: true
   validates :essential, inclusion: {in: [true, false]}

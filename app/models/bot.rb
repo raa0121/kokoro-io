@@ -3,6 +3,7 @@ class Bot < ActiveRecord::Base
   friendly_id :bot_name, use: [ :finders ]
 
   belongs_to :user
+  delegate :screen_name, to: :user, prefix: true
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
