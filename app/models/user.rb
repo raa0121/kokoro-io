@@ -28,14 +28,6 @@ class User < ActiveRecord::Base
     "#{avatar_url}&s=#{size}"
   end
 
-  def can_update_room? room
-    administer_rooms.include?(room) || maintainer_rooms.include?(room)
-  end
-
-  def can_destroy_room? room
-    administer_rooms.include?
-  end
-
   def self.uniq_user_name github_user_name
     github_user_name.downcase!
     return github_user_name if User.where(user_name: github_user_name).size == 0

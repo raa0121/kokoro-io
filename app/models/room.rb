@@ -44,6 +44,12 @@ class Room < ActiveRecord::Base
     self.memberships.where( user: user ).first.authority.to_sym
   end
 
+  def destroyable? user
+    [
+      :administer
+    ].include?(authority user)
+  end
+
   def maintainable? user
     [
       :administer,
