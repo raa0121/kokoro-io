@@ -1,63 +1,14 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 ja:
   activerecord:
     models:
-      user: User
+      user: ユーザー
+      access_token: アクセストークン
+      room: ルーム
+      message: メッセージ
+      bot: Bot
     attributes:
       user:
-        screen_name: Name
-        user_name: UserName
-  hello: "Hello world"
-  'Are you sure?': "本当によろしいですか？"
-  Operation: '操作'
-  Edit: '編集'
-  Destroy: '削除'
-  'New Access token': 新しいAPIトークンを作成する
-  Search: 検索
-  member: ふつう
-  maintainer: すごい
-  admin: かなりすごい
-  room: ルーム
-  rooms: ルーム一覧
-  authority: 権限
-  sign_in_with_github: GitHubアカウントでログイン
-  create_room: ルームを作成
-  join_room: ルームに入る
-  your_profile: プロフィール
-  edit_your_profile: プロフィール編集
-  access_tokens: アクセストークン
-  primary_token: すごいトークン
-  primary_token_is_locked: いじれません
-  bots: Bots
-  regenerate_access_token: 再生成
-  invite_this_bot_to_room: このBotをルームに招待
-  auth:
-    sign_out: ログアウト
-    sign_in: ログイン
-    signed_out: ログアウトしました
-    signed_in: ログインしました
-  menu:
-    document: ドキュメント
-    help: ヘルプ
-  text:
-    see_the_api_document_to_build_your_own_bot: APIドキュメントを参考に君だけのbotを作ろう！
+        screen_name: 表示名
+        user_name: ユーザーID
+        avatar_url: アバター画像URL
+

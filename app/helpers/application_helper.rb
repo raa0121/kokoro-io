@@ -14,13 +14,4 @@ module ApplicationHelper
     end
   end
 
-  def kakkoii_catch_copy
-    [
-    'おそらく最もプログラマブルなチャットサービス（おそらく）',
-    'かなりすごい（かなり）',
-    'どうみてもチャットサービス（どうみても）',
-    'しごとをやめて、チャットをしよう',
-    ].sample
-  end
-
 end
