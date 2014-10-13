@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20141013133711) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "message"
-    t.boolean  "read"
+    t.boolean  "read",         default: false
     t.string   "redirect_url"
     t.string   "image_url"
     t.datetime "created_at"
