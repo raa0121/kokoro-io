@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924112924) do
+ActiveRecord::Schema.define(version: 20141013133711) do
 
   create_table "access_tokens", force: true do |t|
     t.integer  "user_id"
@@ -61,6 +61,19 @@ ActiveRecord::Schema.define(version: 20140924112924) do
 
   add_index "messages", ["publisher_id", "publisher_type"], name: "index_messages_on_publisher_id_and_publisher_type"
   add_index "messages", ["room_id"], name: "index_messages_on_room_id"
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "message"
+    t.boolean  "read"
+    t.string   "redirect_url"
+    t.string   "image_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "rooms", force: true do |t|
     t.string   "room_name"

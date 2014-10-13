@@ -13,6 +13,9 @@ class Ability
       can :read, Room do |room|
         room.public? || user.rooms.include?(room)
       end
+      can :read, Notification do |notification|
+        uotification.user == user
+      end
       can :update, Room do |room|
         room.maintainable? user
       end
