@@ -46,7 +46,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'
+  # Deploy
   gem 'mina'
+end
+
+group :provisioning do
+  gem 'itamae'
+  gem 'serverspec'
 end
 
 group :test do
