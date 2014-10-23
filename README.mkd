@@ -5,12 +5,22 @@
 kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 
-### How to run
+### How to run in your local machine
 
 1. Configure `.env`. Sample file is `.env.sample`.
 2. `bundle install`
 3. `bundle exec foreman start`
 4. Access to `http://lvh.me:3000` with your web browser.
+
+### How to run in Vagrant virtual machine
+
+Ensure you installed `Vagrant`.
+
+1. `vagrant up`
+2. `bundle exec itamae ssh --vagrant -h kokoro -j ./itamae/nodes/node.json ./itamae/recipes/kokoro.rb`
+3. （Minaでデプロイ）
+
+
 
 ### Progress
 
