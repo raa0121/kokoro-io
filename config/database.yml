@@ -27,7 +27,7 @@ production:
   username: postgres
   password:
 
-staging:
+vagrant:
   <<: *default
   database: kokoroio_staging
   adapter: postgresql
