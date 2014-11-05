@@ -14,6 +14,7 @@ set :domain, ENV['host'] || 'kokoro'
 set :deploy_to, "/home/%s/kokoro-io" % (ENV['user'] || 'deploy')
 set :repository, 'https://github.com/supermomonga/kokoro-io.git'
 set :branch, 'master'
+set :rails_env, ENV['env'] || 'staging'
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
