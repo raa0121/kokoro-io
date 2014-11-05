@@ -1,5 +1,4 @@
-
-upstream app_server {
+upstream unicorn {
   server unix:/tmp/unicorn.kokoro-io.sock fail_timeout=0;
 }
 
@@ -8,8 +7,6 @@ server {
     server_name <%= node["nginx"]["domain"] %>;
 
     root /home/<%= node["nginx"]["user"] %>/kokoro-io/current/public;
-    # indexはコメントアウト
-    # index  404.html;
 
     try_files $uri @unicorn;
 
@@ -17,7 +14,6 @@ server {
       proxy_set_header Host $http_host;
       proxy_pass http://unicorn;
     }
-    # エラーは500.htmlを表示させる
-    error_page 500 502 503 504 /500.html;
+    <%# error_page 500 502 503 504 /500.html;
 }
 
