@@ -8,5 +8,10 @@
     "nginx": {
         "user": "vagrant",
         "domain": "lvh.me"
+    },
+    "pg": {
+        "user": "vagrant",
+        "database": "kokoroio_staging",
+        "password": "kogaidan"
     }
 }

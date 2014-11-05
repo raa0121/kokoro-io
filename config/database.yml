@@ -22,7 +22,14 @@ test:
 
 production:
   <<: *default
-  database: kokoro_production
+  database: kokoroio_production
   adapter: postgresql
   username: postgres
   password:
+
+staging:
+  <<: *default
+  database: kokoroio_staging
+  adapter: postgresql
+  username: vagrant
+  password: kogaidan
