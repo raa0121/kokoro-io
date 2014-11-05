@@ -10,8 +10,8 @@ require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'kokoro.io'
-set :deploy_to, '/home/kokoro/core'
+set :domain, ENV['host'] || 'kokoro'
+set :deploy_to, "/home/%s/kokoro-io" % (ENV['user'] || 'deploy')
 set :repository, 'git@github.com:supermomonga/kokoro-io.git'
 set :branch, 'master'
 
@@ -23,7 +23,7 @@ set :branch, 'master'
 set :shared_paths, ['config/database.yml', 'log']
 
 # Optional settings:
-set :user, 'kokoro'    # Username in the server to SSH to.
+set :user, ENV['user'] || 'deploy'    # Username in the server to SSH to.
 set :port, ENV['port'] || 22     # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
 

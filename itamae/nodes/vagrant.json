@@ -5,7 +5,7 @@
         "gems": ["bundler"]
     },
     "nginx": {
-        "user": "vagrant",
+        "user": "deploy",
         "domain": "lvh.me"
     }
 }
