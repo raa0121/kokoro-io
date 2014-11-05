@@ -12,7 +12,7 @@ require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 
 set :domain, ENV['host'] || 'kokoro'
 set :deploy_to, "/home/%s/kokoro-io" % (ENV['user'] || 'deploy')
-set :repository, 'git@github.com:supermomonga/kokoro-io.git'
+set :repository, 'https://github.com/supermomonga/kokoro-io.git'
 set :branch, 'master'
 
 # For system-wide RVM install.
@@ -24,7 +24,7 @@ set :shared_paths, ['config/database.yml', 'log']
 
 # Optional settings:
 set :user, ENV['user'] || 'deploy'    # Username in the server to SSH to.
-set :port, ENV['port'] || 22     # SSH port number.
+set :port, ENV['port'] || 2222     # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
 
 # This task is the environment that is loaded for most commands, such as

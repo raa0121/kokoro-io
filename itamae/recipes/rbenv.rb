@@ -2,7 +2,7 @@ package "build-essential"
 package "libssl-dev"
 package "git"
 
-RBENV_DIR = "/usr/local/rbenv"
+RBENV_DIR = node["rbenv"]["path"]
 RBENV_SCRIPT = "/etc/profile.d/rbenv.sh"
 
 git RBENV_DIR do

@@ -1,11 +1,12 @@
 {
     "rbenv": {
+        "path": "/home/vagrant/.rbenv",
         "versions": ["2.1.3"],
         "global": "2.1.3",
         "gems": ["bundler"]
     },
     "nginx": {
-        "user": "deploy",
+        "user": "vagrant",
         "domain": "lvh.me"
     }
 }
