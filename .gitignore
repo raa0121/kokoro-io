@@ -14,7 +14,13 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/tmp
+
+tmp/*
+!tmp/cache/
+!tmp/sessions/
+!tmp/sockets/
+!tmp/pids/
+!.gitkeep
 
 .env
 Projectfile
