@@ -2,3 +2,4 @@
 
 include_recipe './rbenv.rb'
 include_recipe './nginx.rb'
+include_recipe './postgresql.rb'
