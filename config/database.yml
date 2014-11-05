@@ -29,7 +29,7 @@ production:
 
 vagrant:
   <<: *default
-  database: kokoroio_staging
+  database: kokoroio_vagrant
   adapter: postgresql
   username: vagrant
   password: kogaidan
