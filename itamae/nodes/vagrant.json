@@ -11,7 +11,7 @@
     },
     "pg": {
         "user": "vagrant",
-        "database": "kokoroio_staging",
+        "database": "kokoroio_vagrant",
         "password": "kogaidan"
     }
 }

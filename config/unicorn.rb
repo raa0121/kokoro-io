@@ -1,6 +1,16 @@
+require 'pathname'
+
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 1)
 timeout 25
 preload_app true
+
+dir = Pathname.new(File.expand_path __FILE__).parent.parent
+working_directory dir
+pid "#{dir}/tmp/pids/unicorn.pid"
+stderr_path "#{dir}/log/unicorn.log"
+stdout_path "#{dir}/log/unicorn.log"
+
+listen "/tmp/unicorn.kokoro-io.sock", backlog: 1024
 
 before_fork do |server, worker|
   Signal.trap 'TERM' do

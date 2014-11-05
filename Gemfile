@@ -41,8 +41,8 @@ gem 'grape'
 ## Faye
 gem 'faye-websocket'
 
+gem 'sqlite3'
 group :development do
-  gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'
