@@ -1,14 +1,20 @@
 namespace :unicorn do
 
-  desc "Start unicorn"
+  desc "Start unicorn or restart if it's already running"
   task(:start) {
-    config = Rails.root.join("config", "unicorn.rb")
-    env    = ENV['RAILS_ENV'] || "development"
-    `bundle exec unicorn_rails -D -c #{config} -E #{env}`
+    if unicorn_pid
+      Rake::Task['unicorn:restart'].invoke
+    else
+      config = Rails.root.join("config", "unicorn.rb")
+      env    = ENV['RAILS_ENV'] || "development"
+      `bundle exec unicorn_rails -D -c #{config} -E #{env}`
+    end
   }
 
   desc "Stop unicorn"
-  task(:stop) { unicorn_signal :QUIT }
+  task(:stop) do
+    unicorn_signal :QUIT
+  end
 
   desc "Restart unicorn with USR2"
   task(:restart) { unicorn_signal :USR2 }
@@ -21,18 +27,23 @@ namespace :unicorn do
 
   desc "Unicorn pstree (depends on pstree command)"
   task(:pstree) do
-    `pstree '#{unicorn_pid}'`
+    puts `pstree '#{unicorn_pid}'`
   end
 
   def unicorn_signal signal
-    Process.kill signal, unicorn_pid
+    Process.kill signal, unicorn_pid if unicorn_pid
   end
 
   def unicorn_pid
-    begin
-      File.read( Rails.root.join("tmp", "pids", "unicorn.pid") ).to_i
-    rescue Errno::ENOENT
-      raise "Unicorn doesn't seem to be running"
+    pid_file = Rails.root.join("tmp", "pids", "unicorn.pid")
+    if File.exists? pid_file
+      begin
+        File.read( Rails.root.join("tmp", "pids", "unicorn.pid") ).to_i
+      rescue Errno::ENOENT
+        raise "Unicorn doesn't seem to be running"
+      end
+    else
+      nil
     end
   end
 end

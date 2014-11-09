@@ -1,6 +1,6 @@
 require 'pathname'
 
-worker_processes Integer(ENV["WEB_CONCURRENCY"] || 1)
+worker_processes Integer(ENV["WEB_CONCURRENCY"] || 2)
 timeout 25
 preload_app true
 
