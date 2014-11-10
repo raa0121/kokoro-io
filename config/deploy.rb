@@ -2,6 +2,7 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
+require 'mina/unicorn'
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 # Basic settings:
@@ -21,8 +22,8 @@ set :rails_env, ENV['env'] || 'vagrant'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-# set :shared_paths, ['config/database.yml', 'log'] unless ENV['env'] == 'vagrant'
-set :shared_paths, ['log'] unless ENV['env'] == 'vagrant'
+set :shared_paths, ['config/database.yml', '.env', 'log'] unless ENV['env'] == 'vagrant'
+# set :shared_paths, ['log'] unless ENV['env'] == 'vagrant'
 
 # Optional settings:
 set :user, ENV['user'] || 'deploy'    # Username in the server to SSH to.
@@ -47,6 +48,9 @@ task :setup => :environment do
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/.env"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.env'."]
 end
 
 desc "Deploys the current version to the server."
@@ -62,9 +66,8 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      # queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+      invoke :'unicorn:stop'
       invoke :'unicorn:start'
-      # queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
   end
 end
