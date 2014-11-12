@@ -22,10 +22,18 @@ execute "mkdir #{RBENV_DIR}/plugins" do
   not_if "test -d #{RBENV_DIR}/plugins"
 end
 
+# Install ruby-build plugin
 git "#{RBENV_DIR}/plugins/ruby-build" do
   repository "git://github.com/sstephenson/ruby-build.git"
 end
 
+# Install ruby-build plugin
+git "#{RBENV_DIR}/plugins/rbenv-vars" do
+  repository "git://github.com/sstephenson/rbenv-vars.git"
+end
+
+
+# Install Ruby
 node["rbenv"]["versions"].each do |versoin|
   execute "install ruby #{versoin}" do
     command %`/bin/bash -c "source #{RBENV_SCRIPT}; rbenv install #{versoin}"`
