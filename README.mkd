@@ -18,7 +18,27 @@ Ensure you installed `Vagrant`.
 
 1. `vagrant up`
 2. `bundle exec itamae ssh --vagrant -h kokoro -j ./itamae/nodes/vagrant.json ./itamae/recipes/kokoro.rb`
-3. （Minaでデプロイ）
+3. `bundle exec mina setup user=vagrant`
+4. `vagrant ssh` and edit `~/kokoro-io/shared/config/database.yml` and `~/kokoro-io/shared/.rbenv-var`
+6. `bundle exec mina deploy user=vagrant`
+7. Open `http://lvh.me:8080/` with your favorite web browser!
+
+_database.yml_ sample
+
+```yaml
+vagrant:
+  database: kokoroio_vagrant
+  adapter: postgresql
+  username: vagrant
+  password: kogaidan
+```
+
+_.rbenv-var_ sample
+
+```
+RAILS_ENV=vagrant
+RACK_ENV=vagrant
+```
 
 
 
