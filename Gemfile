@@ -48,7 +48,7 @@ group :development do
   gem 'spring'
   # Deploy
   gem 'mina'
-  gem 'mina-unicorn', require: false
+  gem 'mina-unicorn', github: 'scarfacedeb/mina-unicorn', require: false
 end
 
 group :provisioning do
