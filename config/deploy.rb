@@ -73,8 +73,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'unicorn:stop'
-      invoke :'unicorn:start'
+      invoke :'unicorn:restart'
     end
   end
 end
