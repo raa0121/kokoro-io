@@ -13,7 +13,7 @@ namespace :unicorn do
 
   desc "Stop unicorn"
   task(:stop) do
-    unicorn_signal :QUIT
+    unicorn_signal :QUIT if unicorn_pid
   end
 
   desc "Restart unicorn with USR2"
