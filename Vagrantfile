@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
     c.vm.box = "ubuntu_1404_amd64"
-    config.vm.box_check_update = true
+    c.vm.box_check_update = true
     c.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     c.vm.network "private_network", ip: "192.168.33.10"
     c.vm.network "forwarded_port", guest: 80, host: 8080
