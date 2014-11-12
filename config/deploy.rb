@@ -22,7 +22,7 @@ set :rails_env, ENV['env'] || 'vagrant'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', '.rbenv-vars', 'log']
+set :shared_paths, ['config/database.yml', '.rbenv-vars', 'log', 'tmp/sockets', 'tmp/pids']
 # set :shared_paths, ['log'] unless ENV['env'] == 'vagrant'
 
 # Optional settings:
@@ -45,6 +45,13 @@ task :setup => :environment do
 
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/config"]
+
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp"]
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/pids"]
+  queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
