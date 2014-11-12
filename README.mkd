@@ -67,7 +67,12 @@ RACK_ENV=vagrant
     - [ ] Delete bot
     - [X] Edit bot
 2. [ ] Implement API including realtime-messaging with Grape
-
+3. [ ] Server provisioning
+  - [X] Vagrant
+  - [ ] Azure
+4. [ ] Deploy
+  - [X] Vagrant
+  - [ ] Azure
 
 
 ## LICENSE
