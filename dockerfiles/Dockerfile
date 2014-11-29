@@ -1,2 +1,4 @@
-FROM rails:onbuild
+FROM rails:latest
 MAINTAINER supermomonga
+
+
