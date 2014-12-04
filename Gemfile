@@ -19,6 +19,9 @@ gem 'jbuilder', '~> 2.2.2'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
+gem 'ransack', '~> 1.5.1'
+gem 'squeel', '~> 1.2.2'
+
 gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
