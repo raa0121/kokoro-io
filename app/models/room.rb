@@ -112,4 +112,8 @@ class Room < ActiveRecord::Base
     [:administer, :maintainer].include? authority(user)
   end
 
+  def has_member? user
+    users.include? user
+  end
+
 end

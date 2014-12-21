@@ -18,12 +18,13 @@ h1= @room.screen_name
         th= t('bots')
         td= @room.bots.size
 
-.row
-  .col-sm-12
-    = link_to '/', class: 'btn btn-primary btn-block' do
-      = icon('plug', t('.join_this_room'))
+- unless @room.has_member? current_user
+  .row.voffset-bottom20
+    .col-sm-12
+      = link_to '/', class: 'btn btn-primary btn-block' do
+        = icon('plug', t('.join_this_room'))
 
-.row.voffset20
+.row
   .col-sm-12
     - Membership.authorities.keys.each do |authority|
       .panel.panel-default
@@ -40,8 +41,7 @@ h1= @room.screen_name
       .panel-body
         - @room.bots.each do |bot|
           = link_to image_tag(bot.avatar_thumbnail_url(48)), bot_path(bot), class: 'popover-botinfo', data: { title: bot.screen_name, content: "Hi, I'm #{bot.screen_name}." }
-    - if @room.memberships.include? current_user
-      .btn-group
-        - if @room.maintainable? current_user
-          = link_to t('manage'), edit_room_path(@room), class: 'btn btn-default'
-        = link_to t('back'), rooms_path, class: 'btn btn-primary'
+    .btn-group
+      - if @room.has_member?(current_user) && @room.maintainable?(current_user)
+        = link_to t('manage'), edit_room_path(@room), class: 'btn btn-default'
+      = link_to t('back'), rooms_path, class: 'btn btn-primary'
