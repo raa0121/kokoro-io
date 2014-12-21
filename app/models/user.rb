@@ -1,4 +1,25 @@
 class User < ActiveRecord::Base
+  # garage
+
+  include Garage::Representer
+  include Garage::Authorizable
+  property :id
+  property :provider
+  property :uid
+  property :screen_name
+  property :avatar_url
+
+  def self.build_permissions(perms, other, target)
+    perms.permits! :read
+  end
+
+  def build_permissions(perms, other)
+    perms.permits! :read
+    # perms.permits! :write
+  end
+
+  # /garage
+
   extend FriendlyId
   friendly_id :user_name
 

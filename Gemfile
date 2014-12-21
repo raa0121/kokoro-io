@@ -31,6 +31,9 @@ gem 'cancancan', '~> 1.9'
 gem 'unicorn'
 gem 'foreman'
 
+gem 'doorkeeper', '~> 1.3.1'
+gem 'garage', github: 'cookpad/garage'
+
 
 # Assets
 gem 'bootstrap-sass', '~> 3.2.0.2'

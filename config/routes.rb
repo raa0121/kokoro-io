@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  use_doorkeeper
+  scope :api do
+    namespace :v1 do
+      resources :bots
+      resources :rooms
+      resources :access_tokens, except: [ :show ]
+      resources :users, except: [ :index ]
+    end
+  end
   resources :bots
   resources :rooms
   resources :access_tokens, except: [ :show ]

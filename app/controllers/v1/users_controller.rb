@@ -1,8 +1,5 @@
-class UsersController < InheritedResources::Base
+class V1::UsersController < V1::ApplicationController
   include Garage::RestfulActions
-  actions :all, except: [ :index ]
-
-  defaults resource_class: User.friendly
 
   def require_resources
     @resources = User.all
