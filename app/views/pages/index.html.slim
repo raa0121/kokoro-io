@@ -11,6 +11,9 @@
         - current_user.rooms.each do |room|
           = link_to room, class: 'list-group-item' do
             .badge 10
+            - if room.private?
+              = icon('lock')
+              '
             = room.screen_name
       hr
       = link_to t('create_room'), new_room_path, class: 'btn btn-primary btn-block'
