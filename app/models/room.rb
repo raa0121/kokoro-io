@@ -45,16 +45,64 @@ class Room < ActiveRecord::Base
   end
 
   def destroyable? user
-    [
-      :administer
-    ].include?(authority user)
+    [:administer].include? authority(user)
   end
 
   def maintainable? user
-    [
-      :administer,
-      :maintainer
-    ].include?(authority user)
+    [:administer, :maintainer].include? authority(user)
+  end
+
+  def leaveable? user
+    case authority user
+    when :administer
+      administer_users.size == 1 ? false : true
+    when :maintainer
+      true
+    when :member
+      true
+    else
+      false
+    end
+  end
+
+  def bot_addable? user
+    [:administer, :maintainer].include? authority(user)
+  end
+
+  def kickable? user
+    [:administer, :maintainer].include? authority(user)
+  end
+
+  def promotable? user, target
+    # Can't promote yourself.
+    return false if user == target
+
+    case authority user
+    when :administer
+      [:maintainer, :member].include? authority(target)
+    when :maintainer
+      [:member].include? authority(target)
+    when :member
+      false
+    else
+      false
+    end
+  end
+
+  def demotable? user, target
+    # Can't demote yourself.
+    return false if user == target
+
+    case authority user
+    when :administer
+      [:maintainer].include? authority(target)
+    when :maintainer
+      false
+    when :member
+      false
+    else
+      false
+    end
   end
 
 end
