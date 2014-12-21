@@ -21,7 +21,7 @@ h1= @room.screen_name
 - unless @room.has_member? current_user
   .row.voffset-bottom20
     .col-sm-12
-      = link_to '/', class: 'btn btn-primary btn-block' do
+      = link_to '/', method: :post, class: 'btn btn-primary btn-block' do
         = icon('plug', t('.join_this_room'))
 
 .row
