@@ -109,16 +109,7 @@ class Room < ActiveRecord::Base
     # Anyone can join or be invited on public room
     true if public?
 
-    case authority user
-    when :administer
-      true
-    when :maintainer
-      true
-    when :member
-      false
-    else
-      false
-    end
+    [:administer, :maintainer].include? authority(user)
   end
 
 end
