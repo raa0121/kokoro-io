@@ -5,43 +5,36 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     wget \
     curl \
-    git
-
-# Install package for ruby
-RUN apt-get install -y \
+    git \
+    \
     zlib1g-dev \
     libssl-dev \
     libreadline-dev \
     libyaml-dev \
     libxml2-dev \
-    libxslt-dev
-
-# Install package for sqlite3
-RUN apt-get install -y \
+    libxslt-dev \
+    \
     sqlite3 \
-    libsqlite3-dev
-
-# Install package for postgresql
-RUN apt-get install -y libpq-dev
+    libsqlite3-dev \
+    \
+    libpq-dev
 
 # Install ruby-build
-RUN git clone https://github.com/sstephenson/ruby-build.git .ruby-build
-RUN .ruby-build/install.sh
-RUN rm -fr .ruby-build
-
-# Install ruby-2.1.3
-RUN ruby-build 2.1.3 /usr/local
+RUN git clone https://github.com/sstephenson/ruby-build.git .ruby-build && \
+    .ruby-build/install.sh && \
+    rm -rf .ruby-build && \
+    ruby-build 2.1.5 /usr/local
 
 # Install bundler
-RUN gem update --system
-RUN gem install bundler --no-rdoc --no-ri
+RUN gem update --system && \
+    gem install bundler --no-rdoc --no-ri
 
 # Add application
-RUN mkdir /myapp
-WORKDIR /myapp
-ADD ../Gemfile /myapp/Gemfile
+RUN mkdir /app
+WORKDIR /app
+ADD ../Gemfile /app/Gemfile
 RUN bundle install
-ADD ../ /myapp
+ADD ../ /app
 
 ENTRYPOINT ["bash", "-l", "-c"]
 
