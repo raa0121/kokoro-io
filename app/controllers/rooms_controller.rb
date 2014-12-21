@@ -7,7 +7,7 @@ class RoomsController < InheritedResources::Base
     membership = @room.memberships.first
     membership.administer! if membership
     create! do |success, failure|
-      success.html { redirect_to rooms_path }
+      success.html { redirect_to room_path(@room), notice: t('rooms.created') }
     end
   end
 
