@@ -9,10 +9,6 @@ default: &default
   pool: 5
   timeout: 5000
 
-development:
-  <<: *default
-  database: db/development.sqlite3
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -24,12 +20,12 @@ production:
   <<: *default
   database: kokoroio_production
   adapter: postgresql
-  username: postgres
-  password:
+  username: deployer
+  password: 73ACCj4ALWFQZRuoqsetZHiiBF6NTzbrBBjbUngLJH4XEkepp2
 
-vagrant:
+development:
   <<: *default
-  database: kokoroio_vagrant
+  database: kokoroio_development
   adapter: postgresql
-  username: vagrant
+  username: deployer
   password: kogaidan

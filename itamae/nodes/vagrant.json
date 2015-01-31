@@ -1,17 +1,24 @@
 {
-    "rbenv": {
-        "path": "/home/vagrant/.rbenv",
-        "versions": ["2.1.3"],
-        "global": "2.1.3",
-        "gems": ["bundler"]
+    "rtn_rbenv": {
+        "user": "deployer",
+        "versions": {
+            "2.1.5": [
+                {
+                    "name": "bundler",
+                    "version": "1.7.9",
+                    "force": true
+                }
+            ]
+        },
+        "global": "2.1.5"
     },
     "nginx": {
-        "user": "vagrant",
+        "user": "deployer",
         "domain": "lvh.me"
     },
     "pg": {
-        "user": "vagrant",
-        "database": "kokoroio_vagrant",
+        "user": "deployer",
+        "database": "kokoroio_development",
         "password": "kogaidan"
     }
 }

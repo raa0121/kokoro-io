@@ -15,18 +15,26 @@ set :domain, ENV['host'] || 'kokoro'
 set :deploy_to, "/home/%s/kokoro-io" % (ENV['user'] || 'deploy')
 set :repository, 'https://github.com/supermomonga/kokoro-io.git'
 set :branch, 'master'
-set :rails_env, ENV['env'] || 'vagrant'
+set :rails_env, ENV['env'] || 'development'
+case ENV['env'] || 'development'
+when 'test'
+  set :bundle_options, lambda { %{ --without development --path "#{bundle_path}" --binstubs bin/ --deployment } }
+when 'development'
+  set :bundle_options, lambda { %{ --without test --path "#{bundle_path}" --binstubs bin/ --deployment } }
+end
+# set :foreman_sudo, false
+set :foreman_app, 'kokoroio'
+set :foreman_user, 'deployer'
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', '.rbenv-vars', 'log', 'tmp/sockets', 'tmp/pids']
-# set :shared_paths, ['log'] unless ENV['env'] == 'vagrant'
+set :shared_paths, ['config/database.yml', '.rbenv-vars', '.env', 'log', 'tmp/sockets', 'tmp/pids']
 
 # Optional settings:
-set :user, ENV['user'] || 'deploy'    # Username in the server to SSH to.
+set :user, ENV['user'] || 'deployer'    # Username in the server to SSH to.
 set :port, ENV['port'] || 2222     # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
 
@@ -53,8 +61,13 @@ task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/sockets"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/tmp/sockets"]
 
+  queue! %[ssh -T git@github.com]
+
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/.env"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.env'."]
 
   queue! %[touch "#{deploy_to}/#{shared_path}/.rbenv-vars"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.rbenv-vars'."]
@@ -71,9 +84,10 @@ task :deploy => :environment do
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
+    invoke :'foreman:export'
 
     to :launch do
-      invoke :'unicorn:restart'
+      invoke :'foreman:restart'
     end
   end
 end
