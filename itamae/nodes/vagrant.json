@@ -1,6 +1,10 @@
 {
+    "user": "vagrant",
+    "sudoers" : {
+        "user": "vagrant"
+    },
     "rtn_rbenv": {
-        "user": "deployer",
+        "user": "vagrant",
         "versions": {
             "2.1.5": [
                 {
@@ -13,11 +17,11 @@
         "global": "2.1.5"
     },
     "nginx": {
-        "user": "deployer",
-        "domain": "lvh.me"
+        "user": "vagrant",
+        "domain": "~^.+$"
     },
     "pg": {
-        "user": "deployer",
+        "user": "vagrant",
         "database": "kokoroio_development",
         "password": "kogaidan"
     }
