@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 include_recipe './sudoers.rb'
+include_recipe './ssh.rb'
 include_recipe 'rtn_rbenv::user'
 include_recipe './rbenv-vars.rb'
 include_recipe './nginx.rb'
