@@ -3,6 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 require 'mina/unicorn'
+require 'mina/foreman'
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 # Basic settings:
@@ -24,7 +25,7 @@ when 'development'
 end
 # set :foreman_sudo, false
 set :foreman_app, 'kokoroio'
-set :foreman_user, 'deployer'
+set :foreman_user, (ENV['user'] || 'deploy')
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
@@ -34,7 +35,7 @@ set :foreman_user, 'deployer'
 set :shared_paths, ['config/database.yml', '.rbenv-vars', '.env', 'log', 'tmp/sockets', 'tmp/pids']
 
 # Optional settings:
-set :user, ENV['user'] || 'deployer'    # Username in the server to SSH to.
+set :user, ENV['user'] || 'deploy'    # Username in the server to SSH to.
 set :port, ENV['port'] || 2222     # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
 
@@ -66,7 +67,18 @@ task :setup => :environment do
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
 
-  queue! %[touch "#{deploy_to}/#{shared_path}/.env"]
+  pathes = [
+            "/home/#{(ENV['user'] || 'deploy')}/.rbenv/shims",
+            "/home/#{(ENV['user'] || 'deploy')}/.rbenv/bin",
+            "/home/#{(ENV['user'] || 'deploy')}/.rbenv/shims",
+            "/usr/local/sbin",
+            "/usr/local/bin",
+            "/usr/sbin",
+            "/usr/bin",
+            "/sbin",
+            "/bin"
+           ]
+  queue! %[echo "PATH=#{pathes.join(':')}" > "#{deploy_to}/#{shared_path}/.env"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/.env'."]
 
   queue! %[touch "#{deploy_to}/#{shared_path}/.rbenv-vars"]
@@ -84,9 +96,9 @@ task :deploy => :environment do
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
-    invoke :'foreman:export'
 
     to :launch do
+      invoke :'foreman:export'
       invoke :'foreman:restart'
     end
   end

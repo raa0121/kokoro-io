@@ -20,12 +20,12 @@ production:
   <<: *default
   database: kokoroio_production
   adapter: postgresql
-  username: deployer
+  username: deploy
   password: 73ACCj4ALWFQZRuoqsetZHiiBF6NTzbrBBjbUngLJH4XEkepp2
 
 development:
   <<: *default
   database: kokoroio_development
   adapter: postgresql
-  username: deployer
+  username: deploy
   password: kogaidan
