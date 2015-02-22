@@ -9,7 +9,7 @@
     .col-sm-4.col-md-3
       .list-group
         - current_user.rooms.each do |room|
-          = link_to room, class: 'list-group-item' do
+          = link_to '#', class: 'list-group-item' do
             .badge 10
             - if room.private?
               = icon('lock')
