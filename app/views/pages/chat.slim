@@ -26,4 +26,4 @@
               .filtered_text
                 = 'kokoro ぴょんぴょん'
     .say
-      textarea
+      textarea#say_text[ rows="{{rows}}" v-model="msg" ]= "{{msg}}"

@@ -24,6 +24,11 @@ module KokoroIo
       g.test_framework = 'rspec'
     end
 
+    config.opal.method_missing      = true
+    config.opal.optimized_operators = true
+    config.opal.arity_check         = false
+    config.opal.const_missing       = true
+
     config.autoload_paths += %W["#{config.root}/app/validators"]
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]

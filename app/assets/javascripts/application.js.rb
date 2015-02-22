@@ -1,5 +1,7 @@
-#
-#= require jquery
+#= require opal
+#= require opal_ujs
+#= require native
+
 # require bootstrap/affix
 #= require bootstrap/alert
 # require bootstrap/button
@@ -12,12 +14,16 @@
 # require bootstrap/modal
 #= require bootstrap/tooltip
 #= require bootstrap/popover
-#= require jquery_ujs
 #= require turbolinks
 # require_tree .
 
-$ ->
-  $('.popover-userinfo').popover {
-    placement: 'auto'
-    trigger: 'hover'
-  }
+
+Element.expose :alert
+Element.expose :collapse
+Element.expose :dropdown
+Element.expose :tooltip
+Element.expose :popover
+Document.ready? do
+  Element.find('.popover-userinfo').popover({placement: 'auto', trigger: 'hover'}.to_n)
+end
+
