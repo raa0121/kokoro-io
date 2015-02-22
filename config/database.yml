@@ -25,7 +25,11 @@ production:
 
 development:
   <<: *default
-  database: kokoroio_development
-  adapter: postgresql
-  username: deploy
-  password: kogaidan
+  database: db/development.sqlite3
+
+#development:
+#  <<: *default
+#  database: kokoroio_development
+#  adapter: postgresql
+#  username: deploy
+#  password: kogaidan

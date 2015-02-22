@@ -4,7 +4,7 @@ worker_processes Integer(ENV["WEB_CONCURRENCY"] || 1)
 timeout 25
 preload_app true
 
-if ['production', 'staging', 'development'].include? ENV['RACK_ENV']
+if ['production', 'staging', 'vagrant'].include? ENV['RACK_ENV']
   dir = Pathname.new(File.expand_path __FILE__).parent.parent
   working_directory dir
   pid "#{dir}/tmp/pids/unicorn.pid"
