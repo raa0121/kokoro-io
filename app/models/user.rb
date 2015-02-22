@@ -46,6 +46,9 @@ class User < ActiveRecord::Base
   has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
   has_many :member_rooms,     source: :room, through: :member_memberships
 
+  delegate :private_rooms, to: :rooms
+  delegate :public_rooms, to: :rooms
+
   def avatar_thumbnail_url size = 64
     "#{avatar_url}&s=#{size}"
   end
