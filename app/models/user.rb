@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   property :id
   property :provider
   property :uid
+  property :user_name
   property :screen_name
   property :avatar_url
 
@@ -21,13 +22,13 @@ class User < ActiveRecord::Base
   # /garage
 
   extend FriendlyId
-  friendly_id :user_name
+  friendly_id :screen_name
 
-  validates :user_name, uniqueness: true
+  validates :screen_name, uniqueness: true
   # Github username may only contain alphanumeric
   # characters or dashes and cannot begin with a dash
-  validates :user_name, friendly_id: true
-  validates :user_name, length: { in: 1..39 }
+  validates :screen_name, friendly_id: true
+  validates :screen_name, length: { in: 1..39 }
   validates :uid, uniqueness: true
   validates :provider, :uid, :screen_name, :user_name, :avatar_url, presence: true
 
