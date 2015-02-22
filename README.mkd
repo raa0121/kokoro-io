@@ -67,12 +67,10 @@ RACK_ENV=development
     - [ ] Delete bot
     - [X] Edit bot
 2. [ ] Implement API including realtime-messaging with Grape
-3. [ ] Server provisioning
-  - [X] Vagrant
-  - [ ] Azure
-4. [ ] Deploy
-  - [X] Vagrant
-  - [ ] Azure
+3. [X] Server provisioning
+  - [X] Itamae recipe
+4. [X] Deploy
+  - [X] mina recipe
 
 
 ## LICENSE
