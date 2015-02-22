@@ -44,7 +44,8 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'grape'
 
 ## Faye
-gem 'faye-websocket'
+# gem 'faye-websocket'
+gem 'pusher'
 
 gem 'sqlite3'
 group :development do
