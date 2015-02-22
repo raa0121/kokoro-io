@@ -46,6 +46,7 @@ gem 'grape'
 ## Faye
 # gem 'faye-websocket'
 gem 'pusher'
+gem 'vuejs-rails'
 
 gem 'sqlite3'
 group :development do
