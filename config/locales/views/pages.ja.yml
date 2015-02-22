@@ -4,4 +4,6 @@ ja:
       super_cool_chat_service_ever: かなりすごいチャットサービス（かなり）
       rooms: ルーム一覧
       invited_rooms: 招待されたルーム一覧
+      there_is_no_joined_room: 招待されたルームはありません
+      there_is_no_invited_room: 招待されたルームはありません
 

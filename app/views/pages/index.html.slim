@@ -21,27 +21,33 @@
     .col-sm-8.col-md-9
       .panel.panel-default
         .panel-heading= t('.rooms')
-        table.table.table-bordered.table-condensed
-          thead
-            tr
-              th= t('room')
-              th.col-xs-2.col-sm-3= t('authority')
-          tbody
-            - current_user.rooms.each do |room|
+        - if current_user.rooms.size > 0
+          table.table.table-bordered.table-condensed
+            thead
               tr
-                td= link_to room.screen_name, room
-                td= t room.authority(current_user)
+                th= t('room')
+                th.col-xs-2.col-sm-3= t('authority')
+            tbody
+              - current_user.rooms.each do |room|
+                tr
+                  td= link_to room.screen_name, room
+                  td= t room.authority(current_user)
+        - else
+          .panel-body.text-center= t('.there_is_no_joined_room')
 
       .panel.panel-default
         .panel-heading= t('.invited_rooms')
-        table.table.table-bordered.table-condensed
-          thead
-            tr
-              th= t('room')
-              th.col-xs-2.col-sm-3= t('authority')
-          tbody
-            - current_user.invited_rooms.each do |room|
+        - if current_user.invited_rooms.size > 0
+          table.table.table-bordered.table-condensed
+            thead
               tr
-                td= link_to room.screen_name, room
-                td= t room.authority(current_user)
+                th= t('room')
+                th.col-xs-2.col-sm-3= t('authority')
+            tbody
+              - current_user.invited_rooms.each do |room|
+                tr
+                  td= link_to room.screen_name, room
+                  td= t room.authority(current_user)
+        - else
+          .panel-body.text-center= t('.there_is_no_invited_room')
 
