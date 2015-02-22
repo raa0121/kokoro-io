@@ -18,10 +18,13 @@ h1= @room.screen_name
         th= t('bots')
         td= @room.bots.size
 
-- unless @room.has_member? current_user
-  .row.voffset-bottom20
-    .col-sm-12
-      = link_to '/', method: :post, class: 'btn btn-primary btn-block' do
+.row.voffset-bottom20
+  .col-sm-12
+    - if @room.has_member? current_user
+      = link_to leave_room_path(@room), method: :post, class: 'btn btn-primary btn-block' do
+        = icon('minus-square', t('.leave_this_room'))
+    - else
+      = link_to join_room_path(@room), method: :post, class: 'btn btn-primary btn-block' do
         = icon('plug', t('.join_this_room'))
 
 .row

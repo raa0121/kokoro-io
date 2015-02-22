@@ -40,21 +40,56 @@ class Room < ActiveRecord::Base
     !private?
   end
 
+  def contains? user
+    memberships.where(user: user).limit(1).size > 0
+  end
+
+  def chattable? user
+    # All members except invited can chat
+    [:administer, :maintainer, :member].include? authority(user)
+  end
+
   def authority user
+    return nil unless contains? user
     self.memberships.where( user: user ).first.authority.to_sym
   end
 
+  def invited? user
+    authority(user) == :invited
+  end
+
   def destroyable? user
+    return false unless contains? user
     [:administer].include? authority(user)
   end
 
   def maintainable? user
+    return false unless contains? user
     [:administer, :maintainer].include? authority(user)
   end
 
+  def joinable? user
+    # User already joined
+    return false if contains? user
+
+    if private?
+      # Only invited user can join to the private room
+      return invited? user
+    else
+      return true
+    end
+  end
+
   def leaveable? user
+    # User not joined
+    return false unless contains? user
+
+    # The last user can't leave from a room
+    return false if memberships.size == 1
+
     case authority user
     when :administer
+      # The last administer can't leave from a room
       administer_users.size == 1 ? false : true
     when :maintainer
       true
@@ -76,8 +111,9 @@ class Room < ActiveRecord::Base
   def promotable? user, target
     # Can't promote yourself.
     return false if user == target
+    return false unless contains? user
 
-    case authority user
+    have_authority = case authority user
     when :administer
       [:maintainer, :member].include? authority(target)
     when :maintainer

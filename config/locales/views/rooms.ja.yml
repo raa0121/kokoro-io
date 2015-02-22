@@ -2,3 +2,4 @@ ja:
   rooms:
     show:
       join_this_room: このルームに入る
+      leave_this_room: このルームから出る

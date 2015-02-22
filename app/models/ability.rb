@@ -10,6 +10,16 @@ class Ability
       can :create, Message
       can :create, Room
       can :manage, Bot, user: user
+      can :join, Room do |room|
+        # If room is public and user is not a member yet
+        room.joinable? user
+        # TODO: rooms is private but user was invited.
+      end
+      can :leave, Room do |room|
+        # If room is public and user is not a member yet
+        room.leaveable? user
+        # TODO: rooms is private but user was invited.
+      end
       can :read, Room do |room|
         room.public? || user.rooms.include?(room)
       end

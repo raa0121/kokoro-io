@@ -17,6 +17,16 @@ class ApplicationController < ActionController::Base
     @current_resource_owner ||= User.find(resource_owner_id) if resource_owner_id
   end
 
+  def authenticate_user
+    unless current_user
+      if params['origin'].blank?
+        redirect_to '/auth/github'
+      else
+        redirect_to '/auth/github?origin=' + params['origin']
+      end
+    end
+  end
+
   def detect_locale
     if request.headers['Accept-Language']
       I18n.locale = request.headers['Accept-Language'].scan(/^[a-z]{2}/).first
