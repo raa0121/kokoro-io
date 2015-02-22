@@ -18,24 +18,27 @@ class RoomsController < InheritedResources::Base
 
   def join
     room = Room.where(screen_name: params[:screen_name]).limit(1).first
-    if room
+    return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
+    return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
+
+    if room.users.include? current_user
+      room.memberships.where(memberable: current_user).limit(1).first.try(:member!)
+    else
       room.users << current_user
       room.save
-      redirect_to room_path(room), notice: t('notice.rooms.joined')
-    else
-      redirect_to :back, alert: t('alert.rooms.not_exist')
     end
+    redirect_to room_path(room), notice: t('notice.rooms.joined')
   end
 
   def leave
     room = Room.where(screen_name: params[:screen_name]).limit(1).first
-    if room
-      room.users.delete current_user
-      room.save
-      redirect_to room_path(room), notice: t('notice.rooms.leaved')
-    else
-      redirect_to :back, alert: t('alert.rooms.not_exist')
-    end
+    return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
+    return redirect_to :back, alert: t('alert.rooms.not_leaveable') unless room.leaveable? current_user
+
+    room.users.delete current_user
+    room.save
+    return redirect_to room_path(room), notice: t('notice.rooms.leaved') if room.public?
+    return redirect_to rooms_path, notice: t('notice.rooms.leaved') if room.private?
   end
 
   private

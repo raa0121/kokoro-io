@@ -2,4 +2,6 @@ ja:
   pages:
     index:
       super_cool_chat_service_ever: かなりすごいチャットサービス（かなり）
+      rooms: ルーム一覧
+      invited_rooms: 招待されたルーム一覧
 

@@ -20,12 +20,15 @@ h1= @room.screen_name
 
 .row.voffset-bottom20
   .col-sm-12
-    - if @room.has_member? current_user
-      = link_to leave_room_path(@room), method: :post, class: 'btn btn-primary btn-block' do
-        = icon('minus-square', t('.leave_this_room'))
-    - else
+    - if @room.joinable? current_user
       = link_to join_room_path(@room), method: :post, class: 'btn btn-primary btn-block' do
         = icon('plug', t('.join_this_room'))
+    - if @room.chattable? current_user
+      = link_to leave_room_path(@room), method: :post, class: 'btn btn-danger btn-block' do
+        = icon('minus-square', t('.leave_this_room'))
+    - if @room.invited? current_user
+      = link_to leave_room_path(@room), method: :post, class: 'btn btn-danger btn-block' do
+        = icon('minus-square', t('.cancel_invited'))
 
 .row
   .col-sm-12

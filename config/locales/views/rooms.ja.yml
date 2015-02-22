@@ -3,3 +3,4 @@ ja:
     show:
       join_this_room: このルームに入る
       leave_this_room: このルームから出る
+      cancel_invited: このルームへの招待を辞退する

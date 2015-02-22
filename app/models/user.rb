@@ -42,9 +42,11 @@ class User < ActiveRecord::Base
   has_many :administer_memberships, -> { administer }, as: :memberable, class_name: 'Membership'
   has_many :maintainer_memberships, -> { maintainer }, as: :memberable, class_name: 'Membership'
   has_many :member_memberships,     -> { member     }, as: :memberable, class_name: 'Membership'
+  has_many :invited_memberships,    -> { invited    }, as: :memberable, class_name: 'Membership'
   has_many :administer_rooms, source: :room, through: :administer_memberships
   has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
   has_many :member_rooms,     source: :room, through: :member_memberships
+  has_many :invited_rooms,    source: :room, through: :invited_memberships
 
   delegate :private_rooms, to: :rooms
   delegate :public_rooms, to: :rooms

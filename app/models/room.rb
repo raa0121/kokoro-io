@@ -70,7 +70,7 @@ class Room < ActiveRecord::Base
 
   def joinable? user
     # User already joined
-    return false if contains? user
+    return false if chattable? user
 
     if private?
       # Only invited user can join to the private room
