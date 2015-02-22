@@ -14,5 +14,19 @@ FactoryGirl.create :user,
   screen_name: 'supermomonga',
   user_name: 'supermomonga',
   avatar_url: 'https://avatars.githubusercontent.com/u/377137?v=2'
-FactoryGirl.create_list :user, 10
+FactoryGirl.create :user,
+  uid: 20474,
+  screen_name: 'thinca',
+  user_name: 'Thinca',
+  avatar_url: 'https://avatars.githubusercontent.com/u/20474?v=2'
+FactoryGirl.create :user,
+  uid: 823277,
+  screen_name: 'rhysd',
+  user_name: 'Linda_pp',
+  avatar_url: 'https://avatars.githubusercontent.com/u/823277?v=2'
+FactoryGirl.create :user,
+  uid: 11504,
+  screen_name: 'ujihisa',
+  user_name: 'ujihisa',
+  avatar_url: 'https://avatars.githubusercontent.com/u/11504?v=2'
 
