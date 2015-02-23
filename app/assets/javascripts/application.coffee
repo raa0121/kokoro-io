@@ -1,7 +1,6 @@
-#= require opal
-#= require opal_ujs
-#= require native
-
+#= require jquery
+#= require jquery.turbolinks
+#= require jquery_ujs
 # require bootstrap/affix
 #= require bootstrap/alert
 # require bootstrap/button
@@ -18,12 +17,10 @@
 # require_tree .
 
 
-Element.expose :alert
-Element.expose :collapse
-Element.expose :dropdown
-Element.expose :tooltip
-Element.expose :popover
-Document.ready? do
-  Element.find('.popover-userinfo').popover({placement: 'auto', trigger: 'hover'}.to_n)
-end
+# https://github.com/kossnocorp/jquery.turbolinks
+
+$ ->
+  $('.popover-userinfo').popover
+    placement: 'auto'
+    trigger: 'hover'
 

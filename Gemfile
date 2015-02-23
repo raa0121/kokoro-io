@@ -12,6 +12,7 @@ gem 'omniauth-github'
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 2.4.0'
+gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.2.2'
@@ -47,7 +48,6 @@ gem 'grape'
 # gem 'faye-websocket'
 gem 'pusher'
 gem 'vuejs-rails'
-gem 'opal-rails'
 
 gem 'sqlite3'
 group :development do
