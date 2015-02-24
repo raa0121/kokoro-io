@@ -1,14 +1,4 @@
 class User < ActiveRecord::Base
-  # garage
-
-  include Garage::Representer
-  include Garage::Authorizable
-  property :id
-  property :provider
-  property :uid
-  property :user_name
-  property :screen_name
-  property :avatar_url
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
@@ -43,10 +33,12 @@ class User < ActiveRecord::Base
   has_many :maintainer_memberships, -> { maintainer }, as: :memberable, class_name: 'Membership'
   has_many :member_memberships,     -> { member     }, as: :memberable, class_name: 'Membership'
   has_many :invited_memberships,    -> { invited    }, as: :memberable, class_name: 'Membership'
+  has_many :chattable_memberships,  -> { administer || maintainer || member }, as: :memberable, class_name: 'Membership'
   has_many :administer_rooms, source: :room, through: :administer_memberships
   has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
   has_many :member_rooms,     source: :room, through: :member_memberships
   has_many :invited_rooms,    source: :room, through: :invited_memberships
+  has_many :chattable_rooms,  source: :room, through: :chattable_memberships
 
   delegate :private_rooms, to: :rooms
   delegate :public_rooms, to: :rooms

@@ -7,7 +7,7 @@ class Ability
       can [ :read, :create, :update, :destroy ], AccessToken, user: user, essential: false
       can [ :read ], AccessToken, user: user, essential: true
 
-      can :create, Message
+      can [ :create, :delete, :update ], Message, user: user
       can :create, Room
       can :manage, Bot, user: user
       can :join, Room do |room|

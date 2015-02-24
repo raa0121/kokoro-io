@@ -2,11 +2,22 @@
 
 $ ->
   new Vue
-    el: '#say_text'
+    el: '#chatapp'
     data:
-      msg: ''
+      rooms: []
+      active_room: ''
+      say_text: ''
     computed:
-      rows:
+      say_text_rows:
         get: ->
-          this.msg.split("\n").length + 1
+          this.say_text.split("\n").length
+    methods:
+      say: ->
+        text = this.say_text
+        # room = this.rooms[this.active_room]
+        if (!text)
+          return
+        console.log text
+        this.say_text = ''
+
 

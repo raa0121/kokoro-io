@@ -43,6 +43,7 @@ gem 'font-awesome-sass', '~> 4.2.0'
 
 ## API
 gem 'grape'
+gem 'hashie_rails'
 
 ## Faye
 # gem 'faye-websocket'
