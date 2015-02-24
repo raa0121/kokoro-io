@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  include Garage::Representer
+  include Garage::Authorizable
+
+  property :screen_name
+  property :user_name
+  property :uid
+
+  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
 
   def self.build_permissions(perms, other, target)
     perms.permits! :read
@@ -68,6 +76,10 @@ class User < ActiveRecord::Base
       essential_token.token = AccessToken.generate_token
       essential_token.essential = true
     end
+  end
+
+  def id
+    uid
   end
 
 end

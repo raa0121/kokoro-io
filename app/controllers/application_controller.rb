@@ -13,10 +13,6 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.where(id: session[:user_id]).first if session
   end
 
-  def current_resource_owner
-    @current_resource_owner ||= User.find(resource_owner_id) if resource_owner_id
-  end
-
   def authenticate_user
     unless current_user
       if params['origin'].blank?

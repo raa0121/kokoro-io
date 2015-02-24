@@ -32,7 +32,7 @@ gem 'cancancan', '~> 1.9'
 gem 'unicorn'
 gem 'foreman'
 
-gem 'doorkeeper', '~> 1.3.1'
+gem 'doorkeeper', '~> 1.4.1'
 gem 'garage', github: 'cookpad/garage'
 
 

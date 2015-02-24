@@ -30,3 +30,4 @@ Projectfile
 
 .vagrant
 .ruby-version
+.rbenv-vars

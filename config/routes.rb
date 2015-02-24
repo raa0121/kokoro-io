@@ -15,5 +15,8 @@ Rails.application.routes.draw do
 
   # API
   # mount Kokoro::API => '/'
+  use_doorkeeper do
+    controllers applications: 'oauth/applications'
+  end
 
 end

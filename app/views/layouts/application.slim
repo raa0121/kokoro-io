@@ -40,8 +40,8 @@ html[ lang="ja" ]
                     = icon :user, t('your_profile')
                   li= link_to edit_user_path(current_user) do
                     = icon :edit, t('edit_your_profile')
-                  li= link_to access_tokens_path do
-                    = icon :key, t('access_tokens')
+                  li= link_to oauth_applications_path do
+                    = icon :key, t('applications')
                   li.divider
                   li= link_to signout_path do
                     = icon :'sign-out', t('auth.sign_out')
@@ -51,5 +51,5 @@ html[ lang="ja" ]
           /form.navbar-form.navbar-right
           /  input.form-control[ type="text" placeholder="Search..." ]
     .container
-      = render partial: 'flash_messages', flash: flash
+      = render partial: '/application/flash_messages', flash: flash
       = yield
