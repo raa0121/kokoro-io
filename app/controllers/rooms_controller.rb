@@ -1,7 +1,6 @@
 class RoomsController < InheritedResources::Base
-
   defaults resource_class: Room.friendly
-  before_action :authenticate_user
+  before_action :authenticate_user, only: %i[ join leave create new update edit ]
 
   def create
     @room = current_user.rooms.create permitted_params[:room]

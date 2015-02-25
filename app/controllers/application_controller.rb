@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   load_and_authorize_resource
   before_action :detect_locale
 
-
   private
 
   def current_user

@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
 
 Garage.configure {}
-Garage::TokenScope.configure {}
+Garage::TokenScope.configure do
+  register :public, desc: 'acessing publicly available data' do
+    access :read, User
+    access :write, User
+    access :read, Room
+    access :write, Room
+  end
+end
 
 Doorkeeper.configure do
   orm :active_record

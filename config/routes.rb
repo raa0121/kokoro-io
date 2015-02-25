@@ -19,4 +19,11 @@ Rails.application.routes.draw do
     controllers applications: 'oauth/applications'
   end
 
+  namespace :api do
+    scope :v1 do
+      resources :users, only: %i[ index show update ]
+      resources :rooms, only: %i[ index show update ]
+    end
+  end
+
 end
