@@ -32,18 +32,14 @@ gem 'cancancan', '~> 1.9'
 gem 'unicorn'
 gem 'foreman'
 
+## API
 gem 'doorkeeper', '~> 1.4.1'
 gem 'garage', github: 'cookpad/garage'
-
 
 # Assets
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'rails-assets-bootswatch-scss', '~> 3.2.0.3'
 gem 'font-awesome-sass', '~> 4.2.0'
-
-## API
-gem 'grape'
-gem 'hashie_rails'
 
 ## Faye
 # gem 'faye-websocket'
