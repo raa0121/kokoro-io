@@ -23,6 +23,7 @@ build:
                 export RACK_ENV=test
                 export RAILS_ENV=test
                 export TZ=Azia/Tokyo
+                export DEFAULT_LOCALE=ja
                 export TOKEN_SALT=kanarisugoi
                 export PORT=5000
         - script:
