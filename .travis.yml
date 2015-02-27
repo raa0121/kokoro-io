@@ -1,14 +1,13 @@
 language: ruby
 rvm:
-  - 2.1.2
-services:
-  - redis-server
+  - 2.1.5
 env:
   - DB=postgresql
+  - RACK_ENV=test
+  - RAILS_ENV=test
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
+  - bundle exec rspec
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database kokoro_test' -U postgres
