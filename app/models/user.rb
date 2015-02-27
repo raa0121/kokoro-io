@@ -55,12 +55,12 @@ class User < ActiveRecord::Base
     "#{avatar_url}&s=#{size}"
   end
 
-  def self.uniq_user_name github_user_name
-    github_user_name.downcase!
-    return github_user_name if User.where(user_name: github_user_name).size == 0
+  def self.uniq_screen_name github_screen_name
+    github_screen_name.downcase!
+    return github_screen_name if User.where(screen_name: github_screen_name).size == 0
     loop.with_index(2) do |_, i|
-      user_name = "#{github_user_name}#{i}"
-      return user_name if User.where(user_name: user_name).size == 0
+      screen_name = "#{github_screen_name}#{i}"
+      return screen_name if User.where(screen_name: screen_name).size == 0
     end
   end
 
@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.screen_name = auth.info.name
-      user.user_name = uniq_user_name auth.info.nickname
+      user.user_name = uniq_screen_name auth.info.nickname
       user.avatar_url = auth.info.image
       essential_token = user.access_tokens.new
       essential_token.name = '-'

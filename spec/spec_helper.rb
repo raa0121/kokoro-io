@@ -1,3 +1,6 @@
+ENV['RACK_ENV']='test'
+ENV['RAILS_ENV']='test'
+
 RSpec.configure do |config|
   $VERBOSE = nil
 
