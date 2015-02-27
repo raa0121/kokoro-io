@@ -1,29 +1,22 @@
 box: wercker/rvm
-
 services:
   - wercker/postgresql
-
 build:
     steps:
         - rvm-use:
-              version: 2.1.2
-
+              version: 2.1.5
         - bundle-install
-
         - rails-database-yml
-
         - script:
             name: display database information
             code: |
                 cat ./config/database.yml
-
         - script:
             name: echo ruby information
             code: |
                 echo "ruby version $(ruby --version) running"
                 echo "from location $(which ruby)"
                 echo -p "gem list: $(gem list)"
-
         - script:
             name: setup environment variables
             code: |
@@ -31,8 +24,7 @@ build:
                 export RAILS_ENV=test
                 export TZ=Azia/Tokyo
                 export TOKEN_SALT=kanarisugoi
-                export PORT=3000
-
+                export PORT=5000
         - script:
                name: rspec
                code: bundle exec rspec
