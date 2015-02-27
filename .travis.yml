@@ -3,8 +3,6 @@ rvm:
   - 2.1.5
 env:
   - DB=postgresql
-  - RACK_ENV=test
-  - RAILS_ENV=test
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rspec
