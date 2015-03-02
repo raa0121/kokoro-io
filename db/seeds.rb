@@ -33,3 +33,14 @@ ujihisa = FactoryGirl.create :user,
 membership = thinca.private_rooms.first.memberships.create(memberable: supermomonga)
 membership.invited!
 membership.save
+
+rooms = supermomonga.rooms
+rooms.each do |r|
+  30.times do |i|
+    m = FactoryGirl.create :message,
+                           room: r,
+                           publisher: supermomonga,
+                           content: "Message#{i} from #{supermomonga.user_name} in #{r.room_name}",
+                           published_at: Time.now - (i * 10).minutes
+  end
+end
