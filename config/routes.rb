@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   # API
   # mount Kokoro::API => '/'
   use_doorkeeper do
-    controllers applications: 'oauth/applications'
+    controllers applications:   'oauth/applications'
+    controllers authorizations: 'oauth/authorizations'
   end
 
   namespace :api do

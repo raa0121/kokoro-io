@@ -1,27 +1,44 @@
 .page-header
-  h1
-    | Your applications
-p
-  = link_to 'New Application', new_oauth_application_path, class: 'btn btn-success'
-table.table.table-striped
-  thead
-    tr
-      th
-        | Name
-      th
-        | Callback URL
-      th
-      th
-  tbody
-    - @applications.each do |application|
-      |  <tr id="application_
-      = application.id
-      | "> 
-      td
-        = link_to application.name, [:oauth, application]
-      td
-        = application.redirect_uri
-      td
-        = link_to 'Edit', edit_oauth_application_path(application), class: 'btn btn-link'
-      td
-        = render 'delete_form', application: application
+  h1= t ".your_applications"
+
+.panel.panel-default
+  .panel-heading.clearfix
+    h2.panel-title.pull-left= t '.applications'
+    span.pull-right
+      = link_to t('.new_application'), new_oauth_application_path, class: 'btn btn-primary btn-sm'
+  table.table.table-striped.table-bordered.table-condensed
+    tbody
+      - current_user.applications.each do |application|
+        tr
+          td
+            = link_to application.name, [:oauth, application]
+          td
+            = application.redirect_uri
+
+.panel.panel-default
+  .panel-heading
+    h2.panel-title= t '.personal_access_tokens'
+  table.table.table-striped.table-bordered.table-condensed
+    tbody
+      - [].each do |application|
+        tr
+          td
+            = link_to application.name, [:oauth, application]
+          td
+            = application.redirect_uri
+
+
+.panel.panel-default
+  .panel-heading
+    h2.panel-title= t '.access_grants'
+  table.table.table-striped.table-bordered.table-condensed
+    tbody
+      - current_user.access_grants.each do |grant|
+        tr
+          td
+            = link_to grant.application.name, [:oauth, grant.application]
+          td
+            = form_tag oauth_authorized_application_path(grant.application) do
+              input[type="hidden" name="_method" value="delete"]
+              = submit_tag 'Revoke', onclick: "return confirm('Are you sure?')", class: 'btn btn-link'
+
