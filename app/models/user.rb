@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_many :bots
   has_many :applications, class_name: 'Doorkeeper::Application', as: :owner
   has_many :access_grants, class_name: 'Doorkeeper::AccessGrant', foreign_key: :resource_owner_id
+  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id
 
   # Has scoped rooms by each authority
   has_many :administer_memberships, -> { administer }, as: :memberable, class_name: 'Membership'
