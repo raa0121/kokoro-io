@@ -1,33 +1,31 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org'
 
 
-gem 'rails', '4.1.6'
-gem 'sass-rails', '~> 4.0.3'
-gem 'slim-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'omniauth'
-gem 'omniauth-github'
+gem 'rails', '4.2.4'
+gem 'sass-rails', '~> 5.0.4'
+gem 'slim-rails', '~> 3.0.1'
+gem 'uglifier', '>= 2.7.2'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'omniauth', '~> 1.2.2'
+gem 'omniauth-github', '~> 1.1.2'
 
-gem 'jquery-rails'
-gem 'turbolinks', '~> 2.4.0'
-gem 'jquery-turbolinks'
+gem 'jquery-rails', '~> 4.0.5'
+gem 'turbolinks', '~> 2.5.3'
+gem 'jquery-turbolinks', '~> 2.1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.2.2'
+gem 'jbuilder', '~> 2.3.2'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.1',          group: :doc
 
-gem 'ransack', '~> 1.5.1'
-gem 'squeel', '~> 1.2.2'
+gem 'squeel', '~> 1.2.3'
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
-gem 'friendly_id', '~> 5.0.4'
+gem 'friendly_id', '~> 5.1.0'
 
-gem 'cancancan', '~> 1.9'
+gem 'cancancan', '~> 1.13.1'
 
 gem 'unicorn'
 gem 'foreman'
@@ -35,9 +33,11 @@ gem 'foreman'
 ## API
 
 # Assets
-gem 'bootstrap-sass', '~> 3.2.0.2'
-gem 'rails-assets-bootswatch-scss', '~> 3.2.0.3'
-gem 'font-awesome-sass', '~> 4.2.0'
+gem 'bootstrap-sass', '~> 3.3.5.1'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootswatch-scss', '~> 3.2.0.3'
+end
+gem 'font-awesome-sass', '~> 4.4.0'
 
 ## Faye
 # gem 'faye-websocket'
