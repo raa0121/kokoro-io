@@ -1,23 +1,4 @@
 class User < ActiveRecord::Base
-  include Garage::Representer
-  include Garage::Authorizable
-
-  property :screen_name
-  property :user_name
-  property :uid
-
-  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
-
-  def self.build_permissions(perms, other, target)
-    perms.permits! :read
-  end
-
-  def build_permissions(perms, other)
-    perms.permits! :read
-    # perms.permits! :write
-  end
-
-  # /garage
 
   extend FriendlyId
   friendly_id :screen_name
@@ -35,9 +16,6 @@ class User < ActiveRecord::Base
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
   has_many :bots
-  has_many :applications, class_name: 'Doorkeeper::Application', as: :owner
-  has_many :access_grants, class_name: 'Doorkeeper::AccessGrant', foreign_key: :resource_owner_id
-  has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id
 
   # Has scoped rooms by each authority
   has_many :administer_memberships, -> { administer }, as: :memberable, class_name: 'Membership'

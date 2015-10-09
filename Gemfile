@@ -33,8 +33,6 @@ gem 'unicorn'
 gem 'foreman'
 
 ## API
-gem 'doorkeeper', '~> 1.4.1'
-gem 'garage', github: 'cookpad/garage'
 
 # Assets
 gem 'bootstrap-sass', '~> 3.2.0.2'

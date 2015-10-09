@@ -27,8 +27,8 @@
             = icon :user, t('your_profile')
           li= link_to edit_user_path(current_user) do
             = icon :edit, t('edit_your_profile')
-          li= link_to oauth_applications_path do
-            = icon :key, t('applications')
+          li= link_to access_tokens_path do
+            = icon :key, t('access_tokens')
           li.divider
           li= link_to signout_path do
             = icon :'sign-out', t('auth.sign_out')

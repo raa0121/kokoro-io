@@ -14,17 +14,5 @@ Rails.application.routes.draw do
   get '/sign_out' => 'sessions#destroy', as: :signout
 
   # API
-  # mount Kokoro::API => '/'
-  use_doorkeeper do
-    controllers applications:   'oauth/applications'
-    controllers authorizations: 'oauth/authorizations'
-  end
-
-  namespace :api do
-    scope :v1 do
-      resources :users, only: %i[ index show update ]
-      resources :rooms, only: %i[ index show update ]
-    end
-  end
 
 end

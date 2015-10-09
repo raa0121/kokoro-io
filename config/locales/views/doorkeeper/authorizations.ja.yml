@@ -1,6 +1,0 @@
-ja:
-  doorkeeper:
-    authorizations:
-      new:
-        deny: キャンセル
-        authorize: 許可する
