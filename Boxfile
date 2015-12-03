@@ -1,0 +1,3 @@
+build:
+  webserver: 'unicorn'
+  ruby_runtime: ruby-2.2
