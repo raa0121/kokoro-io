@@ -25,7 +25,8 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'friendly_id', '~> 5.1.0'
 
-gem 'cancancan', '~> 1.13.1'
+# gem 'cancancan', '~> 1.13.1'
+gem 'pundit'
 
 gem 'unicorn'
 gem 'foreman'
