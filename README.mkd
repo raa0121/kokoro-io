@@ -12,6 +12,10 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 3. `bundle exec foreman start`
 4. Access to `http://lvh.me:3000` with your web browser.
 
+### How to run with docker
+
+(TBD)
+
 ### How to run in Vagrant virtual machine
 
 Ensure you installed `Vagrant`.
@@ -66,7 +70,7 @@ RACK_ENV=development
     - [X] Create bot
     - [ ] Delete bot
     - [X] Edit bot
-2. [ ] Implement API including realtime-messaging with Grape
+2. [ ] Implement API including realtime-messaging with Grape and Swagger
 3. [X] Server provisioning
   - [X] Itamae recipe
 4. [X] Deploy
