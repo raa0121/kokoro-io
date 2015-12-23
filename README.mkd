@@ -21,7 +21,7 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 Ensure you installed `Vagrant`.
 
 1. `vagrant up`
-2. `bundle exec itamae ssh --vagrant -h kokoro -j ./itamae/nodes/vagrant.json ./itamae/recipes/kokoro.rb`
+2. `bundle exec itamae ssh --vagrant -h kokoro -j ./itamae/nodes/vagrant.json ./itamae/recipes/provision.rb`
 3. `bundle exec mina setup user=deploy`
 4. `vagrant ssh` and edit `~/kokoro-io/shared/config/database.yml` and `~/kokoro-io/shared/.rbenv-var`
 6. `bundle exec mina deploy user=deploy`
