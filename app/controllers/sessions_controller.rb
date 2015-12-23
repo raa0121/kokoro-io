@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  skip_load_and_authorize_resource
 
   def create
     user = User.from_omniauth request.env['omniauth.auth']
