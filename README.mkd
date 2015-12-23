@@ -10,7 +10,7 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 1. Configure `.env`. Sample file is `.env.sample`.
 2. `bundle install`
 3. `bundle exec foreman start`
-4. Access to `http://lvh.me:3000` with your web browser.
+4. Access to `http://lvh.me:5000` with your web browser.
 
 ### How to run with docker
 
