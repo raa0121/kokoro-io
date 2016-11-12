@@ -15,7 +15,10 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 ### How to run with docker
 
-(TBD)
+1. `docker build -t kokoro-io .`
+2. ``docker run -p 5000:5000 -v `pwd`:/app -ti kokoro-io bundle exec foreman start``
+3. Add host name to `/etc/hosts` against `docker-machine ip`. (e.g. `192.168.99.100 lvh.me`)
+4. Access to `http://lvh.me:5000` with your web browser.
 
 ### How to run in Vagrant virtual machine
 

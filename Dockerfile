@@ -31,6 +31,7 @@ RUN mkdir /app
 WORKDIR /app
 ADD Gemfile /app/
 RUN bundle install
-ADD . /app
 
-ENTRYPOINT ["bash", "-l", "-c"]
+# RUN bundle exec foreman run rake db:setup
+
+# CMD ["bundle", "exec", "foreman", "start"]
