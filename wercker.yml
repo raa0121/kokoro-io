@@ -1,6 +1,8 @@
 box: ruby:2.3
 services:
-  - wercker/postgresql
+  - id: postgresql
+    env:
+      POSTGRES_PASSWORD: ourlittlesecret
 build:
     steps:
         - bundle-install
