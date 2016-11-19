@@ -1,8 +1,8 @@
 box: ruby:2.3
 services:
   - id: postgres
-  env:
-    POSTGRES_ENV_PASSWORD: kokoroci
+    env:
+      POSTGRES_PASSWORD: kokoroioci
 build:
   steps:
     - bundle-install
