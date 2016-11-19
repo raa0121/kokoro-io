@@ -6,7 +6,8 @@ services:
 build:
   steps:
     - bundle-install
-    - rails-database-yml
+    - rails-database-yml:
+      service: postgresql-docker
     - script:
       name: display database information
       code: |
@@ -17,6 +18,9 @@ build:
         echo "ruby version $(ruby --version) running"
         echo "from location $(which ruby)"
         echo -p "gem list: $(gem list)"
+    - script:
+      name: set up db
+      code: RAILS_ENV=test bundle exec rake db:schema:load
     - script:
       name: setup environment variables
       code: |
