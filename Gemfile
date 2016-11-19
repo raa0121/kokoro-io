@@ -69,7 +69,7 @@ group :test do
   gem 'factory_girl_rails'
 end
 
-group :production, :staging do
+group :production, :staging, :test do
   gem 'pg'
 end
 

@@ -7,8 +7,7 @@ class Bot < ActiveRecord::Base
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
-  validates :user, presence: true
-  validates :bot_name, :screen_name, :access_token, :status, presence: true
+  validates :user, :bot_name, :screen_name, :access_token, :status, presence: true
   validates :bot_name, friendly_id: true
   validates :bot_name, length: { maximum: 255 }
   validates :bot_name, uniqueness: true
