@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224161845) do
+ActiveRecord::Schema.define(version: 20161119034947) do
 
-  create_table "access_tokens", force: true do |t|
+  create_table "access_tokens", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
     t.string   "token"
@@ -24,19 +24,19 @@ ActiveRecord::Schema.define(version: 20150224161845) do
 
   add_index "access_tokens", ["user_id"], name: "index_access_tokens_on_user_id"
 
-  create_table "bots", force: true do |t|
-    t.integer  "user_id"
-    t.string   "access_token"
-    t.string   "bot_name"
-    t.string   "screen_name"
-    t.integer  "status"
+  create_table "bots", force: :cascade do |t|
+    t.integer  "user_id",      null: false
+    t.string   "access_token", null: false
+    t.string   "bot_name",     null: false
+    t.string   "screen_name",  null: false
+    t.integer  "status",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "bots", ["user_id"], name: "index_bots_on_user_id"
 
-  create_table "memberships", force: true do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer  "room_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150224161845) do
   add_index "memberships", ["memberable_id"], name: "index_memberships_on_memberable_id"
   add_index "memberships", ["room_id"], name: "index_memberships_on_room_id"
 
-  create_table "messages", force: true do |t|
+  create_table "messages", force: :cascade do |t|
     t.integer  "room_id"
     t.integer  "publisher_id"
     t.string   "publisher_type"
@@ -59,10 +59,10 @@ ActiveRecord::Schema.define(version: 20150224161845) do
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["publisher_id", "publisher_type"], name: "index_messages_on_publisher_id_and_publisher_type"
+  add_index "messages", ["publisher_type", "publisher_id"], name: "index_messages_on_publisher_type_and_publisher_id"
   add_index "messages", ["room_id"], name: "index_messages_on_room_id"
 
-  create_table "notifications", force: true do |t|
+  create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "message"
@@ -75,49 +75,7 @@ ActiveRecord::Schema.define(version: 20150224161845) do
 
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
-  create_table "oauth_access_grants", force: true do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
-    t.datetime "revoked_at"
-    t.string   "scopes"
-  end
-
-  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true
-
-  create_table "oauth_access_tokens", force: true do |t|
-    t.integer  "resource_owner_id"
-    t.integer  "application_id"
-    t.string   "token",             null: false
-    t.string   "refresh_token"
-    t.integer  "expires_in"
-    t.datetime "revoked_at"
-    t.datetime "created_at",        null: false
-    t.string   "scopes"
-  end
-
-  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
-  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
-  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true
-
-  create_table "oauth_applications", force: true do |t|
-    t.string   "name",         null: false
-    t.string   "uid",          null: false
-    t.string   "secret",       null: false
-    t.text     "redirect_uri", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-  end
-
-  add_index "oauth_applications", ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
-  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true
-
-  create_table "rooms", force: true do |t|
+  create_table "rooms", force: :cascade do |t|
     t.string   "room_name"
     t.string   "screen_name"
     t.boolean  "private"
@@ -126,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150224161845) do
     t.text     "description"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
     t.string   "screen_name"

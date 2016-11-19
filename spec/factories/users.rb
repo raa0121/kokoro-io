@@ -13,5 +13,4 @@ FactoryGirl.define do
       create :access_token, user: user, essential: true
     end
   end
-
 end
