@@ -18,7 +18,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 
-tmp/*
+tmp
 !tmp/cache/
 !tmp/sessions/
 !tmp/sockets/

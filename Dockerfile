@@ -17,24 +17,21 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     libsqlite3-dev \
     \
-    libpq-dev
-
-# Install ruby-build
-RUN git clone https://github.com/sstephenson/ruby-build.git .ruby-build && \
-    .ruby-build/install.sh && \
-    rm -rf .ruby-build && \
-    ruby-build 2.1.5 /usr/local
+    libpq-dev \
+    \
+    ruby2.3 \
+    ruby2.3-dev
 
 # Install bundler
 RUN gem update --system && \
-    gem install bundler --no-rdoc --no-ri
+    gem install bundler
 
 # Add application
 RUN mkdir /app
 WORKDIR /app
-ADD ../Gemfile /app/Gemfile
+ADD Gemfile /app/
 RUN bundle install
-ADD ../ /app
 
-ENTRYPOINT ["bash", "-l", "-c"]
+# RUN bundle exec foreman run rake db:setup
 
+# CMD ["bundle", "exec", "foreman", "start"]

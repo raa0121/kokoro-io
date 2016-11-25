@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-
+gem 'therubyracer'
+gem 'libv8', '3.16.14.15'
 gem 'rails', '4.2.4'
 gem 'sass-rails', '~> 5.0.4'
 gem 'slim-rails', '~> 3.0.1'
@@ -16,6 +17,7 @@ gem 'jquery-turbolinks', '~> 2.1.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.3.2'
 # bundle exec rake doc:rails generates the API under doc/api.
+gem 'rake', '10.4.2'
 gem 'sdoc', '~> 0.4.1',          group: :doc
 
 gem 'squeel', '~> 1.2.3'
@@ -67,7 +69,7 @@ group :test do
   gem 'factory_girl_rails'
 end
 
-group :production, :staging do
+group :production, :staging, :test do
   gem 'pg'
 end
 

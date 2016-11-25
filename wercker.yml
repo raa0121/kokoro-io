@@ -1,12 +1,13 @@
-box: wercker/rvm
+box: ruby:2.3
 services:
-  - wercker/postgresql
+    - id: postgres
+      env:
+          POSTGRES_PASSWORD: kokoroioci
 build:
     steps:
-        - rvm-use:
-              version: 2.1.5
         - bundle-install
-        - rails-database-yml
+        - rails-database-yml:
+            service: postgresql-docker
         - script:
             name: display database information
             code: |
@@ -18,6 +19,9 @@ build:
                 echo "from location $(which ruby)"
                 echo -p "gem list: $(gem list)"
         - script:
+            name: set up db
+            code: RAILS_ENV=test bundle exec rake db:schema:load
+        - script:
             name: setup environment variables
             code: |
                 export RACK_ENV=test
@@ -27,5 +31,5 @@ build:
                 export TOKEN_SALT=kanarisugoi
                 export PORT=5000
         - script:
-               name: rspec
-               code: bundle exec rspec
+            name: rspec
+            code: bundle exec rspec
