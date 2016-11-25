@@ -1,12 +1,10 @@
-box: wercker/rvm
+box: ruby:2.3
 services:
     - id: postgres
       env:
           POSTGRES_PASSWORD: kokoroioci
 build:
     steps:
-        - use-rvm:
-            version: 2.3.1
         - bundle-install
         - rails-database-yml:
             service: postgresql-docker
