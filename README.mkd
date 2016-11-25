@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/supermomonga/kokoro-io.svg?branch=master)](https://travis-ci.org/supermomonga/kokoro-io)
+[![wercker status](https://app.wercker.com/status/7983d098360820d4bfb7df6f88161b04/s/master "wercker status")](https://app.wercker.com/project/byKey/7983d098360820d4bfb7df6f88161b04)
 
 ## kokoro.io
 
