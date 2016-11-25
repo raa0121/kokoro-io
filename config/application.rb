@@ -28,6 +28,6 @@ module KokoroIo
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
-
+    config.app_generators.scafoold_controller = :scaffold_controller
   end
 end

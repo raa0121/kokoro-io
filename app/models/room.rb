@@ -27,7 +27,6 @@ class Room < ActiveRecord::Base
       { through: :memberships, source: :user, class_name: 'User' }
   end
 
-
   accepts_nested_attributes_for :users
 
   scope :public_rooms, -> { where private: false }
