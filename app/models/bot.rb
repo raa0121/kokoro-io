@@ -9,10 +9,10 @@ class Bot < ActiveRecord::Base
 
   validates :user, :bot_name, :screen_name, :access_token, :status, presence: true
   validates :bot_name, friendly_id: true
-  validates :bot_name, length: { in: 1..255 }
+  validates :bot_name, length: { maximum: 255 }
   validates :bot_name, uniqueness: true
   validates :access_token, uniqueness: true
-  validates :screen_name, length: { in: 2..64 }
+  validates :screen_name, length: { maximum: 64 }
 
   enum status: {
     enabled: 10,

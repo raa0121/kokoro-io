@@ -1,0 +1,11 @@
+stan:
+  provider: github
+  uid: 1
+  screen_name: stan
+  user_name: Stanley Marsh
+
+kyle:
+  provider: github
+  uid: 2
+  screen_name: kyle
+  user_name: Kyle Broflovski
