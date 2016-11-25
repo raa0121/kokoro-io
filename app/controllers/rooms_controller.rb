@@ -1,5 +1,4 @@
-class RoomsController < InheritedResources::Base
-  defaults resource_class: Room.friendly
+class RoomsController < ApplicationController
   before_action :authenticate_user, only: %i[ join leave create new update edit ]
 
   def create
@@ -11,8 +10,16 @@ class RoomsController < InheritedResources::Base
     end
   end
 
+  def show
+    @room = Room.find_by(params[:id])
+  end
+
   def index
     @rooms = Room.public_rooms
+  end
+
+  def destroy
+    @room = current_user.rooms.find_by permitted_params[:room]
   end
 
   def join

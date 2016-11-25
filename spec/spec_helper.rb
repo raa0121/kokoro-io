@@ -1,3 +1,5 @@
+require 'database_cleaner'
+
 ENV['RACK_ENV']='test'
 ENV['RAILS_ENV']='test'
 
@@ -9,8 +11,8 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner[:active_record].strategy = :transaction
+    DatabaseCleaner[:active_record].clean_with :transaction
   end
 
   config.before(:each) do
