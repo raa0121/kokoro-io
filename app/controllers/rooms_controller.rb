@@ -2,16 +2,16 @@ class RoomsController < ApplicationController
   before_action :authenticate_user, only: %i[ join leave create new update edit ]
 
   def create
-    @room = current_user.rooms.create permitted_params[:room]
+    @room = current_user.rooms.create(permitted_params[:room])
     membership = @room.memberships.first
     membership.administer! if membership
-    create! do |success, failure|
-      success.html { redirect_to room_path(@room), notice: t('rooms.created') }
+    if @room
+      redirect_to room_path(@room), notice: t('rooms.created')
     end
   end
 
   def show
-    @room = Room.find_by(params[:id])
+    @room = Room.where({ id: params[:id] })
   end
 
   def index

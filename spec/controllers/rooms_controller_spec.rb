@@ -20,6 +20,7 @@ RSpec.describe RoomsController, :type => :controller do
   }
 
   let(:rooms) { FactoryGirl.create_list(:room, 10, :public) }
+  let(:current_user) { FactoryGirl.create(:user) }
 
   describe 'GET index' do
     it 'assigns @rooms' do
@@ -38,7 +39,21 @@ RSpec.describe RoomsController, :type => :controller do
 
   describe 'POST create' do
     it 'is occured an error with not login user' do
-      post :create
+      expect do
+        post :create
+      end.to change(Room, :count).by(0)
+      expect(response.status).to eq(302)
+    end
+    it 'creates new room' do
+      session[:user_id] = current_user.id
+      expect do
+        post(:create, room: {
+          screen_name: 'test room',
+          room_name: 'TEST ROOM',
+          description: 'yo',
+          private: false
+        })
+      end.to change(Room, :count).by(1)
       expect(response.status).to eq(302)
     end
   end

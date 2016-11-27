@@ -33,3 +33,6 @@ build:
         - script:
             name: rspec
             code: bundle exec rspec
+    - after-steps:
+        - 1syo/gitter-notify@0.0.1:
+            token: 8d46acc7ca936bd2e65146eef06d43115a088b29
