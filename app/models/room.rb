@@ -1,5 +1,4 @@
 class Room < ActiveRecord::Base
-
   extend FriendlyId
   friendly_id :screen_name
 

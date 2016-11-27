@@ -38,23 +38,35 @@ RSpec.describe RoomsController, :type => :controller do
   end
 
   describe 'POST create' do
-    it 'is occured an error with not login user' do
-      expect do
-        post :create
-      end.to change(Room, :count).by(0)
-      expect(response.status).to eq(302)
+    let(:param) {{
+      room: {
+        screen_name: 'test room',
+        room_name: 'TEST ROOM',
+        description: 'yo',
+        private: false
+      }
+    }}
+    context 'failure with not login user' do
+      it 'display error message' do
+        expect do
+          post :create
+        end.to change(Room, :count).by(0)
+        expect(response.status).to eq(302)
+      end
     end
-    it 'creates new room' do
-      session[:user_id] = current_user.id
-      expect do
-        post(:create, room: {
-          screen_name: 'test room',
-          room_name: 'TEST ROOM',
-          description: 'yo',
-          private: false
-        })
-      end.to change(Room, :count).by(1)
-      expect(response.status).to eq(302)
+    context 'success with login user' do
+      it 'creates new room' do
+        session[:user_id] = current_user.id
+        expect do
+          post(:create, param)
+        end.to change(Room, :count).by(1)
+      end
+      it 'redirects to show page' do
+        session[:user_id] = current_user.id
+        post(:create, param)
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(room_path(Room.last.friendly_id))
+      end
     end
   end
 end

@@ -5,8 +5,10 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.create(permitted_params[:room])
     membership = @room.memberships.first
     membership.administer! if membership
-    if @room
-      redirect_to room_path(@room), notice: t('rooms.created')
+    if @room.persisted?
+      redirect_to(room_path(@room), notice: t('rooms.created'))
+    else
+      redirect_to rooms_path
     end
   end
 
