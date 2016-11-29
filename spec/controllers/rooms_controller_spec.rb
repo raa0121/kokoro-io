@@ -47,22 +47,26 @@ RSpec.describe RoomsController, :type => :controller do
       }
     }}
     context 'failure with not login user' do
-      it 'display error message' do
+      it 'renders index page' do
+        pending('error handling')
         expect do
           post :create
         end.to change(Room, :count).by(0)
-        expect(response.status).to eq(302)
+        expect(response).to render_template('rooms/index')
       end
     end
     context 'success with login user' do
       it 'creates new room' do
-        session[:user_id] = current_user.id
+        login(current_user)
         expect do
           post(:create, param)
         end.to change(Room, :count).by(1)
       end
+      it 'creates new membership' do
+        login(current_user)
+      end
       it 'redirects to show page' do
-        session[:user_id] = current_user.id
+        login(current_user)
         post(:create, param)
         expect(response.status).to eq(302)
         expect(response).to redirect_to(room_path(Room.last.friendly_id))

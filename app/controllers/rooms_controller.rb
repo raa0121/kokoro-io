@@ -5,11 +5,15 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.create(permitted_params[:room])
     membership = @room.memberships.first
     membership.administer! if membership
+
+    # FIXME: error handling
     if @room.persisted?
       redirect_to(room_path(@room), notice: t('rooms.created'))
-    else
-      redirect_to rooms_path
     end
+  end
+
+  def new
+    @room = Room.new
   end
 
   def show
@@ -53,5 +57,4 @@ class RoomsController < ApplicationController
   def permitted_params
     params.permit(room: [:screen_name, :room_name, :description, :private])
   end
-
 end
