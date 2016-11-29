@@ -37,6 +37,14 @@ RSpec.describe RoomsController, :type => :controller do
     end
   end
 
+  describe 'Get new' do
+    it 'returns @rooms' do
+      login(current_user)
+      get :new
+      expect(assigns(:room).attributes).to eq(Room.new.attributes)
+    end
+  end
+
   describe 'POST create' do
     let(:param) {{
       room: {
@@ -64,6 +72,14 @@ RSpec.describe RoomsController, :type => :controller do
       end
       it 'creates new membership' do
         login(current_user)
+        expect do
+          post(:create, param)
+        end.to change(Membership, :count).by(1)
+        membership = Membership.last
+        expect(membership.room_id).to eq(Room.last.id)
+        expect(membership.authority).to eq('administer')
+        expect(membership.memberable_id).to eq(current_user.id)
+        expect(membership.memberable_type).to eq('User')
       end
       it 'redirects to show page' do
         login(current_user)
