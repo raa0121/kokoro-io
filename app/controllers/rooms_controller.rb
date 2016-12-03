@@ -2,16 +2,22 @@ class RoomsController < ApplicationController
   before_action :authenticate_user, only: %i[ join leave create new update edit ]
 
   def create
-    @room = current_user.rooms.create permitted_params[:room]
+    @room = current_user.rooms.create(permitted_params[:room])
     membership = @room.memberships.first
     membership.administer! if membership
-    create! do |success, failure|
-      success.html { redirect_to room_path(@room), notice: t('rooms.created') }
+
+    # FIXME: error handling
+    if @room.persisted?
+      redirect_to(room_path(@room), notice: t('rooms.created'))
     end
   end
 
+  def new
+    @room = Room.new
+  end
+
   def show
-    @room = Room.find_by(params[:id])
+    @room = Room.where({ id: params[:id] })
   end
 
   def index
@@ -19,7 +25,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room = current_user.rooms.find_by permitted_params[:room]
+    @room = current_user.rooms.where('id=?', permitted_params[:room])
   end
 
   def join
@@ -51,5 +57,4 @@ class RoomsController < ApplicationController
   def permitted_params
     params.permit(room: [:screen_name, :room_name, :description, :private])
   end
-
 end

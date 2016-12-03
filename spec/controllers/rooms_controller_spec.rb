@@ -20,15 +20,16 @@ RSpec.describe RoomsController, :type => :controller do
   }
 
   let(:rooms) { FactoryGirl.create_list(:room, 10, :public) }
+  let(:current_user) { FactoryGirl.create(:user) }
 
-  describe 'GET index' do
+  describe 'GET #index' do
     it 'assigns @rooms' do
       get :index
       expect(assigns(:rooms)).to eq(rooms)
     end
     it 'renders the index template' do
       get :index
-      expect(response).to render_template('index')
+      expect(response).to render_template('rooms/index')
     end
     it 'has a 200 status code' do
       get :index
@@ -36,10 +37,69 @@ RSpec.describe RoomsController, :type => :controller do
     end
   end
 
-  describe 'POST create' do
-    it 'is occured an error with not login user' do
-      post :create
-      expect(response.status).to eq(302)
+  describe 'Get #new' do
+    context 'success with login user' do
+      it 'returns a brand new room instance' do
+        login(current_user)
+        get :new
+        expect(assigns(:room).attributes).to eq(Room.new.attributes)
+      end
+      it 'renders the new template' do
+        login(current_user)
+        get :new
+        expect(response).to render_template('rooms/new')
+      end
+    end
+    context 'failure with not login user' do
+      it 'redirects to login page' do
+        get :new
+        expect(response.status).to eq(302)
+      end
+    end
+  end
+
+  describe 'POST #create' do
+    let(:param) {{
+      room: {
+        screen_name: 'test room',
+        room_name: 'TEST ROOM',
+        description: 'yo',
+        private: false
+      }
+    }}
+    context 'failure with not login user' do
+      it 'renders index page' do
+        pending('error handling')
+        expect do
+          post :create
+        end.to change(Room, :count).by(0)
+        expect(response).to render_template('rooms/index')
+      end
+    end
+    context 'success with login user' do
+      it 'creates new room' do
+        login(current_user)
+        expect do
+          post(:create, param)
+        end.to change(Room, :count).by(1)
+      end
+      it 'creates new membership' do
+        login(current_user)
+        expect do
+          post :create, param
+        end.to change(Membership, :count).by(1)
+        membership = Membership.last
+        expect(membership.room_id).to eq(Room.last.id)
+        expect(membership.authority).to eq('administer')
+        expect(membership.memberable_id).to eq(current_user.id)
+        expect(membership.memberable_type).to eq('User')
+      end
+      it 'redirects to show page' do
+        login(current_user)
+        post(:create, param)
+        expect(response.status).to eq(302)
+        expect(response).to redirect_to(room_path(Room.last.friendly_id))
+      end
     end
   end
 end
