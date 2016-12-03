@@ -30,7 +30,7 @@ RUN gem update --system && \
 RUN mkdir /app
 WORKDIR /app
 ADD Gemfile /app/
-RUN bundle install
+RUN bundle install --path ~/vendor/bundle
 
 # RUN bundle exec foreman run rake db:setup
 
