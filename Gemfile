@@ -25,7 +25,7 @@ gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'devise'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id', github: 'norman/friendly_id'
 
 # gem 'cancancan', '~> 1.13.1'
 gem 'pundit'
