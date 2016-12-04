@@ -1,4 +1,4 @@
-class Bot < ActiveRecord::Base
+class Bot < ApplicationRecord
   extend FriendlyId
   friendly_id :bot_name, use: [ :finders ]
 

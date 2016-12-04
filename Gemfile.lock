@@ -247,6 +247,10 @@ GEM
     rails-assets-bootswatch-scss (3.2.0.3)
       rails-assets-bootstrap-sass-official (~> 3.2.0)
     rails-assets-jquery (3.1.1)
+    rails-controller-testing (1.0.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.1)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6.0)
@@ -340,8 +344,9 @@ GEM
     thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    turbolinks (2.5.3)
-      coffee-rails
+    turbolinks (5.0.1)
+      turbolinks-source (~> 5)
+    turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.4)
@@ -378,7 +383,7 @@ DEPENDENCIES
   itamae
   jbuilder (~> 2.0)
   jquery-rails
-  jquery-turbolinks (~> 2.1.0)
+  jquery-turbolinks
   libv8 (= 3.16.14.15)
   mina
   mina-unicorn
@@ -389,6 +394,7 @@ DEPENDENCIES
   pusher
   rails (~> 5.0.0.1)
   rails-assets-bootswatch-scss (~> 3.2.0.3)!
+  rails-controller-testing
   rake (= 10.4.2)
   rspec-rails
   sass-rails (~> 5.0.4)
@@ -399,7 +405,7 @@ DEPENDENCIES
   spring
   sqlite3
   therubyracer
-  turbolinks (~> 2.5.3)
+  turbolinks
   uglifier (>= 2.7.2)
   unicorn
   vuejs-rails

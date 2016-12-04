@@ -11,8 +11,8 @@ gem 'omniauth', '~> 1.2'
 gem 'omniauth-github', '~> 1.1'
 
 gem 'jquery-rails'
-gem 'turbolinks', '~> 2.5.3'
-gem 'jquery-turbolinks', '~> 2.1.0'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -63,6 +63,7 @@ group :provisioning do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'capybara'

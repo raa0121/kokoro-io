@@ -1,4 +1,4 @@
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
 
   belongs_to :room
   belongs_to :publisher, polymorphic: true

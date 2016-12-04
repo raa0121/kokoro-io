@@ -1,7 +1,7 @@
 require 'securerandom'
 require 'digest/sha2'
 
-class AccessToken < ActiveRecord::Base
+class AccessToken < ApplicationRecord
 
   belongs_to :user
   delegate :screen_name, to: :user, prefix: true
