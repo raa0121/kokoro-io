@@ -1,6 +1,6 @@
 class Room < ApplicationRecord
   extend FriendlyId
-  friendly_id :screen_name, use: :slugged
+  friendly_id :screen_name
 
   validates :screen_name, :screen_name, :description, presence: true
   validates :screen_name, friendly_id: true

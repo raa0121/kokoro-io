@@ -22,7 +22,7 @@ RSpec.describe BotsController, :type => :controller do
   describe "GET index" do
     it "assigns all bots as @bots" do
       bot = Bot.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, pramas: {}, session: valid_session
       expect(assigns(:bots)).to eq([bot])
     end
   end
@@ -30,14 +30,14 @@ RSpec.describe BotsController, :type => :controller do
   describe "GET show" do
     it "assigns the requested bot as @bot" do
       bot = Bot.create! valid_attributes
-      get :show, {:id => bot.to_param}, valid_session
+      get :show, params: {:id => bot.to_param}, session: valid_session
       expect(assigns(:bot)).to eq(bot)
     end
   end
 
   describe "GET new" do
     it "assigns a new bot as @bot" do
-      get :new, {}, valid_session
+      get :new, params: {}, session: valid_session
       expect(assigns(:bot)).to be_a_new(Bot)
     end
   end
@@ -45,7 +45,7 @@ RSpec.describe BotsController, :type => :controller do
   describe "GET edit" do
     it "assigns the requested bot as @bot" do
       bot = Bot.create! valid_attributes
-      get :edit, {:id => bot.to_param}, valid_session
+      get :edit, params: {:id => bot.to_param}, session: valid_session
       expect(assigns(:bot)).to eq(bot)
     end
   end
@@ -54,30 +54,30 @@ RSpec.describe BotsController, :type => :controller do
     describe "with valid params" do
       it "creates a new Bot" do
         expect {
-          post :create, {:bot => valid_attributes}, valid_session
+          post :create, params: {:bot => valid_attributes}, session: valid_session
         }.to change(Bot, :count).by(1)
       end
 
       it "assigns a newly created bot as @bot" do
-        post :create, {:bot => valid_attributes}, valid_session
+        post :create, params: {:bot => valid_attributes}, session: valid_session
         expect(assigns(:bot)).to be_a(Bot)
         expect(assigns(:bot)).to be_persisted
       end
 
       it "redirects to the created bot" do
-        post :create, {:bot => valid_attributes}, valid_session
+        post :create, params: {:bot => valid_attributes}, session: valid_session
         expect(response).to redirect_to(Bot.last)
       end
     end
 
     describe "with invalid params" do
       it "assigns a newly created but unsaved bot as @bot" do
-        post :create, {:bot => invalid_attributes}, valid_session
+        post :create, params: {:bot => invalid_attributes}, session: valid_session
         expect(assigns(:bot)).to be_a_new(Bot)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:bot => invalid_attributes}, valid_session
+        post :create, params: {:bot => invalid_attributes}, session: valid_session
         expect(response).to render_template("new")
       end
     end
@@ -91,20 +91,20 @@ RSpec.describe BotsController, :type => :controller do
 
       it "updates the requested bot" do
         bot = Bot.create! valid_attributes
-        put :update, {:id => bot.to_param, :bot => new_attributes}, valid_session
+        put :update, params: {:id => bot.to_param, :bot => new_attributes}, session: valid_session
         bot.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested bot as @bot" do
         bot = Bot.create! valid_attributes
-        put :update, {:id => bot.to_param, :bot => valid_attributes}, valid_session
+        put :update, params: {:id => bot.to_param, :bot => valid_attributes}, session: valid_session
         expect(assigns(:bot)).to eq(bot)
       end
 
       it "redirects to the bot" do
         bot = Bot.create! valid_attributes
-        put :update, {:id => bot.to_param, :bot => valid_attributes}, valid_session
+        put :update, params: {:id => bot.to_param, :bot => valid_attributes}, session: valid_session
         expect(response).to redirect_to(bot)
       end
     end
@@ -112,13 +112,13 @@ RSpec.describe BotsController, :type => :controller do
     describe "with invalid params" do
       it "assigns the bot as @bot" do
         bot = Bot.create! valid_attributes
-        put :update, {:id => bot.to_param, :bot => invalid_attributes}, valid_session
+        put :update, params: {:id => bot.to_param, :bot => invalid_attributes}, session: valid_session
         expect(assigns(:bot)).to eq(bot)
       end
 
       it "re-renders the 'edit' template" do
         bot = Bot.create! valid_attributes
-        put :update, {:id => bot.to_param, :bot => invalid_attributes}, valid_session
+        put :update, params: {:id => bot.to_param, :bot => invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -128,13 +128,13 @@ RSpec.describe BotsController, :type => :controller do
     it "destroys the requested bot" do
       bot = Bot.create! valid_attributes
       expect {
-        delete :destroy, {:id => bot.to_param}, valid_session
+        delete :destroy, params: {:id => bot.to_param}, session: valid_session
       }.to change(Bot, :count).by(-1)
     end
 
     it "redirects to the bots list" do
       bot = Bot.create! valid_attributes
-      delete :destroy, {:id => bot.to_param}, valid_session
+      delete :destroy, params: {:id => bot.to_param}, session: valid_session
       expect(response).to redirect_to(bots_url)
     end
   end
