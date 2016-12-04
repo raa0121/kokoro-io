@@ -2,27 +2,27 @@ source 'https://rubygems.org'
 
 gem 'therubyracer'
 gem 'libv8', '3.16.14.15'
-gem 'rails', '4.2.4'
+gem 'rails', '~> 5.0.0.1'
 gem 'sass-rails', '~> 5.0.4'
-gem 'slim-rails', '~> 3.0.1'
+gem 'slim-rails', '~> 3.1'
 gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'omniauth', '~> 1.2.2'
-gem 'omniauth-github', '~> 1.1.2'
+gem 'omniauth', '~> 1.2'
+gem 'omniauth-github', '~> 1.1'
 
-gem 'jquery-rails', '~> 4.0.5'
+gem 'jquery-rails'
 gem 'turbolinks', '~> 2.5.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.3.2'
+gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'rake', '10.4.2'
 gem 'sdoc', '~> 0.4.1',          group: :doc
 
-gem 'squeel', '~> 1.2.3'
-
 gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'devise'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'friendly_id', '~> 5.1.0'
