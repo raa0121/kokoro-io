@@ -80,13 +80,13 @@ RSpec.describe RoomsController, :type => :controller do
       it 'creates new room' do
         login(current_user)
         expect do
-          post(:create, param)
+          post :create, params: param
         end.to change(Room, :count).by(1)
       end
       it 'creates new membership' do
         login(current_user)
         expect do
-          post :create, param
+          post :create, params: param
         end.to change(Membership, :count).by(1)
         membership = Membership.last
         expect(membership.room_id).to eq(Room.last.id)
@@ -96,7 +96,7 @@ RSpec.describe RoomsController, :type => :controller do
       end
       it 'redirects to show page' do
         login(current_user)
-        post(:create, param)
+        post :create, params: param
         expect(response.status).to eq(302)
         expect(response).to redirect_to(room_path(Room.last.friendly_id))
       end

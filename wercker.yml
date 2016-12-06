@@ -5,6 +5,9 @@ services:
           POSTGRES_PASSWORD: kokoroioci
 build:
     steps:
+        - script:
+            name: clear bundle cache
+            code: rm -rf $WERCKER_CACHE_DIR/*
         - bundle-install
         - rails-database-yml:
             service: postgresql-docker

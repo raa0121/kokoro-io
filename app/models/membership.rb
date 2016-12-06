@@ -1,4 +1,4 @@
-class Membership < ActiveRecord::Base
+class Membership < ApplicationRecord
   belongs_to :room
   belongs_to :memberable, polymorphic: true
   belongs_to :user, class_name: 'User', foreign_key: :memberable_id
