@@ -5,54 +5,20 @@
 
 kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
+### How to run in your local machine with docker
 
-### How to run in your local machine
+1. `make serve`
+1. `make migrate`
+1. Access to `http://lvh.me:3000` with your web browser.
 
-1. Configure `.env`. Sample file is `.env.sample`.
-2. `bundle install`
-3. `bundle exec foreman run rake db:setup`
-4. `bundle exec foreman start`
-5. Access to `http://lvh.me:5000` with your web browser.
+### Run command via spring
 
-### How to run with docker
+1. `make serve`
+1. `docker-compose run spring [command]`
 
-1. `docker build -t kokoro-io .`
-2. ``docker run -p 5000:5000 -v `pwd`:/app -ti kokoro-io bundle exec foreman start``
-3. Add host name to `/etc/hosts` against `docker-machine ip`. (e.g. `192.168.99.100 lvh.me`)
-4. Access to `http://lvh.me:5000` with your web browser.
+### How to run test
 
-If you want to execute `rake` command on host machine, you can create alias as ``alias rake="docker run -v `pwd`:/app -ti kokoro-io bundle exec rake"``.
-Try `rake routes` on host machine.
-
-### How to run in Vagrant virtual machine
-
-Ensure you installed `Vagrant`.
-
-1. `vagrant up`
-2. `bundle exec itamae ssh --vagrant -h kokoro -j ./itamae/nodes/vagrant.json ./itamae/recipes/provision.rb`
-3. `bundle exec mina setup user=deploy`
-4. `vagrant ssh` and edit `~/kokoro-io/shared/config/database.yml` and `~/kokoro-io/shared/.rbenv-var`
-6. `bundle exec mina deploy user=deploy`
-7. Open `http://lvh.me:8080/` with your favorite web browser!
-
-_database.yml_ sample
-
-```yaml
-development:
-  database: kokoroio_development
-  adapter: postgresql
-  username: deploy
-  password: kogaidan
-```
-
-_.rbenv-var_ sample
-
-```
-RAILS_ENV=development
-RACK_ENV=development
-```
-
-
+1. `make test`
 
 ### Progress
 

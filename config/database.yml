@@ -5,7 +5,10 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  port: 5432
+  username: postgres
+  password: mysecretpassword
   pool: 5
   timeout: 5000
 
@@ -14,22 +17,17 @@ default: &default
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  host: db-test
+  database: kokoroio_test
+
+development:
+  <<: *default
+  host: db-dev
+  database: kokoroio_development
 
 production:
   <<: *default
   database: kokoroio_production
   adapter: postgresql
   username: deploy
-  password: 73ACCj4ALWFQZRuoqsetZHiiBF6NTzbrBBjbUngLJH4XEkepp2
-
-development:
-  <<: *default
-  database: db/development.sqlite3
-
-#development:
-#  <<: *default
-#  database: kokoroio_development
-#  adapter: postgresql
-#  username: deploy
-#  password: kogaidan
+  password: ENV['POSTGRES_PASSWORD']

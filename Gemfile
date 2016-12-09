@@ -47,7 +47,6 @@ gem 'font-awesome-sass', '~> 4.4.0'
 gem 'pusher'
 gem 'vuejs-rails'
 
-gem 'sqlite3'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

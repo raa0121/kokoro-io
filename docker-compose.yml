@@ -1,8 +1,53 @@
-web:
-  build: .
-  links:
-   - db
-  ports:
-   - "8000:8000"
-db:
-  image: postgres
+version: '2'
+services:
+  web: &app_base
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+      args:
+        - APP_HOME=${PWD}
+    ports:
+      - "3000:3000"
+    command: rails s -p 3000 -b 0.0.0.0
+    links:
+      - db-dev
+    volumes:
+      - .:${PWD}
+    environment:
+      DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
+      RACK_ENV: development
+      RAILS_ENV: development
+  spring:
+    <<: *app_base
+    ports: []
+    command: spring server
+    stdin_open: true
+    tty: true
+    pid: host
+    environment:
+      RACK_ENV: development
+      RAILS_ENV: development
+    volumes:
+      - .:${PWD}
+      - spring:/tmp/spring
+  test:
+    <<: *app_base
+    ports: []
+    command: rake spec
+    links:
+      - db-test
+    environment:
+      DATABASE_URL: postgres://postgres:mysecretpassword@db-test:5432
+      RACK_ENV: test
+      RAILS_ENV: test
+  db-dev:
+    image: postgres
+    environment:
+      POSTGRES_DB: kokoroio_development
+  db-test:
+    image: postgres
+    environment:
+      POSTGRES_DB: kokoroio_test
+volumes:
+  spring:
+
