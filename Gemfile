@@ -48,6 +48,8 @@ gem 'pusher'
 gem 'vuejs-rails'
 
 group :development do
+  gem 'guard'
+  gem 'guard-sass'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'

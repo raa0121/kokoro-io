@@ -34,3 +34,8 @@ Projectfile
 
 .otto
 .ottoid
+
+## Assets
+assets/bower_components
+assets/dist
+.sass-cache
