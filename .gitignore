@@ -39,3 +39,6 @@ Projectfile
 assets/bower_components
 assets/dist
 .sass-cache
+
+# Intellij IDEs
+.idea
