@@ -17,7 +17,7 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.where({ id: params[:id] })
+    @room = Room.friendly.find(params[:id])
   end
 
   def index
