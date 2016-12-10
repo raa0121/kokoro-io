@@ -8,6 +8,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#index'
 
+  # API
+  mount API::Root => '/'
+
   # Auth
   get '/auth/:privider/callback' => 'sessions#create'
   post '/auth/:privider/callback' => 'sessions#create'
