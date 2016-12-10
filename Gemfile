@@ -38,7 +38,6 @@ gem 'foreman'
 ## Faye
 # gem 'faye-websocket'
 gem 'pusher'
-gem 'vuejs-rails'
 
 group :development do
   gem 'guard'

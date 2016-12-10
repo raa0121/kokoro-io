@@ -378,7 +378,6 @@ GEM
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    vuejs-rails (2.0.8)
     warden (1.2.6)
       rack (>= 1.0)
     websocket-driver (0.6.4)
@@ -430,7 +429,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 2.7.2)
   unicorn
-  vuejs-rails
 
 BUNDLED WITH
    1.13.6
