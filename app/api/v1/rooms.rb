@@ -3,7 +3,6 @@ module V1
     helpers RequestHelper
 
     resource 'rooms', desc: 'room' do
-      # GET /v1/rooms
       before do
         authenticate!
       end
