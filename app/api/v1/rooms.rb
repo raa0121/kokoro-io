@@ -1,8 +1,4 @@
 module V1
-  class RoomsEntity < Grape::Entity
-    expose :name, documentation: {type: String, desc: 'A room name which is treated as a room id'}
-  end
-
   class Rooms < Grape::API
     helpers RequestHelper
 
@@ -11,10 +7,7 @@ module V1
       before do
         authenticate!
       end
-      desc 'get all chattable rooms', {
-        entity: RoomsEntity,
-        response: {isArray: true, entity: RoomsEntity}
-      }
+      desc 'get all chattable rooms'
       get do
         @user.chattable_rooms
       end
