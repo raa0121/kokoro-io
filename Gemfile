@@ -67,6 +67,9 @@ group :production, :staging, :test do
   gem 'pg'
 end
 
+# API
+gem 'grape'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
