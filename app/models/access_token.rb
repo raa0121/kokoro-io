@@ -13,6 +13,10 @@ class AccessToken < ApplicationRecord
     Digest::SHA256.hexdigest "#{ENV['TOKEN_SALT']}_#{SecureRandom.uuid}"
   end
 
+  def masked_token
+    token.gsub(/./, '*')
+  end
+
   def essential?
     essential
   end
