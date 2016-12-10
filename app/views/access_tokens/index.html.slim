@@ -16,7 +16,11 @@ table.table.table-bordered.table-collapsed
             = access_token.name
         td
           .input-group.input-group-sm
-            input.form-control.input-sm[ type="text" value=access_token.token readonly=true ]
+            - if access_token.essential?
+              - token = access_token.masked_token
+            - else
+              - token = access_token.token
+            input.form-control.input-sm[ type="text" value=token readonly=true ]
               - if access_token.essential?
                 .input-group-addon= icon :lock, t('primary_token_is_locked')
               - else

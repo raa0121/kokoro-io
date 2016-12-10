@@ -19,8 +19,8 @@ ja:
   edit_your_profile: プロフィール編集
   access_tokens: アクセストークン
   applications: アプリケーション
-  primary_token: すごいトークン
-  primary_token_is_locked: いじれません
+  primary_token: プライマリトークン
+  primary_token_is_locked: 編集できません
   bots: Bots
   regenerate_access_token: 再生成
   invite_this_bot_to_room: このBotをルームに招待
