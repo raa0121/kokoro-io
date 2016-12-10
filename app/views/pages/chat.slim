@@ -17,7 +17,7 @@
     .talkboards
       .talkboard
         .talks
-          - 3.times do
+          - 25.times do
             .row.talk
               .col-sm-12
                 .avatar
@@ -28,6 +28,6 @@
                   .timeleft.pull-right
                     = '5 minutes ago'
                   .filtered_text
-                    = 'kokoro ぴょんぴょん'
+                    = 'text ' * 10
         .say.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
           textarea#say_text[ rows="{{say_text_rows}}" v-model="say_text" v-on="keydown:say | key enter" placeholder="Lets talk!" autofocus ]= "{{say_text}}"
