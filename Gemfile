@@ -68,6 +68,10 @@ group :production, :staging, :test do
   gem 'pg'
 end
 
+# API
+gem 'grape'
+gem 'hashie-forbidden_attributes'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

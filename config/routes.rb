@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   get '/auth/:privider/callback' => 'sessions#create'
   post '/auth/:privider/callback' => 'sessions#create'
   get '/sign_out' => 'sessions#destroy', as: :signout
+
+  # API
+  mount API::Root => '/'
 end
