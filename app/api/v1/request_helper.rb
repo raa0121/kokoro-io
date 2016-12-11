@@ -11,8 +11,8 @@ module V1
     end
 
     def set_current_user
-      api_token = request.headers['X-Access-Token']
-      user = AccessToken.find_by(token: api_token).try(:user)
+      access_token = request.headers['X-Access-Token']
+      user = AccessToken.find_by(token: access_token).try(:user)
       return nil unless user
       @user = user
     end
