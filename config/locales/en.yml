@@ -20,6 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  menu:
+    document: Document
+    help: Help
+  bots: Bots
+  your_profile: Your Profile
+  edit_your_profile: Edit Your Profile
+  access_tokens: Access Tokens
+  auth:
+    sign_in: Sign In
+    sign_out: Sign Out
+    signed_in: Signed in
+    signed_out: Signed out
   activerecord:
     models:
       user: User

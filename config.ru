@@ -3,5 +3,5 @@
 require ::File.expand_path('../config/environment',  __FILE__)
 use Rack::ETag
 use Rack::Deflater
-use Rack::Static, urls: ['/stylesheets', '/javascripts'], root: 'assets/dist'
+use Rack::Static, urls: ['/stylesheets', '/javascripts', '/fonts'], root: 'assets/dist'
 run Rails.application
