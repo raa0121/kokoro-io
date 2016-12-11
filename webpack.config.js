@@ -8,9 +8,12 @@ module.exports= {
         path: path.join(__dirname, 'assets', 'dist', 'javascripts'),
         filename: '[name].js',
     },
+    resolve: {
+        extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
+    },
     module: {
         loaders: [
-            { test: /\.ts$/, loader: 'ts-loader', exclude: /node_modules/ },
+            { test: /\.ts$/, loaders: ['babel', 'ts'], exclude: /node_modules/ },
         ],
     },
 };
