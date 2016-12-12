@@ -1,5 +1,4 @@
 [![wercker status](https://app.wercker.com/status/7983d098360820d4bfb7df6f88161b04/s/master "wercker status")](https://app.wercker.com/project/byKey/7983d098360820d4bfb7df6f88161b04)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/kokoro_io/Lobby)
 
 ## kokoro.io
 
