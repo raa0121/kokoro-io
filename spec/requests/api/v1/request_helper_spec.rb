@@ -6,11 +6,12 @@ end
 
 RSpec.describe API::Root::V1::RequestHelper, type: :helper do
   describe '#authenticate!' do
-    context 'occures a 401 error' do
+    context 'calls error! method' do
       it 'because user was not found' do
-        pending('FIXME: call error! method of grap')
-        @user = nil
-        expect{helper.authenticate!}.to raise_error(Grape::Exceptions)
+        # I think that this spec makes no sense.
+        allow(helper).to receive(:set_current_user) { nil }
+        allow(helper).to receive(:error!){ true }
+        expect(helper.authenticate!).to be(true)
       end
     end
   end
