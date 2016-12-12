@@ -42,3 +42,6 @@ assets/dist
 
 # Intellij IDEs
 .idea
+
+# Ignore npm packages
+node_modules/
