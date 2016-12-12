@@ -8,7 +8,7 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 1. `make serve`
 1. `make migrate`
-1. Access to `http://lvh.me:3000` with your web browser.
+1. Access to `http://lvh.me:5000` with your web browser.
 
 ### Run command via spring
 
