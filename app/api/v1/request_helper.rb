@@ -3,7 +3,7 @@ module V1
     extend Grape::API::Helpers
     def authenticate!
       set_current_user
-      error!({message: 'Invalid Token', with:V1::Error}, 401) unless @user
+      error!({message: 'Invalid Token'}, 401) unless @user
     end
 
     def session
