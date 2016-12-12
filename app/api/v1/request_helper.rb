@@ -1,6 +1,5 @@
 module V1
   module RequestHelper
-    extend Grape::API::Helpers
     def authenticate!
       set_current_user
       error!('Invalid Token', 401) unless @user
