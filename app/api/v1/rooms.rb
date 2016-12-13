@@ -17,7 +17,7 @@ module V1
       end
       route_param :id do
         get do
-          @user.chattable_rooms.find_by(params[:id])
+          @user.chattable_rooms.find(params[:id])
         end
       end
     end
