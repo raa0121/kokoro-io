@@ -180,6 +180,8 @@ GEM
     guard-sass (1.6.1)
       guard (>= 2.8.0)
       sass (>= 3.1)
+    guard-webpack (0.1.2)
+      guard (< 3.0)
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
@@ -446,6 +448,7 @@ DEPENDENCIES
   grape-swagger
   guard
   guard-sass
+  guard-webpack
   hashie-forbidden_attributes
   inherited_resources!
   itamae

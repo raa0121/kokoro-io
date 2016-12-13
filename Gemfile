@@ -43,6 +43,7 @@ gem 'pusher'
 group :development do
   gem 'guard'
   gem 'guard-sass'
+  gem 'guard-webpack'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'
