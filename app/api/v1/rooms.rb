@@ -6,12 +6,12 @@ module V1
       before do
         authenticate!
       end
-      desc 'Returns chattable rooms.'
+      desc 'Return chattable rooms.'
       get do
         @user.chattable_rooms
       end
 
-      desc 'Retuan a room.'
+      desc 'Return a room.'
       params do
         requires :id, type: Integer, desc: 'Room id.'
       end
@@ -19,6 +19,14 @@ module V1
         get do
           @user.chattable_rooms.find(params[:id])
         end
+      end
+
+      desc 'Creates a new room.'
+      params do
+        requires :room_name, type: String
+        requires :screen_name, type: String
+      end
+      post do
       end
     end
   end
