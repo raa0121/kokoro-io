@@ -12,10 +12,10 @@ class Membership < ApplicationRecord
     invited: 1000
   }
 
-  # scope :administer, ->{ where authority: self.authorities[:administer] }
-  # scope :maintainer, ->{ where authority: self.authorities[:maintainer] }
-  # scope :member,     ->{ where authority: self.authorities[:member] }
-  # scope :invited,    ->{ where authority: self.authorities[:invited] }
+  scope :administer, ->{ where authority: self.authorities[:administer] }
+  scope :maintainer, ->{ where authority: self.authorities[:maintainer] }
+  scope :member,     ->{ where authority: self.authorities[:member] }
+  scope :invited,    ->{ where authority: self.authorities[:invited] }
 
   before_validation :bind_default_values
 
