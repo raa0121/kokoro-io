@@ -27,7 +27,7 @@ module V1
         requires :screen_name, type: String
       end
       post do
-        Room.create!(
+        @user.rooms.create(
           room_name: params['room_name'],
           screen_name: params['screen_name'],
           private: params['private'] || false,
