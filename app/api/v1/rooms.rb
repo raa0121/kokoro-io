@@ -13,7 +13,7 @@ module V1
 
       desc 'Return a room.'
       params do
-        requires :id, type: Integer, desc: 'Room id.'
+        requires :id, type: Integer
       end
       route_param :id do
         get do
@@ -25,9 +25,10 @@ module V1
       params do
         requires :room_name, type: String
         requires :screen_name, type: String
+        requires :description, type: String
       end
       post do
-        @user.rooms.create(
+        @user.rooms.create!(
           room_name: params['room_name'],
           screen_name: params['screen_name'],
           private: params['private'] || false,

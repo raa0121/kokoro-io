@@ -15,7 +15,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
 
   describe 'GET /api/v1/rooms/:id' do
     let(:room) { user.chattable_rooms.first }
-    it 'returns 200 status' do
+    it 'returns 200' do
       get "#{path}/#{room.id}", headers: headers, params: {}
       expect(response.status).to eq(200)
     end
@@ -27,17 +27,65 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   end
 
   describe 'POST /api/v1/rooms' do
-    it 'successes to create a new room' do
-      params = {
-        room_name: 'nice_heya',
-        screen_name: 'nice_mieru_heya',
-        private: false,
-        description: 'this room is absolutely nice'
-      }
-      rooms  # NOTE: seems likely to evaluate once for record count.
-      expect {
-        post path, headers: headers, params: params
-      }.to change(Room, :count).by(1)
+    let(:request) { post path, headers: headers, params: @params }
+    context 'successes to create a new room' do
+      before { rooms }
+      it 'returns 201' do
+        @params = {
+          room_name: 'room_name1',
+          screen_name: 'screen_name1',
+          description: 'this is test room1'
+        }
+        request
+        expect(response.status).to eq(201)
+      end
+      it 'with all params' do
+        @params = {
+          room_name: 'room_name2',
+          screen_name: 'screen_name2',
+          private: false,
+          description: 'this is test room2'
+        }
+        expect { request }.to change(Room, :count).by(1)
+      end
+
+      it 'with only required params' do
+        @params = {
+          room_name: 'room_name3',
+          screen_name: 'screen_name3',
+          description: 'this is test room3'
+        }
+        expect { request }.to change(Room, :count).by(1)
+      end
+    end
+    context 'failures to create a new room' do
+      let(:resp_400) do
+        request
+        expect(response.status).to eq(400)
+      end
+      context 'returns 400' do
+        it 'no room_name passed' do
+          @params = {
+            screen_name: 'hoge',
+            description: 'fuga'
+          }
+          resp_400
+        end
+        it 'no screen_name passed' do
+          @params = {
+            room_name: 'hoge',
+            description: 'fuga'
+          }
+          resp_400
+        end
+        it 'no description passed' do
+          @params = {
+            room_name: 'hoge',
+            screen_name: 'fuga'
+          }
+          resp_400
+        end
+      end
     end
   end
 end
