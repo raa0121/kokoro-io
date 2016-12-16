@@ -45,7 +45,7 @@ class Room < ApplicationRecord
 
   def chattable? user
     # All members except invited can chat
-    [:administer, :maintainer, :member].include? authority(user)
+    [:administrator, :maintainer, :member].include? authority(user)
   end
 
   def authority user
@@ -59,12 +59,12 @@ class Room < ApplicationRecord
 
   def destroyable? user
     return false unless contains? user
-    [:administer].include? authority(user)
+    [:administrator].include? authority(user)
   end
 
   def maintainable? user
     return false unless contains? user
-    [:administer, :maintainer].include? authority(user)
+    [:administrator, :maintainer].include? authority(user)
   end
 
   def joinable? user
@@ -87,9 +87,9 @@ class Room < ApplicationRecord
     return false if memberships.size == 1
 
     case authority user
-    when :administer
-      # The last administer can't leave from a room
-      administer_users.size == 1 ? false : true
+    when :administrator
+      # The last administrator can't leave from a room
+      administrator_users.size == 1 ? false : true
     when :maintainer
       true
     when :member
@@ -100,11 +100,11 @@ class Room < ApplicationRecord
   end
 
   def bot_addable? user
-    [:administer, :maintainer].include? authority(user)
+    [:administrator, :maintainer].include? authority(user)
   end
 
   def kickable? user
-    [:administer, :maintainer].include? authority(user)
+    [:administrator, :maintainer].include? authority(user)
   end
 
   def promotable? user, target
@@ -113,7 +113,7 @@ class Room < ApplicationRecord
     return false unless contains? user
 
     have_authority = case authority user
-    when :administer
+    when :administrator
       [:maintainer, :member].include? authority(target)
     when :maintainer
       [:member].include? authority(target)
@@ -129,7 +129,7 @@ class Room < ApplicationRecord
     return false if user == target
 
     case authority user
-    when :administer
+    when :administrator
       [:maintainer].include? authority(target)
     when :maintainer
       false
@@ -144,7 +144,7 @@ class Room < ApplicationRecord
     # Anyone can join or be invited on public room
     true if public?
 
-    [:administer, :maintainer].include? authority(user)
+    [:administrator, :maintainer].include? authority(user)
   end
 
   def has_member? user

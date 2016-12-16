@@ -17,7 +17,7 @@ RSpec.describe "rooms/show", :type => :view do
       private: false
     ))
     membership = @room.memberships.first
-    membership.administer! if membership
+    membership.administrator! if membership
   end
 
   it "renders attributes in <p>" do
