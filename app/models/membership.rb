@@ -6,13 +6,13 @@ class Membership < ApplicationRecord
 
   validates :authority, presence: true
   enum authority: {
-    administer: 100,
+    administrator: 100,
     maintainer: 20,
     member: 10,
     invited: 1000
   }
 
-  # scope :administer, ->{ where authority: self.authorities[:administer] }
+  # scope :administrator, ->{ where authority: self.authorities[:administrator] }
   # scope :maintainer, ->{ where authority: self.authorities[:maintainer] }
   # scope :member,     ->{ where authority: self.authorities[:member] }
   # scope :invited,    ->{ where authority: self.authorities[:invited] }

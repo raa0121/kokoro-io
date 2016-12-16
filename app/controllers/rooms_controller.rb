@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
   def create
     @room = current_user.rooms.create(permitted_params[:room])
     membership = @room.memberships.first
-    membership.administer! if membership
+    membership.administrator! if membership
 
     # FIXME: error handling
     if @room.persisted?
