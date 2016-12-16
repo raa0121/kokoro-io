@@ -5,11 +5,16 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   let(:rooms) { user.chattable_rooms }
   let(:headers) { {'X-Access-Token' => user.access_tokens.first.token} }
   let(:path) { '/api/v1/rooms' }
+
   describe 'GET /api/v1/rooms' do
-    it 'returns all chattable rooms' do
+    it 'returns 200' do
       get path, headers: headers, params: {}
       expect(response.status).to eq(200)
-      expect(response.body).to eq(user.rooms.to_json)
+    end
+    it 'returns all chattable rooms' do
+      get path, headers: headers, params: {}
+
+      expect(json(response.body).length).to eq(rooms.count)
     end
   end
 
@@ -48,7 +53,6 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         }
         expect { request }.to change(Room, :count).by(1)
       end
-
       it 'with only required params' do
         @params = {
           room_name: 'room_name3',
@@ -56,6 +60,20 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
           description: 'this is test room3'
         }
         expect { request }.to change(Room, :count).by(1)
+      end
+      it 'creator is administrator' do
+        @params = {
+          room_name: 'room_name4',
+          screen_name: 'screen_name4',
+          description: 'this is test room4'
+        }
+        request
+        memberships = user.chattable_rooms.last.memberships
+        expect(memberships.count).to eq(1)
+        membership = memberships.first
+        expect(membership.memberable_id).to eq(user.id)
+        expect(membership.memberable_type).to eq('User')
+        expect(membership.authority).to eq('administer')
       end
     end
     context 'failures to create a new room' do

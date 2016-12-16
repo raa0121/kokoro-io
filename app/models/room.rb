@@ -2,7 +2,7 @@ class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :screen_name
 
-  validates :screen_name, :screen_name, :description, presence: true
+  validates :screen_name, :room_name, :description, presence: true
   validates :screen_name, friendly_id: true
   validates :screen_name, length: { in: 1..255 }
   validates :screen_name, uniqueness: true
@@ -151,4 +151,11 @@ class Room < ApplicationRecord
     users.include? user
   end
 
+  before_validation :bind_default_values
+
+  private
+  def bind_default_values
+    self.private ||= false
+    return
+  end
 end

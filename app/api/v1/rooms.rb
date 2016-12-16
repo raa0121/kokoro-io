@@ -28,12 +28,14 @@ module V1
         requires :description, type: String
       end
       post do
-        @user.rooms.create!(
+        room = @user.rooms.create!(
           room_name: params['room_name'],
           screen_name: params['screen_name'],
           private: params['private'] || false,
           description: params['description']
         )
+        membership = room.memberships.first
+        membership.administer! if membership
       end
     end
   end

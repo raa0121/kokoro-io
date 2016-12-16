@@ -8,7 +8,6 @@ RSpec.describe API::Root::V1::RequestHelper, type: :helper do
   describe '#authenticate!' do
     context 'calls error! method' do
       it 'because user was not found' do
-        # I think that this spec makes no sense.
         allow(helper).to receive(:set_current_user) { nil }
         allow(helper).to receive(:error!){ true }
         expect(helper.authenticate!).to be(true)

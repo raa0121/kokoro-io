@@ -31,3 +31,11 @@ test:
 .PHONY: testp
 testp:
 	docker-compose run test bundle exec rspec -P spec/${P}
+
+.PHONY: console
+console:
+	docker-compose exec web bundle exec rails c --sandbox
+
+.PHONY: dbsetup
+dbsetup:
+	docker-compose exec web bundle exec rails db:setup
