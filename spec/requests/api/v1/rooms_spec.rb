@@ -33,9 +33,9 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
 
   describe 'POST /api/v1/rooms' do
     let(:request) { post path, headers: headers, params: @params }
-    context 'successes to create a new room' do
+    context 'can create a new room' do
       before { rooms }
-      it 'returns 201' do
+      it 'status is 201' do
         @params = {
           room_name: 'room_name1',
           screen_name: 'screen_name1',
@@ -81,7 +81,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         request
         expect(response.status).to eq(400)
       end
-      context 'returns 400' do
+      context 'status is 400' do
         it 'no room_name passed' do
           @params = {
             screen_name: 'hoge',
@@ -103,6 +103,40 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
           }
           resp_400
         end
+      end
+    end
+  end
+
+  describe 'PUT /api/v1/rooms/:id' do
+    let(:room) { user.administer_rooms.first }
+    let(:request) { put "#{path}/#{room.id}", headers: headers, params: @params }
+    context 'can update an administrable room' do
+      it 'status is 200' do
+        @params = { description: 'hoge' }
+        request
+        expect(response.status).to eq(200)
+      end
+      it 'changed no attributes without params' do
+        @params = {}
+        request
+        updated = user.administer_rooms.find(room.id)
+        expect(response.body).to be_truthy
+        expect(updated.room_name).to eq(room.room_name)
+        expect(updated.screen_name).to eq(room.screen_name)
+        expect(updated.description).to eq(room.description)
+        expect(updated.private).to eq(room.private)
+        expect(updated.updated_at).to be > room.updated_at
+      end
+      it 'changed only room_name' do
+        @params = { room_name: "update_#{room.room_name}" }
+        request
+        updated = Room.find(room.id)
+        expect(response.body).to be_truthy
+        expect(updated.room_name).to_not eq(room.room_name)
+        expect(updated.screen_name).to eq(room.screen_name)
+        expect(updated.description).to eq(room.description)
+        expect(updated.private).to eq(room.private)
+        expect(updated.updated_at).to be > room.updated_at
       end
     end
   end

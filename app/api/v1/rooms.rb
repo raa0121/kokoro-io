@@ -37,6 +37,31 @@ module V1
         membership = room.memberships.first
         membership.administer! if membership
       end
+
+      desc 'Updates a room.'
+      params do
+        requires :id, type: Integer
+        optional :screen_name, type: String
+        optional :room_name, type: String
+        optional :description, type: String
+        optional :private, type: Boolean
+      end
+      route_param :id do
+        put do
+          room = @user.administer_rooms.find(params[:id])
+          screen_name = params['screen_name'] || room.screen_name
+          room_name = params['room_name'] || room.room_name
+          description = params['description'] || room.description
+          room_private = params['private'] || room.private
+          room.update!(
+            screen_name: screen_name,
+            room_name: room_name,
+            description: description,
+            private: room_private,
+            updated_at: Time.now
+          )
+        end
+      end
     end
   end
 end
