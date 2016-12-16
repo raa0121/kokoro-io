@@ -73,7 +73,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         membership = memberships.first
         expect(membership.memberable_id).to eq(user.id)
         expect(membership.memberable_type).to eq('User')
-        expect(membership.authority).to eq('administer')
+        expect(membership.authority).to eq('administrator')
       end
     end
     context 'failures to create a new room' do
@@ -108,7 +108,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   end
 
   describe 'PUT /api/v1/rooms/:id' do
-    let(:room) { user.administer_rooms.first }
+    let(:room) { user.administrator_rooms.first }
     let(:request) { put "#{path}/#{room.id}", headers: headers, params: @params }
     context 'can update an administrable room' do
       it 'status is 200' do
@@ -119,7 +119,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       it 'changed no attributes without params' do
         @params = {}
         request
-        updated = user.administer_rooms.find(room.id)
+        updated = user.administrator_rooms.find(room.id)
         expect(response.body).to be_truthy
         expect(updated.room_name).to eq(room.room_name)
         expect(updated.screen_name).to eq(room.screen_name)

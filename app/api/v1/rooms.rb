@@ -35,7 +35,7 @@ module V1
           description: params['description']
         )
         membership = room.memberships.first
-        membership.administer! if membership
+        membership.administrator! if membership
       end
 
       desc 'Updates a room.'
@@ -48,7 +48,7 @@ module V1
       end
       route_param :id do
         put do
-          room = @user.administer_rooms.find(params[:id])
+          room = @user.administrator_rooms.find(params[:id])
           screen_name = params['screen_name'] || room.screen_name
           room_name = params['room_name'] || room.room_name
           description = params['description'] || room.description
