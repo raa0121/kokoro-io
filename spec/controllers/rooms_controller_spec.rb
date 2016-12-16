@@ -90,7 +90,7 @@ RSpec.describe RoomsController, :type => :controller do
         end.to change(Membership, :count).by(1)
         membership = Membership.last
         expect(membership.room_id).to eq(Room.last.id)
-        expect(membership.authority).to eq('administer')
+        expect(membership.authority).to eq('administrator')
         expect(membership.memberable_id).to eq(current_user.id)
         expect(membership.memberable_type).to eq('User')
       end
