@@ -29,10 +29,10 @@ module V1
       end
       post do
         room = @user.rooms.create!(
-          room_name: params['room_name'],
-          screen_name: params['screen_name'],
-          private: params['private'] || false,
-          description: params['description']
+          room_name: params[:room_name],
+          screen_name: params[:screen_name],
+          private: params[:private] || false,
+          description: params[:description]
         )
         membership = room.memberships.first
         membership.administrator! if membership
@@ -48,11 +48,12 @@ module V1
       end
       route_param :id do
         put do
+          status 204
           room = @user.administrator_rooms.find(params[:id])
-          screen_name = params['screen_name'] || room.screen_name
-          room_name = params['room_name'] || room.room_name
-          description = params['description'] || room.description
-          room_private = params['private'] || room.private
+          screen_name = params[:screen_name] || room.screen_name
+          room_name = params[:room_name] || room.room_name
+          description = params[:description] || room.description
+          room_private = params[:private] || room.private
           room.update!(
             screen_name: screen_name,
             room_name: room_name,
@@ -60,6 +61,17 @@ module V1
             private: room_private,
             updated_at: Time.now
           )
+        end
+      end
+
+      desc 'Delete a room'
+      params do
+        requires :id, type: Integer
+      end
+      route_param :id do
+        delete do
+          status 204
+          @user.administrator_rooms.find(params[:id]).destroy!
         end
       end
     end

@@ -6,6 +6,16 @@ module V1
     format :json
     prefix :api
 
+    # Exceptions
+    rescue_from ActiveRecord::RecordNotFound do |e|
+      error!({message: 'Record not found.'}, 404)
+    end
+
+    rescue_from ActiveRecord::RecordInvalid do |e|
+      # NOTE: Is this status code appropriate?
+      error!({message: 'Record invalid.' }, 404)
+    end
+
     # API
     mount V1::Rooms
 
