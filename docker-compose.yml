@@ -18,6 +18,15 @@ services:
       DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
       RACK_ENV: development
       RAILS_ENV: development
+  site:
+    build:
+      context: .
+      dockerfile: Dockerfile.site
+      args:
+        - APP_HOME=${PWD}
+    command: npm run watch
+    volumes:
+      - .:${PWD}
   spring:
     <<: *app_base
     ports: []
