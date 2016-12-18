@@ -147,7 +147,6 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     context 'failed to update a room' do
       it 'not administrable' do
         user2 = FactoryGirl.create(:user)
-        @params = {}
         put "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
         expect(json(response.body)['message']).to match('Record not found.')
       end
@@ -161,11 +160,18 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
 
   describe 'DELETE /api/v1/rooms/:id' do
     let(:room) { user.administrator_rooms.first }
-    let(:request) { delete "#{path}/#{room.id}", headers: headers, params: {} }
-    it 'can delete a room' do
-      expect { request }.to change(Room, :count).by(-1)
+    let(:request) {  }
+    it 'can delete an administrable room' do
+      expect {
+        delete "#{path}/#{room.id}", headers: headers, params: {}
+      }.to change(Room, :count).by(-1)
       expect(response.status).to eq(204)
       expect(response.body).to be_truthy
+    end
+    it 'failed to delete an unadministrable room' do
+      user2 = FactoryGirl.create(:user)
+      delete "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
+      expect(response.status).to eq(404)
     end
   end
 end
