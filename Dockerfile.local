@@ -8,7 +8,7 @@ RUN apk --update --no-cache add \
     postgresql-dev \
     linux-headers
 
-ARG APP_HOME=/src
+ARG APP_HOME
 
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
