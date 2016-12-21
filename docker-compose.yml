@@ -4,7 +4,7 @@ services:
     env_file: .env
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile.web.dev
       args:
         - APP_HOME=${PWD}
     ports:
@@ -21,7 +21,7 @@ services:
   site:
     build:
       context: .
-      dockerfile: Dockerfile.site
+      dockerfile: Dockerfile.assets.dev
       args:
         - APP_HOME=${PWD}
     command: npm run watch
