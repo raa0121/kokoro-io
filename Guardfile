@@ -6,7 +6,3 @@ guard 'sass', output: 'assets/dist/stylesheets' do
 end
 
 ## Javascripts
-
-guard 'webpack', output: 'assets/dist/javascripts' do
-  watch %r`assets/javascripts/(.+)$`
-end
