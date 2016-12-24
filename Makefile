@@ -6,9 +6,12 @@ serve:
 migrate:
 	docker-compose run spring rake db:migrate
 
+.PHONY: clear
+clear:
+	docker-compose stop && yes | docker-compose rm
+
 .PHONY:	guard
 guard:
-	docker exec $$(docker-compose ps -q spring) ln -f -s ${PWD}/node_modules/webpack/bin/webpack.js /usr/local/bin/webpack.js
 	docker-compose run spring guard
 
 .PHONY:	fonts
@@ -27,3 +30,11 @@ test:
 .PHONY: testp
 testp:
 	docker-compose run test bundle exec rspec -P spec/${P}
+
+.PHONY: console
+console:
+	docker-compose exec web bundle exec rails c --sandbox
+
+.PHONY: dbsetup
+dbsetup:
+	docker-compose exec web bundle exec rails db:setup

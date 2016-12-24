@@ -9,11 +9,16 @@ module.exports= {
         filename: '[name].js',
     },
     resolve: {
-        extensions: ['', '.webpack.js', '.web.js', '.ts', '.js'],
+        extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.vue'],
+        alias: {
+            vue: 'vue/dist/vue.js',
+        },
     },
     module: {
         loaders: [
-            { test: /\.ts$/, loaders: ['babel', 'ts'], exclude: /node_modules/ },
+            { test: /\.ts$/,  loaders: ['babel', 'ts'], exclude: /node_modules/ },
+            { test: /\.vue$/, loaders: ['vue'],         exclude: /node_modules/ },
         ],
     },
+    devtool: '#source-map',
 };

@@ -1,3 +1,4 @@
+
 class User < ApplicationRecord
 
   extend FriendlyId

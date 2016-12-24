@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:uid) {|n| n }
     sequence(:user_name) {|n| "User #{n}" }
     sequence(:screen_name) {|n| "user-#{n}" }
-    avatar_url "https://avatars.githubusercontent.com/u/377137?v=2"
+    sequence(:avatar_url) {|n| "https://avatar.com/#{n}" }
 
     after(:create) do |user|
       rooms = create_list :room, 4, users: [user]
