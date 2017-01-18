@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile.assets.dev
       args:
         - APP_HOME=${PWD}
-    command: npm run watch
+    command: npm start
     volumes:
       - .:${PWD}
   spring:

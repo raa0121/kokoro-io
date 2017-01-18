@@ -18,7 +18,6 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 ### Watch assets files and compile
 
 1. `make serve`
-1. `docker-compose run spring guard`
 
 ### How to run test
 

@@ -14,15 +14,6 @@ clear:
 guard:
 	docker-compose run spring guard
 
-.PHONY:	fonts
-fonts: node_modules
-	[[ ! -d ./assets/dist/fonts/ ]] && mkdir -p ./assets/dist/fonts/
-	cp node_modules/font-awesome/fonts/* ./assets/dist/fonts/
-
-.PHONY:	node_modules
-node_modules:
-	npm install
-
 .PHONY:	test
 test:
 	docker-compose run test
