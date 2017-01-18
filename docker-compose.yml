@@ -18,7 +18,7 @@ services:
       DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
       RACK_ENV: development
       RAILS_ENV: development
-  site:
+  assets:
     build:
       context: .
       dockerfile: Dockerfile.assets.dev
