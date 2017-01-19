@@ -5,6 +5,7 @@ ARG APP_HOME
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
+ADD .babelrc                $APP_HOME/
 ADD package.json            $APP_HOME/
 ADD tsconfig.json           $APP_HOME/
 ADD webpack.config.babel.js $APP_HOME/
