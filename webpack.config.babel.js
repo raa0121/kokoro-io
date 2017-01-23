@@ -1,6 +1,6 @@
-const path= require('path');
+import path from 'path';
 
-module.exports= {
+export default {
     entry: {
         application: path.join(__dirname, 'assets', 'javascripts', 'application.ts'),
     },
