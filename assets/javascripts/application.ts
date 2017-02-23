@@ -1,31 +1,45 @@
 import * as Vue from 'vue';
+import * as moment from 'moment';
 declare function require(name: string);
-const Application= require('./application.vue');
+const messagesView= require('./view/messages.vue');
+const messageInputView= require('./view/message-input.vue');
 
-class Program
+class ApiClient
 {
-    name: string;
+    constructor(public baseUrl: string){}
 
-    constructor(public message: string){}
-
-    exec()
+    public messages()
     {
-        console.log(this.message);
+        return new Promise((resolve, reject) => {
+            return resolve([
+                {
+                    speaker: {
+                        id: 'user-id',
+                        name: 'speaker name',
+                    },
+                    avatar_thumbnail_url: '',
+                    // ISO8601
+                    posted_at: moment().format(),
+                    text: 'hi',
+                },
+            ]);
+        });
     }
 }
 
-var program= new Program('hello kokoro.io');
-
-program.exec();
+const data= {
+    messages: [],
+};
 
 document.addEventListener('DOMContentLoaded', () => {
-    (<any>window).vue= new Vue({
-        el: '#chatapp',
-        data: {
-            text: 'hi',
-        },
-        components: {
-            'x-chat': Application,
-        },
+    const MessagesView= Vue.extend(messagesView);
+    const MessageInputView= Vue.extend(messageInputView);
+
+    new MessagesView({
+        el: '#chatapp .talks',
+        data: data,
+    });
+    new MessageInputView({
+        el: '#say_text',
     });
 });
