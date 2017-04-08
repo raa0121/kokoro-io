@@ -53,6 +53,30 @@ class RoomsController < ApplicationController
     return redirect_to rooms_path, notice: t('notice.rooms.leaved') if room.private?
   end
 
+  def invite
+    room = Room.find_by(screen_name: params[:screen_name])
+    return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
+    return redirect_to :back, alert: t('alert.rooms.not_invitable') unless room.invitable? current_user
+
+    user_to_invite = User.find_by(id: params[:user_id])
+    return redirect_to :back, alert: t('alert.users.not_exist') unless user_to_invite
+
+    if room.users.include? user_to_invite
+      membership = room.memberships.find(memberable: user_to_invite)
+      # Already have membership
+      if membership.administer? || membership.maintainer? || membership.member?
+        return redirect_to :back, alert: t('alert.memberships.already_member')
+      # Already invited
+      else
+        return redirect_to :back, alert: t('alert.memberships.already_invited')
+      end
+    else
+      room.users << user_to_invite
+      room.save
+    end
+    redirect_to room_path(room), notice: t('notice.rooms.joined')
+  end
+
   private
   def permitted_params
     params.permit(room: [:screen_name, :room_name, :description, :private])
