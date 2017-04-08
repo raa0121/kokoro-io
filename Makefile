@@ -6,6 +6,10 @@ build:
 serve:
 	docker-compose up -d
 
+.PHONY:	restart
+restart:
+	docker-compose stop && yes | docker-compose rm | docker-compose up -d
+
 .PHONY:	migrate
 migrate:
 	docker-compose run spring rake db:migrate

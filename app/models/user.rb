@@ -33,6 +33,10 @@ class User < ApplicationRecord
   delegate :private_rooms, to: :rooms
   delegate :public_rooms, to: :rooms
 
+  def primary_access_token
+    access_tokens.primary.first
+  end
+
   def avatar_thumbnail_url size = 64
     "#{avatar_url}&s=#{size}"
   end

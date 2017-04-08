@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   get '/sign_out' => 'sessions#destroy', as: :signout
 
   # API
-  mount API::Root => '/'
+  mount API::Root => '/api/'
+  mount GrapeSwaggerRails::Engine => '/apidoc'
 end

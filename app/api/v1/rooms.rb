@@ -1,6 +1,5 @@
 module V1
   class Rooms < Grape::API
-    helpers RequestHelper
 
     resource 'rooms' do
       before do
