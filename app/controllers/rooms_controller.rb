@@ -34,7 +34,7 @@ class RoomsController < ApplicationController
     return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
 
     if room.users.include? current_user
-      room.memberships.where(memberable: current_user).limit(1).first.try(:member!)
+      room.memberships.find_by(memberable: current_user)&.member!
     else
       room.users << current_user
       room.save
