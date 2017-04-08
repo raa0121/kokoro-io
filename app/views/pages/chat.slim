@@ -17,17 +17,5 @@
     .talkboards
       .talkboard
         .talks
-          - 25.times do
-            .row.talk
-              .col-sm-12
-                .avatar
-                  = image_tag current_user.avatar_thumbnail_url(32)
-                .message
-                  .speaker
-                    = current_user.user_name
-                  .timeleft.pull-right
-                    = '5 minutes ago'
-                  .filtered_text
-                    = 'text ' * 10
         .say.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
           textarea#say_text[ placeholder="Lets talk!" autofocus ]

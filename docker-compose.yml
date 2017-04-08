@@ -26,7 +26,11 @@ services:
         - APP_HOME=${PWD}
     command: npm start
     volumes:
-      - .:${PWD}
+      - './.babelrc:${PWD}/.babelrc'
+      - './package.json:${PWD}/package.json'
+      - './tsconfig.json:${PWD}/tsconfig.json'
+      - './webpack.config.babel.js:${PWD}/webpack.config.babel.js'
+      - './assets/:${PWD}/assets/'
   spring:
     <<: *app_base
     ports: []
