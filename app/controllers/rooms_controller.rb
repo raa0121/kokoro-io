@@ -29,7 +29,7 @@ class RoomsController < ApplicationController
   end
 
   def join
-    room = Room.where(screen_name: params[:screen_name]).limit(1).first
+    room = Room.find_by(screen_name: params[:screen_name])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
 
@@ -43,7 +43,7 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    room = Room.where(screen_name: params[:screen_name]).limit(1).first
+    room = Room.find_by(screen_name: params[:screen_name])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_leaveable') unless room.leaveable? current_user
 
