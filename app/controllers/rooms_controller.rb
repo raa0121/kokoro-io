@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room = current_user.rooms.where('id=?', permitted_params[:room])
+    @room = current_user.rooms.find_by(id: params[:id])
   end
 
   def join
