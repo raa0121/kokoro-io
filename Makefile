@@ -29,3 +29,7 @@ console:
 .PHONY: dbsetup
 dbsetup:
 	docker-compose exec web bundle exec rails db:setup
+
+.PHONY: dbseed
+dbseed:
+	docker-compose exec web bundle exec rails db:seed
