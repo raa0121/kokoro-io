@@ -26,6 +26,7 @@ class RoomsController < ApplicationController
 
   def destroy
     @room = current_user.rooms.find_by(id: params[:id])
+    # TODO:Authority check
   end
 
   def join
