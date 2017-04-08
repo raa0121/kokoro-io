@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'therubyracer'
 gem 'libv8', '3.16.14.15'
-gem 'rails', '~> 5.0.0.1'
+gem 'rails', '~> 5.0.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'slim-rails', '~> 3.1'
 gem 'uglifier', '>= 2.7.2'
