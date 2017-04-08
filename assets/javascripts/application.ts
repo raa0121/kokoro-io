@@ -1,8 +1,15 @@
 import * as Vue from 'vue';
 import * as moment from 'moment';
+import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 declare function require(name: string);
 const messagesView= require('./view/messages.vue');
 const messageInputView= require('./view/message-input.vue');
+
+Vue.prototype.$http = axios.create({
+    xsrfHeaderName: 'X-CSRF-Token',
+    withCredentials: true,
+    baseURL: '/api'
+});
 
 class ApiClient
 {
