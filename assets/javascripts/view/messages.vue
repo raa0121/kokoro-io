@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="talks">
         <div class="row talk" v-for="message in messages">
             <div class="col-sm-12">
                 <div class="avatar">
