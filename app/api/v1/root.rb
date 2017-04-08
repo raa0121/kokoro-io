@@ -35,15 +35,15 @@ module V1
 
     # API document
     add_swagger_documentation(
-      api_version: 'v1',
+      add_version: true,
       base_path: '/api',
+      add_base_path: true,
       hide_documention_path: true,
       info: {
         title: 'kokoro.io API document',
         description: 'X-Access-Token ヘッダーにあなたのアカウントのAPIトークンを含めることでAPIへのアクセスを行うことが出来ます。APIトークンはウェブ管理画面の右上メニュー「アカウント情報 > API情報」から確認可能です。また、このページ右上の「Your API token here」の欄にAPIトークンを入力し「Explore」ボタンをクリックすることで、このページの各API説明部分にある「Try it out!」ボタンから実際にAPIを呼び出すことが可能になります。この時、通常のAPI呼び出しと同様、アカウントへの操作が実際に行われますのでご注意ください。'
       },
-      doc_version: '1.0.0',
-      mount_path: '/documentation'
+      doc_version: '1.0.0'
     )
   end
 end
