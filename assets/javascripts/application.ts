@@ -34,7 +34,7 @@ const data= {
                 id: 'user-id',
                 name: 'speaker name',
             },
-            avatar_thumbnail_url: '',
+            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
             // ISO8601
             posted_at: moment().format(),
             text: 'hi',
@@ -44,7 +44,7 @@ const data= {
                 id: 'user-id',
                 name: 'speaker name',
             },
-            avatar_thumbnail_url: '',
+            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
             // ISO8601
             posted_at: moment().format(),
             text: 'hi',
