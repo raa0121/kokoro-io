@@ -75,7 +75,7 @@ class RoomsController < ApplicationController
       room.users << user_to_invite
       room.save
     end
-    redirect_to room_path(room), notice: t('notice.rooms.joined')
+    redirect_to room_path(room), notice: t('notice.rooms.invited')
   end
 
   private
