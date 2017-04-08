@@ -28,7 +28,28 @@ class ApiClient
 }
 
 const data= {
-    messages: [],
+    messages: [
+        {
+            speaker: {
+                id: 'user-id',
+                name: 'speaker name',
+            },
+            avatar_thumbnail_url: '',
+            // ISO8601
+            posted_at: moment().format(),
+            text: 'hi',
+        },
+        {
+            speaker: {
+                id: 'user-id',
+                name: 'speaker name',
+            },
+            avatar_thumbnail_url: '',
+            // ISO8601
+            posted_at: moment().format(),
+            text: 'hi',
+        },
+    ],
 };
 
 document.addEventListener('DOMContentLoaded', () => {
