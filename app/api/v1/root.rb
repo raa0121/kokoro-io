@@ -37,7 +37,6 @@ module V1
     add_swagger_documentation(
       add_version: true,
       base_path: '/api',
-      add_base_path: true,
       hide_documention_path: true,
       info: {
         title: 'kokoro.io API document',
