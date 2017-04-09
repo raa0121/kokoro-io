@@ -19,6 +19,10 @@ class Bot < ApplicationRecord
     disabled: 20
   }
 
+  def name
+    bot_name
+  end
+
   def self.generate_token
     Digest::SHA256.hexdigest "#{ENV['TOKEN_SALT']}_#{SecureRandom.uuid}"
   end

@@ -1,36 +1,68 @@
 module V1
+  class MessageEntity < Grape::Entity
+    expose :id, documentation: {type: Integer, desc: "メッセージID"}
+    expose :room_id, documentation: {type: String, desc: "ルームID"}
+    expose :content, documentation: {type: Integer, desc: "発言内容"}
+    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
+    expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
+    expose :speaker do
+      expose :publisher_type, as: :type
+      expose :id do |m|
+        m.publisher.id
+      end
+      expose :name do |m|
+        m.publisher.name
+      end
+    end
+  end
+
   class Messages < Grape::API
 
-    resource 'messages' do
+    resource 'rooms' do
       before do
         authenticate!
       end
 
-      desc 'Returns recent messages in the room'
-      params do
-        requires :id, type: Integer
-        requires :limit, type: Integer, default: 30
-        requires :offset, type: Integer, default: 0
-      end
-      route_param :id do
-        get do
-          room = @user.chattable_rooms.find(params[:id])
-          # TODO: use offset
-          messages = room.messages.recent.limit(params[:limit])
-        end
-      end
+      segment '/:id' do
 
-      desc 'Creates a new message.'
-      params do
-        requires :room_id, type: Integer
-        requires :message, type: String
-      end
-      post do
-        room = @user.rooms.find_by(id: params[:room_id])
-        message = room.messages.create!(
-          publisher: @user,
-          content: params[:message]
-        )
+        resource 'messages' do
+          before do
+            authenticate!
+          end
+
+          desc 'Returns recent messages in the room.', {
+            entity: MessageEntity,
+            response: {isArray: true, entity: MessageEntity}
+          }
+          params do
+            requires :limit, type: Integer, default: 30
+            requires :offset, type: Integer, default: 0
+          end
+          get do
+            room = @user.chattable_rooms.find(params[:id])
+            # TODO: use offset
+            messages = room.messages.recent.limit(params[:limit])
+            present messages, with: MessageEntity
+          end
+
+          desc 'Creates a new message.', {
+            entity: MessageEntity,
+            response: {isArray: false, entity: MessageEntity}
+          }
+          params do
+            requires :message, type: String
+          end
+          post do
+            room = @user.chattable_rooms.find_by(id: params[:id])
+            message = room.messages.create!(
+              publisher: @user,
+              content: params[:message]
+            )
+            present message, with: MessageEntity
+          end
+
+        end
+
       end
 
     end
