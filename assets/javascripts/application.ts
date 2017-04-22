@@ -2,17 +2,17 @@ import * as Vue from 'vue';
 import * as moment from 'moment';
 import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import * as ActionCable from 'actioncable';
-import App from 'actioncable';
 declare function require(name: string);
-const roomChannel= require('./channels/room.ts');
+// const roomChannel= require('./channels/room.ts');
 const messagesView= require('./view/messages.vue');
 const messageInputView= require('./view/message-input.vue');
 
-App.cable = ActionCable.createConsumer();
-roomChannel.handleRoom(App);
+// Initialize global context
+const App = {
+    cable: ActionCable.createConsumer(),
+};
 
-
-Vue.prototype.$http = axios.create({
+(<any>Vue.prototype).$http = axios.create({
     xsrfHeaderName: 'X-CSRF-Token',
     withCredentials: true,
     baseURL: '/api'
@@ -67,14 +67,21 @@ const data= {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const MessagesView= Vue.extend(messagesView);
-    const MessageInputView= Vue.extend(messageInputView);
+    const MessagesView = Vue.extend(messagesView);
+    const MessageInputView = Vue.extend(messageInputView);
 
+    const eventBus = new Vue();
     new MessagesView({
         el: '#chatapp .talks',
-        data: data,
+        propsData: {
+            eventBus: eventBus,
+            messages: data.messages,
+        },
     });
     new MessageInputView({
         el: '#say_text',
+        propsData: {
+            eventBus: eventBus,
+        },
     });
 });

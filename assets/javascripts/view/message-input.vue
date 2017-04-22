@@ -3,9 +3,21 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import KeyCode from 'keycode-js';
 
     export default {
+        props: {
+            eventBus: {
+                required: true,
+            },
+
+            roomId: {
+                type: String,
+                required: false,
+            },
+        },
+
         data(){
             return {
                 suppressingInput: false,
@@ -25,13 +37,28 @@
                             return true;
                         }
                         evt.preventDefault();
+
                         // TODO: Post message
-                        this.suppressingInput= true;
-                        setTimeout(() => {
-                            alert(this.text);
-                            this.text= '';
-                            this.suppressingInput= false;
-                        }, 1000);
+                        this.suppressingInput = true;
+                        const allowInput = () => this.suppressingInput = false;
+
+                        const text = this.text;
+                        const promise = this.$http.post(`/v1/rooms/${this.roomId}/messages`, text);
+                        promise.then(allowInput, allowInput);
+                        promise.then((response) => this.text = '');
+
+                        const message = {
+                            speaker: {
+                                id: 'user-id',
+                                name: 'speaker name',
+                            },
+                            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
+                            // ISO8601
+                            posted_at: moment().format(),
+                            text: text,
+                        };
+                        this.$emit('say', this.roomId, message);
+                        this.eventBus.$emit('say', this.roomId, message);
                         return false;
                 }
             },
