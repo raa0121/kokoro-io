@@ -2,6 +2,7 @@ import * as Vue from 'vue';
 import * as moment from 'moment';
 import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import * as ActionCable from 'actioncable';
+import * as model from './model/';
 declare function require(name: string);
 // const roomChannel= require('./channels/room.ts');
 const messagesView = require('./view/messages.vue');
