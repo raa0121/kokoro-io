@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :a_users
+  devise_for :users
   resources :bots
   post '/rooms/join/:screen_name' => 'rooms#join', as: :join_room
   post '/rooms/leave/:screen_name' => 'rooms#leave', as: :leave_room

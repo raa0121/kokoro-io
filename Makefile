@@ -34,6 +34,14 @@ testp:
 console:
 	docker-compose exec web bundle exec rails c --sandbox
 
+.PHONY: dbdrop
+dbdrop:
+	docker-compose exec web bundle exec rails db:drop
+
+.PHONY: dbreset
+dbreset:
+	docker-compose exec web bundle exec rails db:reset
+
 .PHONY: dbsetup
 dbsetup:
 	docker-compose exec web bundle exec rails db:setup
