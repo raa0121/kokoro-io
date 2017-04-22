@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   # API
   mount API::Root => '/api/'
   mount GrapeSwaggerRails::Engine => '/apidoc'
+
+  # ActionCable
+  mount ActionCable.server => '/cable'
 end
