@@ -1,76 +1,82 @@
 module V1
+  class RoomEntity < Grape::Entity
+    expose :id, documentation: {type: Integer, desc: "ルームID"}
+    expose :screen_name, documentation: {type: String, desc: "ルームID"}
+    expose :room_name, documentation: {type: String, desc: "ルーム名"}
+    expose :description, documentation: {type: String, desc: "ルーム説明"}
+    expose :private, documentation: {type: 'boolean', desc: "プライベートルームかどうか"}
+    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
+    expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
+  end
+
   class Rooms < Grape::API
+
+    helpers do
+      def permitted_params
+        ActionController::Parameters.new(params).permit(:title, :body)
+      end
+    end
 
     resource 'rooms' do
       before do
         authenticate!
       end
-      desc 'Return chattable rooms.'
+
+      desc 'Return chattable rooms.', {
+        entity: RoomEntity,
+        response: {isArray: true, entity: RoomEntity}
+      }
       get do
         @user.chattable_rooms
       end
 
-      desc 'Return a room.'
-      params do
-        requires :id, type: Integer
-      end
-      route_param :id do
-        get do
-          @user.chattable_rooms.find(params[:id])
-        end
-      end
-
-      desc 'Creates a new room.'
+      desc 'Creates a new room.', {
+        entity: RoomEntity,
+        response: {isArray: false, entity: RoomEntity}
+      }
       params do
         requires :room_name, type: String
         requires :screen_name, type: String
         requires :description, type: String
+        optional :private, type: Boolean
       end
       post do
-        room = @user.rooms.create!(
-          room_name: params[:room_name],
-          screen_name: params[:screen_name],
-          private: params[:private] || false,
-          description: params[:description]
-        )
+        room = @user.rooms.create(permitted_params)
         membership = room.memberships.first
         membership.administrator! if membership
+        room
       end
 
-      desc 'Updates a room.'
+      desc 'Updates a room.', {
+        entity: RoomEntity,
+        response: {isArray: false, entity: RoomEntity}
+      }
       params do
-        requires :id, type: Integer
-        optional :screen_name, type: String
+        requires :screen_name, type: String
         optional :room_name, type: String
         optional :description, type: String
         optional :private, type: Boolean
       end
-      route_param :id do
+      route_param :screen_name do
         put do
           status 204
-          room = @user.administrator_rooms.find(params[:id])
-          screen_name = params[:screen_name] || room.screen_name
-          room_name = params[:room_name] || room.room_name
-          description = params[:description] || room.description
-          room_private = params[:private] || room.private
-          room.update!(
-            screen_name: screen_name,
-            room_name: room_name,
-            description: description,
-            private: room_private,
-            updated_at: Time.now
-          )
+          room = @user.administrator_rooms.find_by(screen_name: params[:screen_name])
+          room.update(permitted_params)
         end
+        room
       end
 
       desc 'Delete a room'
       params do
-        requires :id, type: Integer
+        requires :screen_name, type: String
       end
-      route_param :id do
+      route_param :screen_name do
         delete do
           status 204
-          @user.administrator_rooms.find(params[:id]).destroy!
+          room = @user.administrator_rooms.find_by(screen_name: params[:screen_name])
+          if room.destroyable?(@user)
+            room.destroy
+          end
         end
       end
     end
