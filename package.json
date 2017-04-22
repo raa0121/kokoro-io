@@ -10,6 +10,7 @@
     "font:file": "cp node_modules/font-awesome/fonts/* ./assets/dist/fonts/",
     "font:dir": "mkdir -p ./assets/dist/fonts/",
     "font": "npm-run-all --serial font:dir font:file",
+    "tslint": "tslint ./assets/apps/javascripts/**/*.ts",
     "start": "npm-run-all --serial font build watch"
   },
   "devDependencies": {
