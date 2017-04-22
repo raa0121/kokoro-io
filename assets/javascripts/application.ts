@@ -37,31 +37,6 @@ class ApiClient
     }
 }
 
-const data= {
-    messages: [
-        {
-            speaker: {
-                id: 'user-id',
-                name: 'speaker name',
-            },
-            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
-            // ISO8601
-            posted_at: moment().format(),
-            text: 'hi',
-        },
-        {
-            speaker: {
-                id: 'user-id',
-                name: 'speaker name',
-            },
-            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
-            // ISO8601
-            posted_at: moment().format(),
-            text: 'hi',
-        },
-    ],
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     // get access token via DOM
     const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
@@ -90,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el: '#chatapp .talks',
         propsData: {
             eventBus: eventBus,
-            messages: data.messages,
         },
     });
     new MessageInputView({

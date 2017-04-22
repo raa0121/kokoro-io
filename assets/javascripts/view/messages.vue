@@ -1,6 +1,6 @@
 <template>
     <div class="talks">
-        <div class="row talk" v-for="message in messages">
+        <div class="row talk" v-for="message in messages.items">
             <div class="col-sm-12">
                 <div class="avatar">
                     <img v-bind:src="message.avatar_thumbnail_url" alt="">
@@ -16,22 +16,47 @@
 </template>
 
 <script>
+    import moment from 'moment';
+
     export default {
         props: {
             eventBus: {
                 required: true,
             },
+        },
 
-            messages: {
-                type: Array,
-                required: false,
-            },
+        data(){
+            return {
+                messages: {
+                    room: {},
+
+                    items: [],
+                },
+
+                // room.id => messages
+                roomMessages: {},
+            };
         },
 
         mounted(){
-            this.eventBus.$on('say', (roomId, message) => {
-                this.messages.push(message);
+            this.eventBus.$on('say', (room, message) => {
+                this.roomMessages[room.id].items.push(message);
             });
+            this.eventBus.$on('changeRoom', this.changeRoom);
+        },
+
+        methods: {
+            changeRoom(room){
+                console.log('changeRoom', room);
+                if(!this.roomMessages[room.id])
+                {
+                    this.roomMessages[room.id] = {
+                        room: room,
+                        items: [],
+                    };
+                }
+                Object.assign(this.messages, this.roomMessages[room.id]);
+            },
         },
     };
 </script>

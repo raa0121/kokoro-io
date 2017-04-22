@@ -1,7 +1,7 @@
 <template>
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-            <li v-for="room in rooms">
+            <li v-on:click.capture.prevent="changeRoom(room)" v-for="room in rooms">
                 <a v-bind:href="roomUrl(room)"><span class="badge pull-right">1</span>{{room.screen_name}}</a>
             </li>
         </ul>
@@ -44,7 +44,12 @@
 
         methods: {
             roomUrl(room){
-                return `/rooms/${room.id}`;
+                return `/rooms/${room.room_name}`;
+            },
+
+            changeRoom(room){
+                this.$emit('changeRoom', room);
+                this.eventBus.$emit('changeRoom', room);
             },
         },
     };
