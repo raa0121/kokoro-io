@@ -1,0 +1,11 @@
+= simple_form_for(@profile) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :display_name
+    = f.input :screen_name
+    = f.input :avatar_id
+    = f.input :available
+
+  .form-actions
+    = f.button :submit

@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one :profile, as: :publisher
+  delegate :screen_name, to: :profile, prefix: true
+  delegate :display_name, to: :profile, prefix: true
   has_many :access_tokens
   has_many :messages, as: :publisher
   has_many :memberships, as: :memberable
@@ -27,9 +30,5 @@ class User < ApplicationRecord
 
   def primary_access_token
     access_tokens.primary.first
-  end
-
-  def avatar_thumbnail_url size = 64
-    "#{avatar_url}&s=#{size}"
   end
 end

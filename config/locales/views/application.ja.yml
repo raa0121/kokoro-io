@@ -25,6 +25,7 @@ ja:
   regenerate_access_token: 再生成
   invite_this_bot_to_room: このBotをルームに招待
   auth:
+    sign_up: 会員登録
     sign_out: ログアウト
     sign_in: ログイン
     signed_out: ログアウトしました

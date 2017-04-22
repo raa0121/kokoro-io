@@ -30,6 +30,11 @@ gem 'friendly_id', github: 'norman/friendly_id'
 
 gem 'kaminari'
 
+gem 'refile', github: 'refile/refile', branch: 'master', require: 'refile/rails'
+gem 'refile-mini_magick'
+gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
+gem 'refile-s3'
+
 # gem 'cancancan', '~> 1.13.1'
 gem 'pundit'
 
