@@ -1,5 +1,5 @@
 <template>
-    <textarea id="say_text" placeholder="Let's talk!" v-bind:disabled="suppressingInput" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
+    <textarea id="say_text" placeholder="Let's talk!" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
 </template>
 
 <script>
@@ -11,18 +11,35 @@
             eventBus: {
                 required: true,
             },
-
-            roomId: {
-                type: String,
-                required: false,
-            },
         },
 
         data(){
             return {
                 suppressingInput: false,
+
                 text: '',
+
+                room: {},
             };
+        },
+
+        mounted(){
+            this.eventBus.$on('changeRoom', room => this.room = room);
+        },
+
+        computed: {
+            enabled(){
+                if(this.suppressingInput)
+                {
+                    return false;
+                }
+                // enabled when any room selected
+                return Object.keys(this.room).length > 0;
+            },
+
+            disabled(){
+                return !this.enabled;
+            },
         },
 
         methods: {
@@ -43,7 +60,7 @@
                         const allowInput = () => this.suppressingInput = false;
 
                         const text = this.text;
-                        const promise = this.$http.post(`/v1/rooms/${this.roomId}/messages`, text);
+                        const promise = this.$http.post(`/v1/rooms/${this.room.id}/messages`, text);
                         promise.then(allowInput, allowInput);
                         promise.then((response) => this.text = '');
 
@@ -57,8 +74,8 @@
                             posted_at: moment().format(),
                             text: text,
                         };
-                        this.$emit('say', this.roomId, message);
-                        this.eventBus.$emit('say', this.roomId, message);
+                        this.$emit('say', this.room, message);
+                        this.eventBus.$emit('say', this.room, message);
                         return false;
                 }
             },
