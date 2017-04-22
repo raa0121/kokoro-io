@@ -13,7 +13,12 @@ module V1
 
     helpers do
       def permitted_params
-        ActionController::Parameters.new(params).permit(:title, :body)
+        ActionController::Parameters.new(params).permit(
+          :screen_name,
+          :room_name,
+          :description,
+          :private
+        )
       end
     end
 
@@ -63,7 +68,6 @@ module V1
           room = @user.administrator_rooms.find_by(screen_name: params[:screen_name])
           room.update(permitted_params)
         end
-        room
       end
 
       desc 'Delete a room'
