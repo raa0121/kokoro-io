@@ -17,5 +17,21 @@
 
 <script>
     export default {
+        props: {
+            eventBus: {
+                required: true,
+            },
+
+            messages: {
+                type: Array,
+                required: false,
+            },
+        },
+
+        mounted(){
+            this.eventBus.$on('say', (roomId, message) => {
+                this.messages.push(message);
+            });
+        },
     };
 </script>

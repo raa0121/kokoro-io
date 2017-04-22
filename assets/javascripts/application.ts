@@ -67,14 +67,21 @@ const data= {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    const MessagesView= Vue.extend(messagesView);
-    const MessageInputView= Vue.extend(messageInputView);
+    const MessagesView = Vue.extend(messagesView);
+    const MessageInputView = Vue.extend(messageInputView);
 
+    const eventBus = new Vue();
     new MessagesView({
         el: '#chatapp .talks',
-        data: data,
+        propsData: {
+            eventBus: eventBus,
+            messages: data.messages,
+        },
     });
     new MessageInputView({
         el: '#say_text',
+        propsData: {
+            eventBus: eventBus,
+        },
     });
 });
