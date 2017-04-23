@@ -3,15 +3,14 @@ module V1
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
     expose :room_id, documentation: {type: String, desc: "ルームID"}
     expose :content, documentation: {type: Integer, desc: "発言内容"}
-    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
-    expose :speaker do
-      expose :publisher_type, as: :type
+    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
+    expose :publisher do
       expose :id do |m|
         m.publisher.id
       end
-      expose :name do |m|
-        m.publisher.name
+      expose :display_name do |m|
+        m.publisher.display_name
       end
     end
   end
