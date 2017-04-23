@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "bots/new", :type => :view do
   before(:each) do
     user = FactoryGirl.create :user
+    allow(view).to receive(:current_user).and_return(user)
     session[:user_id] = user.id
     assign(:bot, FactoryGirl.create(:bot, user: user))
   end
