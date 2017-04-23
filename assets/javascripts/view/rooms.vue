@@ -23,7 +23,7 @@
             return {
                 // memo: [{
                 //   "id":1,
-                //   "room_name":"aaaa",
+                //   "display_name":"aaaa",
                 //   "screen_name":"aaaa",
                 //   "private":false,
                 //   "created_at":"2017-04-22T11:00:02.354Z",
@@ -44,7 +44,7 @@
 
         methods: {
             roomUrl(room){
-                return `/rooms/${room.room_name}`;
+                return `/rooms/${room.display_name}`;
             },
 
             changeRoom(room){

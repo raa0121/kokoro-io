@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422193427) do
+ActiveRecord::Schema.define(version: 20170423075607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,13 +85,13 @@ ActiveRecord::Schema.define(version: 20170422193427) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "room_name",   limit: 64,                  null: false
-    t.string   "screen_name", limit: 255,                 null: false
-    t.boolean  "private",                 default: false, null: false
+    t.string   "display_name", limit: 64,                  null: false
+    t.string   "screen_name",  limit: 255,                 null: false
+    t.boolean  "private",                  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "description",                             null: false
-    t.index ["room_name"], name: "index_rooms_on_room_name", unique: true, using: :btree
+    t.text     "description",                              null: false
+    t.index ["display_name"], name: "index_rooms_on_display_name", unique: true, using: :btree
     t.index ["screen_name"], name: "index_rooms_on_screen_name", unique: true, using: :btree
   end
 

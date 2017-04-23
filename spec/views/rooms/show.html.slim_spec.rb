@@ -11,7 +11,7 @@ RSpec.describe "rooms/show", :type => :view do
     )
     allow(view).to receive(:current_user).and_return(user)
     @room = assign(:room, user.rooms.create!(
-      room_name: "Room name",
+      display_name: "Room name",
       screen_name: "screen_name",
       description: "Hi!",
       private: false

@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :room do
     sequence(:screen_name) {|n| "room-#{n}" }
-    sequence(:room_name) {|n| "Room ##{n}" }
+    sequence(:display_name) {|n| "Room ##{n}" }
     sequence(:description) {|n| "Description of room ##{n}" }
     sequence(:private) {|n| n % 2 == 0}
 

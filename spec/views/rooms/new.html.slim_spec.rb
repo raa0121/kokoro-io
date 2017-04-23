@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "rooms/new", :type => :view do
   before(:each) do
     assign(:room, Room.new(
-      :room_name => "MyString",
+      :display_name => "MyString",
       :screen_name => "MyString",
       :private => false
     ))
@@ -14,7 +14,7 @@ RSpec.describe "rooms/new", :type => :view do
 
     assert_select "form[action=?][method=?]", rooms_path, "post" do
 
-      assert_select "input#room_room_name[name=?]", "room[room_name]"
+      assert_select "input#room_display_name[name=?]", "room[display_name]"
 
       assert_select "input#room_screen_name[name=?]", "room[screen_name]"
 

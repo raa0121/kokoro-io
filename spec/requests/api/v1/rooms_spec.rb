@@ -37,7 +37,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     context 'can create a new room' do
       it 'status is 201' do
         @params = {
-          room_name: 'room_name1',
+          display_name: 'display_name1',
           screen_name: 'screen_name1',
           description: 'this is test room1'
         }
@@ -46,7 +46,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       end
       it 'with all params' do
         @params = {
-          room_name: 'room_name2',
+          display_name: 'display_name2',
           screen_name: 'screen_name2',
           private: false,
           description: 'this is test room2'
@@ -55,7 +55,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       end
       it 'with only required params' do
         @params = {
-          room_name: 'room_name3',
+          display_name: 'display_name3',
           screen_name: 'screen_name3',
           description: 'this is test room3'
         }
@@ -63,7 +63,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       end
       it 'creator is administrator' do
         @params = {
-          room_name: 'room_name4',
+          display_name: 'display_name4',
           screen_name: 'screen_name4',
           description: 'this is test room4'
         }
@@ -82,7 +82,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         expect(response.status).to eq(400)
       end
       context 'status is 400' do
-        it 'no room_name passed' do
+        it 'no display_name passed' do
           @params = {
             screen_name: 'hoge',
             description: 'fuga'
@@ -91,14 +91,14 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         end
         it 'no screen_name passed' do
           @params = {
-            room_name: 'hoge',
+            display_name: 'hoge',
             description: 'fuga'
           }
           resp_400
         end
         it 'no description passed' do
           @params = {
-            room_name: 'hoge',
+            display_name: 'hoge',
             screen_name: 'fuga'
           }
           resp_400
@@ -121,7 +121,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         request
         updated = user.administrator_rooms.find(room.id)
         expect(response.body).to be_truthy
-        expect(updated.room_name).to eq(room.room_name)
+        expect(updated.display_name).to eq(room.display_name)
         expect(updated.screen_name).to eq(room.screen_name)
         expect(updated.description).to eq(room.description)
         expect(updated.private).to eq(room.private)
@@ -129,7 +129,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       end
       it 'with params' do
         @params = {
-          room_name: "update_#{room.room_name}",
+          display_name: "update_#{room.display_name}",
           screen_name: "update_#{room.screen_name}",
           description: "updae_#{room.description}",
           private: !room.private
@@ -137,7 +137,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         request
         updated = Room.find(room.id)
         expect(response.body).to be_truthy
-        expect(updated.room_name).to_not eq(room.room_name)
+        expect(updated.display_name).to_not eq(room.display_name)
         expect(updated.screen_name).to_not eq(room.screen_name)
         expect(updated.description).to_not eq(room.description)
         expect(updated.private).to_not eq(room.private)
@@ -151,7 +151,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         expect(json(response.body)['message']).to match('Record not found.')
       end
       it 'invalid params' do
-        @params = {room_name: 1}
+        @params = {display_name: 1}
         request
         expect(response.status).to eq(404)
       end

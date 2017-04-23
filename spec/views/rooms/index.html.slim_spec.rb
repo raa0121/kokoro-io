@@ -12,13 +12,13 @@ RSpec.describe "rooms/index", :type => :view do
     allow(view).to receive(:current_user).and_return(user)
     assign(:rooms, [
       user.rooms.create!(
-        room_name: "room_name1",
+        display_name: "display_name1",
         screen_name: "Room Name1",
         description: "Hi!1",
         private: false
       ),
       user.rooms.create!(
-        room_name: "room_name2",
+        display_name: "display_name2",
         screen_name: "Room Name2",
         description: "Hi!2",
         private: false
