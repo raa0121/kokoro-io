@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "access_tokens/new", :type => :view do
   before(:each) do
-    user = User.create!(
-      provider: 'github',
-      uid: 'test',
-      screen_name: 'name',
-      display_name: 'user',
-      avatar_url: 'htt://hi.com/hi.jpg'
-    )
+    user = FactoryGirl.create :user
     assign(:access_token, AccessToken.new(
       :user => user,
       :name => "MyString",

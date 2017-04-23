@@ -2,21 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "bots/show", :type => :view do
   before(:each) do
-    user = User.create!(
-      provider: 'github',
-      uid: 'test',
-      screen_name: 'display_name1',
-      display_name: 'user',
-      avatar_url: 'htt://hi.com/hi.jpg'
-    )
+    user = FactoryGirl.create :user
     allow(view).to receive(:current_user).and_return(user)
-    @bot = assign(:bot, Bot.new(
-      user: user,
-      access_token: "token1",
-      display_name: "display_name1",
-      screen_name: "Name1",
-      status: 10
-    ))
+    @bot = assign(:bot, FactoryGirl.create(:bot, user: user))
   end
 
   it "renders attributes in <p>" do

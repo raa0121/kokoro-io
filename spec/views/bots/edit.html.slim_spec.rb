@@ -2,21 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "bots/edit", :type => :view do
   before(:each) do
-    user = User.create!(
-      provider: 'github',
-      uid: 'test',
-      screen_name: 'name',
-      display_name: 'user',
-      avatar_url: 'htt://hi.com/hi.jpg'
-    )
+    user = FactoryGirl.create :user
     session[:user_id] = user.id
-    @bot = assign(:bot, Bot.create!(
-      :user => user,
-      :access_token => "MyString",
-      :display_name => "MyString",
-      :screen_name => "MyString",
-      :status => 10
-    ))
+    @bot = assign(:bot, FactoryGirl.create(:bot, user: user))
   end
 
   it "renders the edit bot form" do
@@ -24,9 +12,9 @@ RSpec.describe "bots/edit", :type => :view do
 
     assert_select "form[action=?][method=?]", bot_path(@bot), "post" do
 
-      assert_select "input#bot_display_name[name=?]", "bot[display_name]"
+      assert_select "input#bot_profile_attributes_display_name[name=?]", "bot[profile_attributes][display_name]"
 
-      assert_select "input#bot_screen_name[name=?]", "bot[screen_name]"
+      assert_select "input#bot_profile_attributes_screen_name[name=?]", "bot[profile_attributes][screen_name]"
 
       assert_select "select#bot_status[name=?]", "bot[status]"
     end
