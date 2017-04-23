@@ -1,14 +1,7 @@
 {
     "defaultSeverity": "warning",
-    "extends": [
-    ],
+    "extends": "tslint:recommended",
     "jsRules": {},
-    "rules": {
-      "no-console": {
-        "options": [
-          "log"
-        ]
-      }
-    },
+    "rules": {},
     "rulesDirectory": []
 }
