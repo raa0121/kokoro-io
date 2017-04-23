@@ -19,6 +19,11 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 1. `make serve`
 
+### How to run bundle install
+
+1. Edit `Gemfile` for your necessarry
+1. `make bi`
+
 ### How to run test
 
 1. `make test`
