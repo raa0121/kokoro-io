@@ -3,6 +3,9 @@ module V1
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
     expose :room_id, documentation: {type: String, desc: "ルームID"}
     expose :content, documentation: {type: Integer, desc: "発言内容"}
+    expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
+      attachment_url(m.publisher.profile, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')
+    end
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
     expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
     expose :publisher do
