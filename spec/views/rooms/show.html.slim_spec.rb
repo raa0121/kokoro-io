@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "rooms/show", :type => :view do
   before(:each) do
-    user = User.create!(
-      provider: 'github',
-      uid: 'test',
-      screen_name: 'name',
-      display_name: 'user',
-      avatar_url: 'htt://hi.com/hi.jpg'
-    )
+    user = FactoryGirl.create :user
     allow(view).to receive(:current_user).and_return(user)
     @room = assign(:room, user.rooms.create!(
       display_name: "Room name",

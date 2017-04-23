@@ -26,6 +26,23 @@ guard:
 test:
 	docker-compose run test
 
+.PHONY: testm
+testm:
+	docker-compose run test bundle exec rake spec:models
+
+.PHONY: testv
+testv:
+	docker-compose run test bundle exec rake spec:views
+
+.PHONY: testr
+testr:
+	docker-compose run test bundle exec rake spec:requests
+
+.PHONY: testh
+testh:
+	docker-compose run test bundle exec rake spec:helpers
+
+
 .PHONY: testp
 testp:
 	docker-compose run test bundle exec rspec -P spec/${P}

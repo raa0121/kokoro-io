@@ -19,7 +19,7 @@ table.table.table-bordered.table-striped.table-condensed
         td= simple_format room.description
         td
           - room.users.each do |user|
-            = link_to image_tag(attachment_url(user, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
+            = link_to image_tag(attachment_url(user, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')), profile_path(user.profile), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
 
 
 - if current_user

@@ -1,9 +1,11 @@
 FactoryGirl.define do
-  factory :orange, class: Bot do
+  factory :bot, class: Bot do
     user
-    display_name 'orange-bot'
-    screen_name 'orange'
-    access_token 'ORANGE'
-    status :envabled
+    status :enabled
+    sequence(:access_token) { Bot.generate_token }
+
+    after(:create) do |bot|
+      bot.profile = Profile.create(publisher: bot, screen_name: "bot#{bot.id}", display_name: "BotName#{bot.id}", available: true)
+    end
   end
 end

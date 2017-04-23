@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "access_tokens/edit", :type => :view do
   before(:each) do
-    user = User.create!(
-      provider: 'github',
-      uid: 'test',
-      screen_name: 'name',
-      display_name: 'user',
-      avatar_url: 'htt://hi.com/hi.jpg'
-    )
+    user = FactoryGirl.create :user
     session[:user_id] = user.id
     @access_token = assign(:access_token, AccessToken.create!(
       user: user,
