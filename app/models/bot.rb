@@ -1,6 +1,4 @@
 class Bot < ApplicationRecord
-  extend FriendlyId
-  friendly_id :bot_name, use: [ :finders ]
 
   belongs_to :user
   has_one :profile, as: :publisher
