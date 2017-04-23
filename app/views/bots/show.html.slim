@@ -5,17 +5,17 @@
 table.table.table-bordered.table-collapsed
   tbody
     tr
-      th.col-sm-2= t('bot_name')
-      td= @bot.screen_name + " (#{@bot.bot_name})"
+      th.col-sm-2= t('display_name')
+      td= @bot.screen_name + " (#{@bot.display_name})"
     tr
       th= t('status')
       td= @bot.status
     tr
       th= t('owner')
-      td= link_to @bot.user do
-        = image_tag @bot.user.avatar_thumbnail_url(24)
+      td= link_to profile_path(@bot.user.profile) do
+        = image_tag attachment_url(@bot.user, :avatar, :fill, 24, 24, format: 'png', fallback: 'default_avatar_24.png')
         '
-        = @bot.user_screen_name
+        = @bot.user.display_name
     - if @bot.owner? current_user
       tr
         th= t('access_token')

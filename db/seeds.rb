@@ -28,7 +28,7 @@ rooms.each do |r|
     m = FactoryGirl.create :message,
                            room: r,
                            publisher: supermomonga,
-                           content: "Message#{i} from id:#{supermomonga.id} in #{r.room_name}",
+                           content: "Message#{i} from id:#{supermomonga.id} in #{r.display_name}",
                            published_at: Time.now - (i * 10).minutes
   end
 end

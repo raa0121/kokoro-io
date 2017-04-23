@@ -6,7 +6,7 @@ RSpec.describe "bots/index", :type => :view do
       provider: 'github',
       uid: 'test',
       screen_name: 'name',
-      user_name: 'user',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     allow(view).to receive(:current_user).and_return(user)
@@ -14,14 +14,14 @@ RSpec.describe "bots/index", :type => :view do
       Bot.create!(
         :user => user,
         :access_token => "Access Token1",
-        :bot_name => "bot_name1",
+        :display_name => "display_name1",
         :screen_name => "Screen Name",
         :status => 10
       ),
       Bot.create!(
         :user => user,
         :access_token => "Access Token2",
-        :bot_name => "bot_name2",
+        :display_name => "display_name2",
         :screen_name => "Screen Name",
         :status => 20
       )

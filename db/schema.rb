@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170422193427) do
+ActiveRecord::Schema.define(version: 20170423085710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,6 @@ ActiveRecord::Schema.define(version: 20170422193427) do
   create_table "bots", force: :cascade do |t|
     t.integer  "user_id",      null: false
     t.string   "access_token", null: false
-    t.string   "bot_name",     null: false
-    t.string   "screen_name",  null: false
     t.integer  "status",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -78,20 +76,20 @@ ActiveRecord::Schema.define(version: 20170422193427) do
     t.string   "display_name"
     t.string   "screen_name"
     t.string   "avatar_id"
-    t.boolean  "available"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.boolean  "available",      default: true
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["publisher_type", "publisher_id"], name: "index_profiles_on_publisher_type_and_publisher_id", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string   "room_name",   limit: 64,                  null: false
-    t.string   "screen_name", limit: 255,                 null: false
-    t.boolean  "private",                 default: false, null: false
+    t.string   "display_name", limit: 64,                  null: false
+    t.string   "screen_name",  limit: 255,                 null: false
+    t.boolean  "private",                  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "description",                             null: false
-    t.index ["room_name"], name: "index_rooms_on_room_name", unique: true, using: :btree
+    t.text     "description",                              null: false
+    t.index ["display_name"], name: "index_rooms_on_display_name", unique: true, using: :btree
     t.index ["screen_name"], name: "index_rooms_on_screen_name", unique: true, using: :btree
   end
 

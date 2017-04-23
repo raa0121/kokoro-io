@@ -80,6 +80,6 @@ class RoomsController < ApplicationController
 
   private
   def permitted_params
-    params.permit(room: [:screen_name, :room_name, :description, :private])
+    params.permit(room: [:screen_name, :display_name, :description, :private])
   end
 end

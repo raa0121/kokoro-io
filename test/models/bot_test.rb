@@ -4,7 +4,7 @@ class BotTest < ActiveSupport::TestCase
   def setup
     @user = users(:stan)
     @param = {
-      bot_name: 'bot_name',
+      display_name: 'display_name',
       screen_name: 'screen_name',
       access_token: 'access_token',
       status: :enabled,
@@ -18,8 +18,8 @@ class BotTest < ActiveSupport::TestCase
     # user_id is required.
     bot.user_id = @user.id
     assert_not bot.valid?
-    # bot_name is required.
-    bot.bot_name = 'bot_name'
+    # display_name is required.
+    bot.display_name = 'display_name'
     assert_not bot.valid?
     # screen_name is required.
     bot.screen_name = 'screen_name'
@@ -35,25 +35,25 @@ class BotTest < ActiveSupport::TestCase
     end
   end
 
-  test 'validates bot_name' do
-    @param[:bot_name] = nil
+  test 'validates display_name' do
+    @param[:display_name] = nil
     bot = Bot.new(@param)
-    # bot_name is required.
+    # display_name is required.
     assert_not bot.valid?
     # over length.
-    bot.bot_name = 'a' * 256
+    bot.display_name = 'a' * 256
     assert_not bot.valid?
     # corner case.
-    bot.bot_name = 'a' * 255
+    bot.display_name = 'a' * 255
     assert bot.valid?
-    bot.bot_name = 'one'
+    bot.display_name = 'one'
     assert_difference 'Bot.count', 1 do
       bot.save
     end
 
-    # bot_name must be unique.
+    # display_name must be unique.
     bot2 = Bot.new(@param)
-    bot2.bot_name = bot.bot_name
+    bot2.display_name = bot.display_name
     assert_not bot2.save
   end
 

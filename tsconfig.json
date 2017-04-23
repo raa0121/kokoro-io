@@ -6,7 +6,7 @@
         "sourceMap": true,
         "alwaysStrict": true
     },
-    "files": [
+    "include": [
         "./assets/javascripts/**/*.ts"
     ]
 }

@@ -2,7 +2,7 @@ module V1
   class RoomEntity < Grape::Entity
     expose :id, documentation: {type: Integer, desc: "ルームID"}
     expose :screen_name, documentation: {type: String, desc: "ルームID"}
-    expose :room_name, documentation: {type: String, desc: "ルーム名"}
+    expose :display_name, documentation: {type: String, desc: "ルーム名"}
     expose :description, documentation: {type: String, desc: "ルーム説明"}
     expose :private, documentation: {type: 'boolean', desc: "プライベートルームかどうか"}
     expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
@@ -15,7 +15,7 @@ module V1
       def permitted_params
         ActionController::Parameters.new(params).permit(
           :screen_name,
-          :room_name,
+          :display_name,
           :description,
           :private
         )
@@ -40,7 +40,7 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        requires :room_name, type: String
+        requires :display_name, type: String
         requires :screen_name, type: String
         requires :description, type: String
         optional :private, type: Boolean
@@ -58,7 +58,7 @@ module V1
       }
       params do
         requires :screen_name, type: String
-        optional :room_name, type: String
+        optional :display_name, type: String
         optional :description, type: String
         optional :private, type: Boolean
       end

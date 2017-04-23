@@ -6,7 +6,7 @@ RSpec.describe Bot, :type => :model do
   let(:valid_param) {
     {
       user_id: user.id,
-      bot_name: 'bot_name',
+      display_name: 'display_name',
       screen_name: 'screen_name',
       access_token: 'access_token',
       status: :enabled
@@ -30,8 +30,8 @@ RSpec.describe Bot, :type => :model do
         expect(bot).not_to be_valid
       end
 
-      it 'without bot_name' do
-        param = valid_param.merge({bot_name: nil})
+      it 'without display_name' do
+        param = valid_param.merge({display_name: nil})
         bot = Bot.new(param)
         bot.valid?
         expect(bot).not_to be_valid

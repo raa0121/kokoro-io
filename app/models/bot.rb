@@ -1,21 +1,17 @@
 class Bot < ApplicationRecord
-  extend FriendlyId
-  friendly_id :bot_name, use: [ :finders ]
 
   belongs_to :user
   has_one :profile, as: :publisher
-  delegate :screen_name, to: :profile, prefix: false
-  delegate :display_name, to: :profile, prefix: false
-  delegate :messages, to: :profile, prefix: false
+  accepts_nested_attributes_for :profile
+  delegate :screen_name, to: :profile, prefix: false, allow_nil: true
+  delegate :display_name, to: :profile, prefix: false, allow_nil: true
+  delegate :messages, to: :profile, prefix: false, allow_nil: true
+  delegate :avatar, to: :profile, prefix: false, allow_nil: true
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
-  validates :user, :bot_name, :screen_name, :access_token, :status, presence: true
-  validates :bot_name, friendly_id: true
-  validates :bot_name, length: { maximum: 255 }
-  validates :bot_name, uniqueness: true
+  validates :user, :access_token, :status, presence: true
   validates :access_token, uniqueness: true
-  validates :screen_name, length: { maximum: 64 }
 
   enum status: {
     enabled: 10,
@@ -23,7 +19,7 @@ class Bot < ApplicationRecord
   }
 
   def name
-    bot_name
+    display_name
   end
 
   def self.generate_token

@@ -6,14 +6,14 @@ RSpec.describe "bots/new", :type => :view do
       provider: 'github',
       uid: 'test',
       screen_name: 'name',
-      user_name: 'user',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     session[:user_id] = user.id
     assign(:bot, Bot.new(
       user: user,
       access_token: "MyString",
-      bot_name: "bot_name",
+      display_name: "display_name",
       screen_name: "MyString",
       status: 10
     ))
@@ -24,7 +24,7 @@ RSpec.describe "bots/new", :type => :view do
 
     assert_select "form[action=?][method=?]", bots_path, "post" do
 
-      assert_select "input#bot_bot_name[name=?]", "bot[bot_name]"
+      assert_select "input#bot_display_name[name=?]", "bot[display_name]"
 
       assert_select "input#bot_screen_name[name=?]", "bot[screen_name]"
 

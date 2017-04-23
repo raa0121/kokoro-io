@@ -2,11 +2,11 @@ class Room < ApplicationRecord
   extend FriendlyId
   friendly_id :screen_name
 
-  validates :screen_name, :room_name, :description, presence: true
+  validates :screen_name, :display_name, :description, presence: true
   validates :screen_name, friendly_id: true
   validates :screen_name, length: { in: 1..255 }
   validates :screen_name, uniqueness: true
-  validates :room_name, length: { in: 2..64 }
+  validates :display_name, length: { in: 2..64 }
   validates :description, length: { in: 1..1000 }
   validates :private, inclusion: {in: [true, false]}
 

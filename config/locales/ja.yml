@@ -9,6 +9,6 @@ ja:
     attributes:
       user:
         screen_name: 表示名
-        user_name: ユーザーID
+        display_name: ユーザーID
         avatar_url: アバター画像URL
 

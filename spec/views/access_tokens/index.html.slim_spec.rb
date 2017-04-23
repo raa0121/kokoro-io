@@ -6,7 +6,7 @@ RSpec.describe "access_tokens/index", :type => :view do
       provider: 'github',
       uid: 'test',
       screen_name: 'UserName',
-      user_name: 'user',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     assign(:access_tokens, [

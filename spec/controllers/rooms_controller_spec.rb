@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RoomsController, :type => :controller do
   let(:valid_public_attributes) {
     {
-      room_name: 'public_room',
+      display_name: 'public_room',
       screen_name: 'sugoi_public_room',
       private: false,
       description: 'sugoi desu'
@@ -12,7 +12,7 @@ RSpec.describe RoomsController, :type => :controller do
 
   let(:valid_private_attiutes) {
     {
-      room_name: 'private_room',
+      display_name: 'private_room',
       screen_name: 'sugoi_private_room',
       private: true,
       description: 'himitsu desu'
@@ -62,7 +62,7 @@ RSpec.describe RoomsController, :type => :controller do
     let(:param) {{
       room: {
         screen_name: 'test room',
-        room_name: 'TEST ROOM',
+        display_name: 'TEST ROOM',
         description: 'yo',
         private: false
       }
