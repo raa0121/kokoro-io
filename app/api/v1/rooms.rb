@@ -1,12 +1,10 @@
 module V1
   class RoomEntity < Grape::Entity
-    expose :id, documentation: {type: Integer, desc: "ルームID"}
+    expose :id, documentation: {type: Integer, desc: "レコードID"}
     expose :screen_name, documentation: {type: String, desc: "ルームID"}
     expose :display_name, documentation: {type: String, desc: "ルーム名"}
     expose :description, documentation: {type: String, desc: "ルーム説明"}
     expose :private, documentation: {type: 'boolean', desc: "プライベートルームかどうか"}
-    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
-    expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
   end
 
   class Rooms < Grape::API
@@ -57,29 +55,42 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        requires :screen_name, type: String
+        requires :id, type: String
+        optional :screen_name, type: String
         optional :display_name, type: String
         optional :description, type: String
         optional :private, type: Boolean
       end
-      route_param :screen_name do
+      route_param :id do
         put do
-          status 204
-          room = @user.administrator_rooms.find_by(screen_name: params[:screen_name])
-          room.update(permitted_params)
+          room = Room.find_by(id: params[:id])
+          if room && room.maintainable?(@user)
+            if room.update(permitted_params)
+              status 204
+            else
+              status 400
+            end
+          else
+            status 404
+          end
         end
       end
 
       desc 'Delete a room'
       params do
-        requires :screen_name, type: String
+        requires :id, type: String
       end
-      route_param :screen_name do
+      route_param :id do
         delete do
-          status 204
-          room = @user.administrator_rooms.find_by(screen_name: params[:screen_name])
-          if room.destroyable?(@user)
-            room.destroy
+          room = Room.find_by(id: params[:id])
+          if room && room.destroyable?(@user)
+            if room.destroy
+              status 204
+            else
+              status 400
+            end
+          else
+            status 404
           end
         end
       end

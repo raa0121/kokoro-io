@@ -4,7 +4,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   before { rooms }
   let(:user) { FactoryGirl.create(:user) }
   let(:rooms) { user.chattable_rooms }
-  let(:headers) { {'X-Access-Token' => user.access_tokens.first.token} }
+  let(:headers) { {'X-Access-Token' => user.primary_access_token.token} }
   let(:path) { '/api/v1/rooms' }
 
   describe 'GET /api/v1/rooms' do
@@ -16,19 +16,6 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       get path, headers: headers, params: {}
 
       expect(json(response.body).length).to eq(rooms.count)
-    end
-  end
-
-  describe 'GET /api/v1/rooms/:id' do
-    let(:room) { user.chattable_rooms.first }
-    it 'returns 200' do
-      get "#{path}/#{room.id}", headers: headers, params: {}
-      expect(response.status).to eq(200)
-    end
-
-    it 'returns an information about queried room' do
-      get "#{path}/#{room.id}", headers: headers, params: {}
-      expect(response.body).to eq(room.to_json)
     end
   end
 
@@ -120,22 +107,24 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
         @params = {}
         request
         updated = user.administrator_rooms.find(room.id)
+        expect(response.status).to eq(204)
         expect(response.body).to be_truthy
         expect(updated.display_name).to eq(room.display_name)
         expect(updated.screen_name).to eq(room.screen_name)
         expect(updated.description).to eq(room.description)
         expect(updated.private).to eq(room.private)
-        expect(updated.updated_at).to be > room.updated_at
+        expect(updated.updated_at).to eq room.updated_at
       end
       it 'with params' do
         @params = {
-          display_name: "update_#{room.display_name}",
-          screen_name: "update_#{room.screen_name}",
-          description: "updae_#{room.description}",
+          display_name: "updated_#{room.display_name}",
+          screen_name: "u#{room.screen_name}",
+          description: "updated_#{room.description}",
           private: !room.private
         }
         request
         updated = Room.find(room.id)
+        expect(response.status).to eq(204)
         expect(response.body).to be_truthy
         expect(updated.display_name).to_not eq(room.display_name)
         expect(updated.screen_name).to_not eq(room.screen_name)
@@ -148,12 +137,12 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       it 'not administrable' do
         user2 = FactoryGirl.create(:user)
         put "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
-        expect(json(response.body)['message']).to match('Record not found.')
+        expect(response.status).to eq(404)
       end
-      it 'invalid params' do
+      it 'invalid screen_name params' do
         @params = {display_name: 1}
         request
-        expect(response.status).to eq(404)
+        expect(response.status).to eq(400)
       end
     end
   end
@@ -171,6 +160,11 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     it 'failed to delete an unadministrable room' do
       user2 = FactoryGirl.create(:user)
       delete "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
+      expect(response.status).to eq(404)
+    end
+    it '存在しない部屋の削除に失敗する' do
+      user2 = FactoryGirl.create(:user)
+      delete "#{path}/999999999999", headers: headers, params: {}
       expect(response.status).to eq(404)
     end
   end

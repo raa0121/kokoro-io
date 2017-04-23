@@ -25,7 +25,7 @@ module V1
         authenticate!
       end
 
-      segment '/:screen_name' do
+      segment '/:id' do
 
         resource 'messages' do
           before do
@@ -41,7 +41,7 @@ module V1
             requires :offset, type: Integer, default: 0
           end
           get do
-            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
+            room = @user.chattable_rooms.find_by(id: params[:id])
             # TODO: use offset
             messages = room.messages.recent.limit(params[:limit])
             present messages, with: MessageEntity
@@ -55,7 +55,7 @@ module V1
             requires :message, type: String
           end
           post do
-            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
+            room = @user.chattable_rooms.find_by(id: params[:id])
             message = room.messages.create!(
               publisher: @user,
               content: params[:message]
