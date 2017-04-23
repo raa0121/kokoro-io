@@ -6,4 +6,6 @@ class Message < ApplicationRecord
   validates :room, :publisher, :content, :published_at, presence: true
   validates :content, length: { in: 1..2000 }
 
+  scope :recent, -> { order 'published_at DESC' }
+
 end

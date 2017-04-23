@@ -9,6 +9,8 @@ class AccessToken < ApplicationRecord
   validates :token, uniqueness: true
   validates :essential, inclusion: {in: [true, false]}
 
+  scope :primary, -> { where(essential: true) }
+
   def self.generate_token
     Digest::SHA256.hexdigest "#{ENV['TOKEN_SALT']}_#{SecureRandom.uuid}"
   end

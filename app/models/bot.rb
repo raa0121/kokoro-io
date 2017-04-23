@@ -3,7 +3,9 @@ class Bot < ApplicationRecord
   friendly_id :bot_name, use: [ :finders ]
 
   belongs_to :user
-  delegate :screen_name, to: :user, prefix: true
+  has_one :profile, as: :publisher
+  delegate :screen_name, to: :profile, prefix: true
+  delegate :display_name, to: :profile, prefix: true
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
@@ -18,6 +20,10 @@ class Bot < ApplicationRecord
     enabled: 10,
     disabled: 20
   }
+
+  def name
+    bot_name
+  end
 
   def self.generate_token
     Digest::SHA256.hexdigest "#{ENV['TOKEN_SALT']}_#{SecureRandom.uuid}"

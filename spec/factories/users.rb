@@ -1,11 +1,9 @@
 FactoryGirl.define do
 
   factory :user do
-    provider 'github'
-    sequence(:uid) {|n| n }
-    sequence(:user_name) {|n| "User #{n}" }
-    sequence(:screen_name) {|n| "user-#{n}" }
-    sequence(:avatar_url) {|n| "https://avatar.com/#{n}" }
+    sequence(:email) { |n| "user#{n}@example.com" }
+    sequence(:password) { |n| "changeme" }
+    sequence(:password_confirmation) { |n| "changeme" }
 
     after(:create) do |user|
       rooms = create_list :room, 4, users: [user]

@@ -1,0 +1,27 @@
+h1 Listing profiles
+
+table
+  thead
+    tr
+      th Display name
+      th Screen name
+      th Avatar
+      th Available
+      th
+      th
+      th
+
+  tbody
+    - @profiles.each do |profile|
+      tr
+        td = profile.display_name
+        td = profile.screen_name
+        td = profile.avatar_id
+        td = profile.available
+        td = link_to 'Show', profile
+        td = link_to 'Edit', edit_profile_path(profile)
+        td = link_to 'Destroy', profile, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Profile', new_profile_path

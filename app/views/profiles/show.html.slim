@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Display name:
+  = @profile.display_name
+p
+  strong Screen name:
+  = @profile.screen_name
+p
+  strong Avatar:
+  = @profile.avatar_id
+p
+  strong Available:
+  = @profile.available
+
+= link_to 'Edit', edit_profile_path(@profile)
+'  |
+= link_to 'Back', profiles_path

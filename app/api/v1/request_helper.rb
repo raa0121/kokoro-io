@@ -9,6 +9,10 @@ module V1
       env[Rack::Session::Abstract::ENV_SESSION_KEY]
     end
 
+    def current_user
+      @user
+    end
+
     def set_current_user
       access_token = request.headers['X-Access-Token']
       user = AccessToken.find_by(token: access_token).try(:user)

@@ -14,26 +14,32 @@
     - if current_user
       li.dropdown
         a.dropdown-toggle[href="#" data-toggle="dropdown"]
-          = image_tag current_user.avatar_thumbnail_url(18)
-          '
-          = current_user.screen_name
+          - if current_user.profile
+            = image_tag attachment_url(current_user.profile, :avatar, :fill, 18, 18, format: 'png')
+            '
+            = current_user.profile&.screen_name
+          - else
+            = current_user.email
           b.caret
         ul.dropdown-menu
           li.dropdown-header= t('Bot')
           li= link_to bots_path do
             = icon :code, t('bots')
           li.dropdown-header= t('account')
-          li= link_to user_path(current_user) do
-            = icon :user, t('your_profile')
-          li= link_to edit_user_path(current_user) do
+          - if current_user.profile
+            li= link_to profile_path(current_user.profile) do
+              = icon :user, t('your_profile')
+          li= link_to edit_registration_path(current_user) do
             = icon :edit, t('edit_your_profile')
           li= link_to access_tokens_path do
             = icon :key, t('access_tokens')
           li.divider
-          li= link_to signout_path do
+          li= link_to destroy_user_session_path do
             = icon :'sign-out', t('auth.sign_out')
     - else
-      li= link_to '/auth/github' do
-        = icon :'sign-in', t('auth.sign_in')
+      li= link_to new_user_registration_path do
+        = icon('sign-in', t('auth.sign_in'))
+      li= link_to new_user_registration_path do
+        = icon('user-plus', t('auth.sign_up'))
   /form.navbar-form.navbar-right
   /  input.form-control[ type="text" placeholder="Search..." ]

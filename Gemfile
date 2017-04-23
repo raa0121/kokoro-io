@@ -2,13 +2,13 @@ source 'https://rubygems.org'
 
 gem 'therubyracer'
 gem 'libv8', '3.16.14.15'
-gem 'rails', '~> 5.0.0.1'
+gem 'rails', '~> 5.0.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'slim-rails', '~> 3.1'
 gem 'uglifier', '>= 2.7.2'
 gem 'coffee-rails', '~> 4.1.0'
-gem 'omniauth', '~> 1.2'
-gem 'omniauth-github', '~> 1.1'
+gem 'devise'
+gem 'devise-i18n'
 
 gem 'jquery-rails'
 gem 'turbolinks'
@@ -27,6 +27,13 @@ gem 'devise'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'friendly_id', github: 'norman/friendly_id'
+
+gem 'kaminari'
+
+gem 'refile', github: 'refile/refile', branch: 'master', require: 'refile/rails'
+gem 'refile-mini_magick'
+gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
+gem 'refile-s3'
 
 # gem 'cancancan', '~> 1.13.1'
 gem 'pundit'
@@ -71,8 +78,12 @@ end
 
 # API
 gem 'grape'
-gem 'hashie-forbidden_attributes'
+gem 'grape-entity'
 gem 'grape-swagger'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-rails'
+gem 'api-pagination'
+gem 'hashie-forbidden_attributes'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

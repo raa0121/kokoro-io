@@ -18,15 +18,20 @@ services:
       DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
       RACK_ENV: development
       RAILS_ENV: development
-  site:
+  assets:
     build:
       context: .
       dockerfile: Dockerfile.assets.dev
       args:
         - APP_HOME=${PWD}
-    command: npm run watch
+    command: npm start
     volumes:
-      - .:${PWD}
+      - './.babelrc:${PWD}/.babelrc'
+      - './package.json:${PWD}/package.json'
+      - './tsconfig.json:${PWD}/tsconfig.json'
+      - './webpack.config.babel.js:${PWD}/webpack.config.babel.js'
+      - './assets/:${PWD}/assets/'
+      - './tslint.json:${PWD}/tslint.json'
   spring:
     <<: *app_base
     ports: []

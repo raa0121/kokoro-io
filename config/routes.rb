@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  resources :profiles
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
   resources :bots
   post '/rooms/join/:screen_name' => 'rooms#join', as: :join_room
   post '/rooms/leave/:screen_name' => 'rooms#leave', as: :leave_room
   resources :rooms
   resources :access_tokens, except: [ :show ]
-  resources :users, except: [ :index ]
 
   root to: 'pages#index'
 
@@ -14,5 +17,9 @@ Rails.application.routes.draw do
   get '/sign_out' => 'sessions#destroy', as: :signout
 
   # API
-  mount API::Root => '/'
+  mount API::Root => '/api/'
+  mount GrapeSwaggerRails::Engine => '/apidoc'
+
+  # ActionCable
+  mount ActionCable.server => '/cable'
 end
