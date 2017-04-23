@@ -35,7 +35,7 @@ gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
 gem 'refile-s3'
 
 # gem 'cancancan', '~> 1.13.1'
-# gem 'pundit'
+gem 'pundit'
 
 gem 'unicorn'
 gem 'foreman'

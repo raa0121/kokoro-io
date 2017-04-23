@@ -297,6 +297,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -456,6 +458,7 @@ DEPENDENCIES
   mina
   mina-unicorn
   pg
+  pundit
   rails (~> 5.0.2)
   rails-controller-testing
   rake (= 10.4.2)

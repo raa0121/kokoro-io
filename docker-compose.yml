@@ -67,9 +67,7 @@ services:
       POSTGRES_DB: kokoroio_test
   bundle:
     image: kokoroio_web
-    command: echo 'bundle caching'
     volumes:
-      - /bundle
+      - spring:/bundle
 volumes:
   spring:
-

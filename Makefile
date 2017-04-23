@@ -53,3 +53,7 @@ dbseed:
 .PHONY: tslint
 tslint:
 	docker-compose exec assets npm run tslint
+
+.PHONY: bi
+bi:
+	docker-compose exec web bundle install
