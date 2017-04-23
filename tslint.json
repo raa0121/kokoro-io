@@ -2,6 +2,13 @@
     "defaultSeverity": "warning",
     "extends": "tslint:recommended",
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "quotemark": [true, "single", "avoid-escape"],
+        "no-unused-expression": [true, "allow-new"],
+        "no-var-requires": false,
+        "object-literal-sort-keys": false,
+        "object-literal-shorthand": false,
+        "member-access": false
+    },
     "rulesDirectory": []
 }

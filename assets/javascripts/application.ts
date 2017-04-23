@@ -1,7 +1,7 @@
-import * as Vue from 'vue';
-import * as moment from 'moment';
-import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 import * as ActionCable from 'actioncable';
+import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
+import * as moment from 'moment';
+import * as Vue from 'vue';
 import * as model from './model/';
 declare function require(name: string);
 // const roomChannel= require('./channels/room.ts');
@@ -14,12 +14,10 @@ const App = {
     cable: ActionCable.createConsumer(),
 };
 
-class ApiClient
-{
-    constructor(public baseUrl: string){}
+class ApiClient {
+    constructor(public baseUrl: string) {}
 
-    public messages()
-    {
+    public messages() {
         return new Promise((resolve, reject) => {
             return resolve([
                 {
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // get access token via DOM
     const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
     // automatically insert some headers for all requests
-    (<any>Vue.prototype).$http = axios.create({
+    (Vue.prototype as any).$http = axios.create({
         xsrfHeaderName: 'X-CSRF-Token',
         withCredentials: true,
         baseURL: '/api',
@@ -58,19 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
     new RoomsView({
         el: '#chatapp .sidebar',
         propsData: {
-            eventBus: eventBus,
+            eventBus,
         },
     });
     new MessagesView({
         el: '#chatapp .talks',
         propsData: {
-            eventBus: eventBus,
+            eventBus,
         },
     });
     new MessageInputView({
         el: '#say_text',
         propsData: {
-            eventBus: eventBus,
+            eventBus,
         },
     });
 });
