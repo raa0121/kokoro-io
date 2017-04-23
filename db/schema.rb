@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423082736) do
+ActiveRecord::Schema.define(version: 20170423083325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20170423082736) do
   create_table "bots", force: :cascade do |t|
     t.integer  "user_id",      null: false
     t.string   "access_token", null: false
-    t.string   "screen_name",  null: false
     t.integer  "status",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -11,7 +11,6 @@ class Bot < ApplicationRecord
 
   validates :user, :access_token, :status, presence: true
   validates :access_token, uniqueness: true
-  validates :screen_name, length: { maximum: 64 }
 
   enum status: {
     enabled: 10,

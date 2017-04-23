@@ -6,6 +6,7 @@ class Profile < ApplicationRecord
   validates :display_name, :screen_name, presence: true
   validates :available, inclusion: {in: [true, false]}
   validates :screen_name, uniqueness: true
+  validates :screen_name, length: { maximum: 64 }
 
 
   attachment :avatar, destroy: false
