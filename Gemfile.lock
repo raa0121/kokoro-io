@@ -107,7 +107,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
-    ansi (1.5.0)
     api-pagination (4.5.2)
     arbre (1.1.1)
       activesupport (>= 3.0.0)
@@ -231,18 +230,8 @@ GEM
       hashie (>= 3.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    httpclient (2.8.3)
     i18n (0.8.1)
     ice_nine (0.11.2)
-    itamae (1.9.11)
-      ansi
-      hashie
-      schash (~> 0.1.0)
-      specinfra (>= 2.64.0, < 3.0.0)
-      thor
-    jbuilder (2.6.3)
-      activesupport (>= 3.0.0, < 5.2)
-      multi_json (~> 1.2)
     jmespath (1.3.1)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
@@ -253,7 +242,6 @@ GEM
       turbolinks
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (1.8.6)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.0.1)
@@ -267,7 +255,6 @@ GEM
       kaminari-core (= 1.0.1)
     kaminari-core (1.0.1)
     kgio (2.11.0)
-    libv8 (3.16.14.15)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -293,10 +280,6 @@ GEM
     mustermann-grape (1.0.0)
       mustermann (~> 1.0.0)
     nenv (0.3.0)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (4.1.0)
-    net-telnet (0.1.1)
     netrc (0.11.0)
     nio4r (2.0.0)
     nokogiri (1.7.1)
@@ -314,13 +297,6 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.5)
-    pundit (1.1.0)
-      activesupport (>= 3.0.0)
-    pusher (1.3.1)
-      httpclient (~> 2.7)
-      multi_json (~> 1.0)
-      pusher-signature (~> 0.1.8)
-    pusher-signature (0.1.8)
     rack (2.0.1)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -364,8 +340,6 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    rdoc (4.3.0)
-    ref (2.0.0)
     refile-mini_magick (0.2.0)
       mini_magick (~> 4.0)
       refile (~> 0.5)
@@ -378,18 +352,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
-    rspec-its (1.2.0)
-      rspec-core (>= 3.0.0)
-      rspec-expectations (>= 3.0.0)
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
@@ -410,16 +377,6 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    schash (0.1.2)
-    sdoc (0.4.2)
-      json (~> 1.7, >= 1.7.7)
-      rdoc (~> 4.0)
-    serverspec (2.38.0)
-      multi_json
-      rspec (~> 3.0)
-      rspec-its
-      specinfra (~> 2.53)
-    sfl (2.3)
     shellany (0.0.1)
     slim (3.0.7)
       temple (~> 0.7.6)
@@ -429,11 +386,6 @@ GEM
       railties (>= 3.1)
       slim (~> 3.0)
     slop (3.6.0)
-    specinfra (2.67.8)
-      net-scp
-      net-ssh (>= 2.7, < 5.0)
-      net-telnet
-      sfl
     spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -444,9 +396,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     temple (0.7.7)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (2.0.7)
@@ -455,8 +404,8 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
-      execjs (>= 0.3.0, < 3)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
@@ -486,7 +435,6 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.3.7)
   capybara
-  coffee-rails (~> 4.1.0)
   database_cleaner
   devise
   devise-i18n
@@ -503,17 +451,11 @@ DEPENDENCIES
   guard-webpack
   hashie-forbidden_attributes
   inherited_resources!
-  itamae
-  jbuilder (~> 2.0)
-  jquery-rails
   jquery-turbolinks
   kaminari
-  libv8 (= 3.16.14.15)
   mina
   mina-unicorn
   pg
-  pundit
-  pusher
   rails (~> 5.0.2)
   rails-controller-testing
   rake (= 10.4.2)
@@ -522,15 +464,12 @@ DEPENDENCIES
   refile-s3
   rspec-rails
   sass-rails (~> 5.0.4)
-  sdoc (~> 0.4.1)
-  serverspec
   simple_form!
   sinatra!
   slim-rails (~> 3.1)
   spring
-  therubyracer
   turbolinks
-  uglifier (>= 2.7.2)
+  tzinfo-data
   unicorn
 
 BUNDLED WITH

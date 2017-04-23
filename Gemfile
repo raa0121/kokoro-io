@@ -1,29 +1,28 @@
 source 'https://rubygems.org'
 
-gem 'therubyracer'
-gem 'libv8', '3.16.14.15'
+# gem 'therubyracer'
+# gem 'libv8', '3.16.14.15'
 gem 'rails', '~> 5.0.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'slim-rails', '~> 3.1'
-gem 'uglifier', '>= 2.7.2'
-gem 'coffee-rails', '~> 4.1.0'
+# gem 'uglifier', '>= 2.7.2'
+# gem 'coffee-rails', '~> 4.1.0'
 gem 'devise'
 gem 'devise-i18n'
-
-gem 'jquery-rails'
+gem 'tzinfo-data'
+# gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '~> 3.3.7'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+# gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'rake', '10.4.2'
-gem 'sdoc', '~> 0.4.1',          group: :doc
+# gem 'sdoc', '~> 0.4.1',          group: :doc
 
 gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'devise'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'friendly_id', github: 'norman/friendly_id'
@@ -36,16 +35,14 @@ gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
 gem 'refile-s3'
 
 # gem 'cancancan', '~> 1.13.1'
-gem 'pundit'
+# gem 'pundit'
 
 gem 'unicorn'
 gem 'foreman'
 
-## API
-
 ## Faye
 # gem 'faye-websocket'
-gem 'pusher'
+# gem 'pusher'
 
 group :development do
   gem 'guard'
@@ -59,10 +56,10 @@ group :development do
   gem 'mina-unicorn', require: false
 end
 
-group :provisioning do
-  gem 'itamae'
-  gem 'serverspec'
-end
+# group :provisioning do
+#   gem 'itamae'
+#   gem 'serverspec'
+# end
 
 group :test do
   gem 'rails-controller-testing'

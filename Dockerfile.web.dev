@@ -19,4 +19,8 @@ ADD Gemfile.lock $APP_HOME/
 # for some reason, we need both of nodejs and node command
 RUN ln -s /usr/bin/node /usr/bin/nodejs
 
+ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
+    BUNDLE_JOBS=2 \
+    BUNDLE_PATH=/bundle
+
 RUN bundle install
