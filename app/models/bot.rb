@@ -3,7 +3,9 @@ class Bot < ApplicationRecord
   friendly_id :bot_name, use: [ :finders ]
 
   belongs_to :user
-  delegate :screen_name, to: :user, prefix: true
+  has_one :profile, as: :publisher
+  delegate :screen_name, to: :profile, prefix: true
+  delegate :display_name, to: :profile, prefix: true
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 

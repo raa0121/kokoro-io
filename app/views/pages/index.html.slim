@@ -2,7 +2,11 @@
   .jumbotron
     h1 kokoro.io
     p= t '.super_cool_chat_service_ever'
-    = link_to icon('github', t('sign_in_with_github')), '/auth/github', class: 'btn btn-success'
+    = link_to new_user_session_path, class: 'btn btn-success' do
+      = icon('sign-in', t('auth.sign_in'))
+    '
+    = link_to new_user_registration_path, class: 'btn btn-primary' do
+      = icon('user-plus', t('auth.sign_up'))
 
 - if current_user
   .row
