@@ -31,6 +31,7 @@ services:
       - './tsconfig.json:${PWD}/tsconfig.json'
       - './webpack.config.babel.js:${PWD}/webpack.config.babel.js'
       - './assets/:${PWD}/assets/'
+      - './tslint.json:${PWD}/tslint.json'
   spring:
     <<: *app_base
     ports: []

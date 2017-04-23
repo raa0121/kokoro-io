@@ -7,8 +7,7 @@
 //     publisher_type (string, optional): 発言者の種類 / User or Bot ,
 //     published_at (string, optional): 発言日時
 // }
-export class Room
-{
+export class Room {
     id: number;
     screenName: string;
     roomName: string;

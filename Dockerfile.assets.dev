@@ -9,5 +9,6 @@ ADD .babelrc                $APP_HOME/
 ADD package.json            $APP_HOME/
 ADD tsconfig.json           $APP_HOME/
 ADD webpack.config.babel.js $APP_HOME/
+ADD tslint.json             $APP_HOME/
 
 RUN npm install

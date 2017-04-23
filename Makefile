@@ -49,3 +49,7 @@ dbsetup:
 .PHONY: dbseed
 dbseed:
 	docker-compose exec web bundle exec rails db:seed
+
+.PHONY: tslint
+tslint:
+	docker-compose exec assets npm run tslint
