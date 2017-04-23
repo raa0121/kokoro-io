@@ -4,8 +4,9 @@ class Bot < ApplicationRecord
 
   belongs_to :user
   has_one :profile, as: :publisher
-  delegate :screen_name, to: :profile, prefix: true
-  delegate :display_name, to: :profile, prefix: true
+  delegate :screen_name, to: :profile, prefix: false
+  delegate :display_name, to: :profile, prefix: false
+  delegate :messages, to: :profile, prefix: false
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 

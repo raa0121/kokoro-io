@@ -1,4 +1,6 @@
 class ProfilesController < InheritedResources::Base
+  actions :all, except: [ :index ]
+  defaults resource_class: Profile.friendly
 
   private
 

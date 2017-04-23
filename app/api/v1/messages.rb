@@ -3,15 +3,17 @@ module V1
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
     expose :room_id, documentation: {type: String, desc: "ルームID"}
     expose :content, documentation: {type: Integer, desc: "発言内容"}
-    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
+    expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
+      attachment_url(m.publisher.profile, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')
+    end
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
-    expose :speaker do
-      expose :publisher_type, as: :type
+    expose :publisher_type, documentation: {type: String, desc: "発言者の種類 / User or Bot"}
+    expose :publisher do
       expose :id do |m|
         m.publisher.id
       end
-      expose :name do |m|
-        m.publisher.name
+      expose :display_name do |m|
+        m.publisher.display_name
       end
     end
   end
@@ -23,7 +25,7 @@ module V1
         authenticate!
       end
 
-      segment '/:id' do
+      segment '/:screen_name' do
 
         resource 'messages' do
           before do
@@ -39,7 +41,7 @@ module V1
             requires :offset, type: Integer, default: 0
           end
           get do
-            room = @user.chattable_rooms.find(params[:id])
+            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
             # TODO: use offset
             messages = room.messages.recent.limit(params[:limit])
             present messages, with: MessageEntity
@@ -53,7 +55,7 @@ module V1
             requires :message, type: String
           end
           post do
-            room = @user.chattable_rooms.find_by(id: params[:id])
+            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
             message = room.messages.create!(
               publisher: @user,
               content: params[:message]
