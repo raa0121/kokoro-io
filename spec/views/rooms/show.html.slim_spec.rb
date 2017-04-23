@@ -6,7 +6,7 @@ RSpec.describe "rooms/show", :type => :view do
       provider: 'github',
       uid: 'test',
       screen_name: 'name',
-      user_name: 'user',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     allow(view).to receive(:current_user).and_return(user)

@@ -6,7 +6,7 @@ RSpec.describe "bots/new", :type => :view do
       provider: 'github',
       uid: 'test',
       screen_name: 'name',
-      user_name: 'user',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     session[:user_id] = user.id

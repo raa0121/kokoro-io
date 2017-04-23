@@ -5,8 +5,8 @@ RSpec.describe "bots/show", :type => :view do
     user = User.create!(
       provider: 'github',
       uid: 'test',
-      screen_name: 'user_name1',
-      user_name: 'user',
+      screen_name: 'display_name1',
+      display_name: 'user',
       avatar_url: 'htt://hi.com/hi.jpg'
     )
     allow(view).to receive(:current_user).and_return(user)
@@ -24,6 +24,6 @@ RSpec.describe "bots/show", :type => :view do
     expect(rendered).to match(/token1/)
     expect(rendered).to match(/bot_name1/)
     expect(rendered).to match(/Name1/)
-    expect(rendered).to match(/user_name1/)
+    expect(rendered).to match(/display_name1/)
   end
 end
