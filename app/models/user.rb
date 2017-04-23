@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :profile, as: :publisher
-  delegate :screen_name, to: :profile, prefix: false
-  delegate :display_name, to: :profile, prefix: false
-  delegate :messages, to: :profile, prefix: false
-  delegate :avatar, to: :profile, prefix: false
+  delegate :screen_name, to: :profile, prefix: false, allow_nil: true
+  delegate :display_name, to: :profile, prefix: false, allow_nil: true
+  delegate :messages, to: :profile, prefix: false, allow_nil: true
+  delegate :avatar, to: :profile, prefix: false, allow_nil: true
   has_many :access_tokens
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships

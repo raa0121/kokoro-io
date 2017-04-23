@@ -2,10 +2,11 @@ class Bot < ApplicationRecord
 
   belongs_to :user
   has_one :profile, as: :publisher
-  delegate :screen_name, to: :profile, prefix: false
-  delegate :display_name, to: :profile, prefix: false
-  delegate :messages, to: :profile, prefix: false
-  delegate :avatar, to: :profile, prefix: false
+  accepts_nested_attributes_for :profile
+  delegate :screen_name, to: :profile, prefix: false, allow_nil: true
+  delegate :display_name, to: :profile, prefix: false, allow_nil: true
+  delegate :messages, to: :profile, prefix: false, allow_nil: true
+  delegate :avatar, to: :profile, prefix: false, allow_nil: true
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 

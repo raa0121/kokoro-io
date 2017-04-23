@@ -13,9 +13,9 @@ table.table.table-bordered.table-collapsed
       tr
         td= link_to bot.screen_name, bot
         td= bot.status
-        td= link_to bot.user do
+        td= link_to profile_path(bot.user.profile) do
           = image_tag attachment_url(bot.user.profile, :avatar, :fill, 24, 24, format: 'png', fallback: 'default_avatar_24.png')
           '
-          = bot.user_screen_name
+          = bot.user.display_name
 
 = link_to t('new_bot'), new_bot_path, class: 'btn btn-primary'
