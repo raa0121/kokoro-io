@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :profiles
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
   resources :bots
   post '/rooms/join/:screen_name' => 'rooms#join', as: :join_room

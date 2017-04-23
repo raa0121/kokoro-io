@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :profile, as: :publisher
+  accepts_nested_attributes_for :profile
   delegate :screen_name, to: :profile, prefix: false, allow_nil: true
   delegate :display_name, to: :profile, prefix: false, allow_nil: true
   delegate :messages, to: :profile, prefix: false, allow_nil: true
@@ -30,6 +31,14 @@ class User < ApplicationRecord
   delegate :public_rooms, to: :rooms
 
   def primary_access_token
-    access_tokens.primary.first
+    if access_tokens.primary.first
+      access_tokens.primary.first
+    else
+      access_tokens.create(
+        name: 'Primary Token',
+        token: AccessToken.generate_token,
+        essential: true
+      )
+    end
   end
 end
