@@ -38,14 +38,14 @@ h1= @room.display_name
           span.badge.badge-default.pull-right= @room.send("#{authority}_users").size
         .panel-body
           - @room.send("#{authority}_users").each do |user|
-            = link_to image_tag(user.avatar_thumbnail_url(48)), user_path(user), class: 'popover-userinfo', data: { title: user.user_name, content: "Hi, I'm #{user.user_name}." }
+            = link_to image_tag(attachment_url(user, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')), user_registration_path(user), class: 'popover-userinfo', data: { title: user.display_name, content: "Hi, I'm #{user.display_name}." }
     .panel.panel-default
       .panel-heading
         = t('bots')
         span.badge.badge-default.pull-right= @room.bots.size
       .panel-body
         - @room.bots.each do |bot|
-          = link_to image_tag(bot.avatar_thumbnail_url(48)), bot_path(bot), class: 'popover-botinfo', data: { title: bot.user_name, content: "Hi, I'm #{bot.user_name}." }
+          = link_to image_tag(attachment_url(bot, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')), bot_path(bot), class: 'popover-botinfo', data: { title: bot.display_name, content: "Hi, I'm #{bot.display_name}." }
     .btn-group
       - if @room.has_member?(current_user) && @room.maintainable?(current_user)
         = link_to t('manage'), edit_room_path(@room), class: 'btn btn-default'

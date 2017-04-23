@@ -7,7 +7,7 @@
 .rows
   .col-sm-3
     .thumbnail
-      = image_tag @user.avatar_thumbnail_url(245)
+      = image_tag attachment_url(@user, :avatar, :fill, 245, 245, format: 'png', fallback: 'default_avatar_245.png')
   .col-sm-9
     .panel.panel-default
       .panel-heading= t('List of user rooms')
@@ -25,5 +25,5 @@
               td= simple_format room.description
               td
                 - room.users.each do |user|
-                  = link_to image_tag(user.avatar_thumbnail_url(18)), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
+                  = link_to image_tag(attachment_url(user, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')), user_path(user), class: 'popover-userinfo', data: { title: user.screen_name, content: "Hi, I'm #{user.screen_name}." }
 

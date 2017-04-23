@@ -13,7 +13,7 @@ table.table.table-bordered.table-collapsed
     tr
       th= t('owner')
       td= link_to @bot.user do
-        = image_tag @bot.user.avatar_thumbnail_url(24)
+        = image_tag attachment_url(@bot.user, :avatar, :fill, 24, 24, format: 'png', fallback: 'default_avatar_24.png')
         '
         = @bot.user_screen_name
     - if @bot.owner? current_user

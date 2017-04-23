@@ -7,6 +7,7 @@ class Bot < ApplicationRecord
   delegate :screen_name, to: :profile, prefix: false
   delegate :display_name, to: :profile, prefix: false
   delegate :messages, to: :profile, prefix: false
+  delegate :avatar, to: :profile, prefix: false
   has_many :memberships, as: :memberable
   has_many :rooms, through: :memberships
 
