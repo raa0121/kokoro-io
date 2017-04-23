@@ -2,7 +2,6 @@
   = simple_form_for(bot) do |f|
     = f.error_notification
     = f.simple_fields_for :profile_attributes do |pf|
-      = pf.input :display_name
       = pf.input :screen_name
     = f.input :status, as: :select, collection: Bot.statuses.keys, include_blank: false
     = f.button :submit, class: 'btn btn-primary'
