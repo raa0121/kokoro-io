@@ -26,7 +26,7 @@ class BotsController < InheritedResources::Base
 
   private
   def permitted_params
-    params.permit(bot: [:bot_name, :screen_name, :status])
+    params.permit(bot: [:display_name, :screen_name, :status])
   end
 
 end

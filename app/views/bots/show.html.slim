@@ -5,8 +5,8 @@
 table.table.table-bordered.table-collapsed
   tbody
     tr
-      th.col-sm-2= t('bot_name')
-      td= @bot.screen_name + " (#{@bot.bot_name})"
+      th.col-sm-2= t('display_name')
+      td= @bot.screen_name + " (#{@bot.display_name})"
     tr
       th= t('status')
       td= @bot.status
