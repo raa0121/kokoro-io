@@ -21,7 +21,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'rake', '10.4.2'
 # gem 'sdoc', '~> 0.4.1',          group: :doc
 
-gem 'activeadmin', github: 'gregbell/active_admin'
+# gem 'activeadmin', github: 'gregbell/active_admin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
