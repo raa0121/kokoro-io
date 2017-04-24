@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170423085710) do
+ActiveRecord::Schema.define(version: 20170424144143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,13 +48,11 @@ ActiveRecord::Schema.define(version: 20170423085710) do
 
   create_table "messages", force: :cascade do |t|
     t.integer  "room_id"
-    t.string   "publisher_type"
-    t.integer  "publisher_id"
+    t.integer  "profile_id"
     t.text     "content"
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["publisher_type", "publisher_id"], name: "index_messages_on_publisher_type_and_publisher_id", using: :btree
     t.index ["room_id"], name: "index_messages_on_room_id", using: :btree
   end
 

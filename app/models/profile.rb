@@ -10,5 +10,9 @@ class Profile < ApplicationRecord
 
 
   attachment :avatar, destroy: false
-  has_many :messages, as: :publisher
+  has_many :messages
+
+  def type
+    publisher_type.downcase.to_sym
+  end
 end

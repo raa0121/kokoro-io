@@ -3,21 +3,26 @@ module V1
     include ActionView::Helpers::AssetUrlHelper
     include Refile::AttachmentHelper
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
-    expose :room_id, documentation: {type: String, desc: "ルームID"}
-    expose :content, documentation: {type: Integer, desc: "発言内容"}
-    expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
-      attachment_url(m.publisher, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')
-    end
+    expose :content, documentation: {type: String, desc: "発言内容"}
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
-    expose :publisher do
-      expose :type do |m|
-        m.publisher.publisher_type
+    expose :room, documentation: {type: Hash, desc: "発言があったルーム"} do
+      expose :room_id, as: :id, documentation: {type: Integer, desc: "レコードID"}
+      expose :screen_name, documentation: {type: String, desc: "ルームID"} do |m|
+        m.room.screen_name
       end
-      expose :id do |m|
-        m.publisher.id
+    end
+    expose :profile, documentation: {type: Hash, desc: "発言者情報"} do
+      expose :type, documentation: {type: String, desc: "発言者の種類（user|bot）"} do |m|
+        m.profile.type
       end
-      expose :display_name do |m|
-        m.publisher.display_name
+      expose :screen_name, documentation: {type: String, desc: "発言者のスクリーンネーム"} do |m|
+        m.profile.screen_name
+      end
+      expose :display_name, documentation: {type: String, desc: "発言者の表示名"} do |m|
+        m.profile.display_name
+      end
+      expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
+        attachment_url(m.profile, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')
       end
     end
   end
@@ -62,7 +67,7 @@ module V1
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
             if room
               message = room.messages.create(
-                publisher: @user.profile,
+                profile: @user.profile,
                 content: params[:message],
                 published_at: Time.now
               )
