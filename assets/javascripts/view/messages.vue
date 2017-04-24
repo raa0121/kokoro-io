@@ -47,6 +47,10 @@
             this.eventBus.$on('changeRoom', this.changeRoom);
         },
 
+        updated(){
+            this.scrollToLatestTalk();
+        },
+
         methods: {
             changeRoom(room){
                 console.log('changeRoom', room);
@@ -71,6 +75,11 @@
                 promise.then(response => {
                     (response.data || []).forEach(message => messages.items.push(message));
                 });
+            },
+
+            scrollToLatestTalk(){
+                const talksPane = document.querySelector(".talks");
+                talksPane.scrollTop = talksPane.scrollHeight;
             },
         },
     };
