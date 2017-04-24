@@ -39,6 +39,9 @@
             promise.then(response => {
                 this.rooms = [];
                 (response.data || []).forEach(room => this.rooms.push(room));
+                if(this.rooms.length > 0) {
+                  this.changeRoom(this.rooms[0]);
+                }
             });
         },
 
