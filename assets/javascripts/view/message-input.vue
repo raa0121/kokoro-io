@@ -1,5 +1,5 @@
 <template>
-    <textarea id="say_text" placeholder="Let's talk!" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
+    <textarea id="say_text" placeholder="Let's talk!" v-bind:rows="inputLines" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
 </template>
 
 <script>
@@ -40,6 +40,10 @@
 
             disabled(){
                 return !this.enabled;
+            },
+
+            inputLines(){
+                return this.text.split(/\r\n|\r|\n/).length + 1;
             },
         },
 
