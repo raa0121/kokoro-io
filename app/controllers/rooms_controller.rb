@@ -1,5 +1,4 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user, only: %i[ join leave create new update edit ]
 
   def create
     @room = current_user.rooms.create(permitted_params[:room])

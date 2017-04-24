@@ -34,6 +34,10 @@ testm:
 testv:
 	docker-compose run test bundle exec rake spec:views
 
+.PHONY: testc
+testc:
+	docker-compose run test bundle exec rake spec:controllers
+
 .PHONY: testr
 testr:
 	docker-compose run test bundle exec rake spec:requests

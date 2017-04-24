@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe RoomsController, :type => :controller do
+  before do
+    session[:user_id] = user.id
+  end
+  let(:user) { FactoryGirl.create(:user) }
+
   let(:valid_public_attributes) {
     {
       display_name: 'public_room',
@@ -19,11 +24,9 @@ RSpec.describe RoomsController, :type => :controller do
     }
   }
 
-  let(:rooms) { FactoryGirl.create_list(:room, 10, :public) }
-  let(:current_user) { FactoryGirl.create(:user) }
-
   describe 'GET #index' do
     it 'assigns @rooms' do
+      rooms = FactoryGirl.create_list(:room, 10, :public)
       get :index
       expect(assigns(:rooms)).to eq(rooms)
     end
@@ -40,12 +43,12 @@ RSpec.describe RoomsController, :type => :controller do
   describe 'Get #new' do
     context 'success with login user' do
       it 'returns a brand new room instance' do
-        login(current_user)
+        login(user)
         get :new
         expect(assigns(:room).attributes).to eq(Room.new.attributes)
       end
       it 'renders the new template' do
-        login(current_user)
+        login(user)
         get :new
         expect(response).to render_template('rooms/new')
       end
@@ -78,24 +81,24 @@ RSpec.describe RoomsController, :type => :controller do
     end
     context 'success with login user' do
       it 'creates new room' do
-        login(current_user)
+        login(user)
         expect do
           post :create, params: param
         end.to change(Room, :count).by(1)
       end
       it 'creates new membership' do
-        login(current_user)
+        login(user)
         expect do
           post :create, params: param
         end.to change(Membership, :count).by(1)
         membership = Membership.last
         expect(membership.room_id).to eq(Room.last.id)
         expect(membership.authority).to eq('administrator')
-        expect(membership.memberable_id).to eq(current_user.id)
+        expect(membership.memberable_id).to eq(user.id)
         expect(membership.memberable_type).to eq('User')
       end
       it 'redirects to show page' do
-        login(current_user)
+        login(user)
         post :create, params: param
         expect(response.status).to eq(302)
         expect(response).to redirect_to(room_path(Room.last.friendly_id))

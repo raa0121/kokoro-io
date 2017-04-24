@@ -2,7 +2,8 @@ require 'json'
 
 module SpecTestHelper
   def login(user)
-    request.session[:user_id] = user.id
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in user
   end
 
   def json(response)
