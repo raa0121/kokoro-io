@@ -1,7 +1,7 @@
 <template>
     <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-            <li v-on:click.capture.prevent="changeRoom(room)" v-for="room in rooms">
+            <li v-bind:class="{ active: isActive(room) }" v-on:click.capture.prevent="changeRoom(room)" v-for="room in rooms">
                 <a v-bind:href="roomUrl(room)"><span class="badge pull-right">1</span>{{room.screen_name}}</a>
             </li>
         </ul>
@@ -31,6 +31,7 @@
                 //   "description":"eeee",
                 // }]
                 rooms: [],
+                room: {},
             };
         },
 
@@ -51,8 +52,13 @@
             },
 
             changeRoom(room){
+                this.room = room;
                 this.$emit('changeRoom', room);
                 this.eventBus.$emit('changeRoom', room);
+            },
+
+            isActive(room){
+                return this.room.id == room.id;
             },
         },
     };
