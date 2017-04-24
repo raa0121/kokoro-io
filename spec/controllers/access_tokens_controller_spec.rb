@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe AccessTokensController, :type => :controller do
   before do
-    session[:user_id] = user.id
+    login(user)
   end
 
   let(:user) { FactoryGirl.create(:user) }

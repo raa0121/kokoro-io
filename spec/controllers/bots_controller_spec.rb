@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BotsController, :type => :controller do
   before do
-    session[:user_id] = user.id
+    login(user)
   end
 
   let(:user) { FactoryGirl.create(:user) }

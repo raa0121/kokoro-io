@@ -1,9 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe RoomsController, :type => :controller do
-  before do
-    session[:user_id] = user.id
-  end
   let(:user) { FactoryGirl.create(:user) }
 
   let(:valid_public_attributes) {
@@ -25,10 +22,15 @@ RSpec.describe RoomsController, :type => :controller do
   }
 
   describe 'GET #index' do
-    it 'assigns @rooms' do
-      rooms = FactoryGirl.create_list(:room, 10, :public)
+    before do
+      login(user)
+    end
+    it 'assigns @rooms to public rooms' do
+      FactoryGirl.create_list(:room, 5, :public)
+      FactoryGirl.create_list(:room, 5, :private)
+      rooms = Room.public_rooms
       get :index
-      expect(assigns(:rooms)).to eq(rooms)
+      expect(assigns(:rooms).size).to eq(rooms.size)
     end
     it 'renders the index template' do
       get :index
