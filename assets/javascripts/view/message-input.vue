@@ -60,7 +60,10 @@
                         const allowInput = () => this.suppressingInput = false;
 
                         const text = this.text;
-                        const promise = this.$http.post(`/v1/rooms/${this.room.id}/messages`, text);
+                        const params = {
+                            message: text,
+                        };
+                        const promise = this.$http.post(`/v1/rooms/${this.room.screen_name}/messages`, params);
                         promise.then(allowInput, allowInput);
                         promise.then((response) => this.text = '');
 
