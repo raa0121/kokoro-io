@@ -11,7 +11,7 @@ module V1
 
     helpers do
       def permitted_params
-        ActionController::Parameters.new(params).permit(
+        ActionController::Parameters.new(params[:room] || {}).permit(
           :screen_name,
           :display_name,
           :description,
@@ -38,10 +38,12 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        requires :display_name, type: String
-        requires :screen_name, type: String
-        requires :description, type: String
-        optional :private, type: Boolean
+        optional :room, type: JSON do
+          requires :display_name, type: String
+          requires :screen_name, type: String
+          requires :description, type: String
+          optional :private, type: Boolean
+        end
       end
       post do
         room = @user.rooms.create(permitted_params)
@@ -55,15 +57,17 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        requires :id, type: String
-        optional :screen_name, type: String
-        optional :display_name, type: String
-        optional :description, type: String
-        optional :private, type: Boolean
+        requires :screen_name, type: String
+        optional :room, type: JSON do
+          optional :screen_name, type: String
+          optional :display_name, type: String
+          optional :description, type: String
+          optional :private, type: Boolean
+        end
       end
-      route_param :id do
+      route_param :screen_name do
         put do
-          room = Room.find_by(id: params[:id])
+          room = Room.find_by(screen_name: params[:screen_name])
           if room && room.maintainable?(@user)
             if room.update(permitted_params)
               status 204
@@ -78,11 +82,11 @@ module V1
 
       desc 'Delete a room'
       params do
-        requires :id, type: String
+        requires :screen_name, type: String
       end
-      route_param :id do
+      route_param :screen_name do
         delete do
-          room = Room.find_by(id: params[:id])
+          room = Room.find_by(screen_name: params[:screen_name])
           if room && room.destroyable?(@user)
             if room.destroy
               status 204

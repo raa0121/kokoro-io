@@ -20,7 +20,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   end
 
   describe 'POST /api/v1/rooms' do
-    let(:request) { post path, headers: headers, params: @params }
+    let(:request) { post path, params: { room: @params.to_json}, headers: headers }
     context 'can create a new room' do
       it 'status is 201' do
         @params = {
@@ -94,9 +94,9 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     end
   end
 
-  describe 'PUT /api/v1/rooms/:id' do
+  describe 'PUT /api/v1/rooms/:screen_name' do
     let(:room) { user.administrator_rooms.first }
-    let(:request) { put "#{path}/#{room.id}", headers: headers, params: @params }
+    let(:request) { put "#{path}/#{room.screen_name}", params: { room: @params.to_json }, headers: headers }
     context 'can update an administrable room' do
       it 'status is 204' do
         @params = { description: 'hoge' }
@@ -118,7 +118,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
       it 'with params' do
         @params = {
           display_name: "updated_#{room.display_name}",
-          screen_name: "u#{room.screen_name}",
+          screen_name: "updated-#{room.screen_name}",
           description: "updated_#{room.description}",
           private: !room.private
         }
@@ -136,7 +136,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     context 'failed to update a room' do
       it 'not administrable' do
         user2 = FactoryGirl.create(:user)
-        put "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
+        put "#{path}/#{user2.administrator_rooms.first.screen_name}", headers: headers, params: {}
         expect(response.status).to eq(404)
       end
       it 'invalid screen_name params' do
@@ -147,24 +147,24 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
     end
   end
 
-  describe 'DELETE /api/v1/rooms/:id' do
+  describe 'DELETE /api/v1/rooms/:screen_name' do
     let(:room) { user.administrator_rooms.first }
     let(:request) {  }
     it 'can delete an administrable room' do
       expect {
-        delete "#{path}/#{room.id}", headers: headers, params: {}
+        delete "#{path}/#{room.screen_name}", headers: headers, params: {}
       }.to change(Room, :count).by(-1)
       expect(response.status).to eq(204)
       expect(response.body).to be_truthy
     end
     it 'failed to delete an unadministrable room' do
       user2 = FactoryGirl.create(:user)
-      delete "#{path}/#{user2.administrator_rooms.first.id}", headers: headers, params: {}
+      delete "#{path}/#{user2.administrator_rooms.first.screen_name}", headers: headers, params: {}
       expect(response.status).to eq(404)
     end
     it '存在しない部屋の削除に失敗する' do
       user2 = FactoryGirl.create(:user)
-      delete "#{path}/999999999999", headers: headers, params: {}
+      delete "#{path}/not_exists", headers: headers, params: {}
       expect(response.status).to eq(404)
     end
   end
