@@ -5,6 +5,7 @@
 <script>
     import moment from 'moment';
     import KeyCode from 'keycode-js';
+    import * as model from '../model/';
 
     export default {
         props: {
@@ -55,30 +56,33 @@
                         }
                         evt.preventDefault();
 
-                        // TODO: Post message
                         this.suppressingInput = true;
                         const allowInput = () => this.suppressingInput = false;
 
+                        const room = JSON.parse(JSON.stringify(this.room));
                         const text = this.text;
-                        const params = {
-                            message: text,
-                        };
-                        const promise = this.$http.post(`/v1/rooms/${this.room.screen_name}/messages`, params);
-                        promise.then(allowInput, allowInput);
-                        promise.then((response) => this.text = '');
-
-                        const message = {
-                            speaker: {
-                                id: 'user-id',
-                                name: 'speaker name',
+                        const transitMessage = {
+                            content: text,
+                            room: JSON.parse(JSON.stringify(room)),
+                            profile: {
+                                type: 'user',
+                                screen_name: "posting...",
+                                display_name: "posting...",
+                                avatar: '',
                             },
-                            avatar_thumbnail_url: 'https://avatars.githubusercontent.com/u/377137?v=2&s=32',
-                            // ISO8601
-                            posted_at: moment().format(),
-                            text: text,
                         };
-                        this.$emit('say', this.room, message);
-                        this.eventBus.$emit('say', this.room, message);
+                        const promise = this.$http.post(`/v1/rooms/${this.room.screen_name}/messages`, {
+                            message: text,
+                        });
+                        promise.then(allowInput, allowInput);
+                        promise.then((response) => {
+                            this.text = '';
+                            // commit transit message
+                            this.$emit('commitMessage', room, transitMessage, response.data);
+                            this.eventBus.$emit('commitMessage', room, transitMessage, response.data);
+                        });
+                        this.$emit('postingMessage', room, transitMessage);
+                        this.eventBus.$emit('postingMessage', room, transitMessage);
                         return false;
                 }
             },

@@ -38,6 +38,7 @@
         mounted(){
             const promise = this.$http.get(`/v1/rooms`);
             promise.then(response => {
+                console.log(response);
                 this.rooms = [];
                 (response.data || []).forEach(room => this.rooms.push(room));
                 if(this.rooms.length > 0) {

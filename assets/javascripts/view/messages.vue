@@ -3,12 +3,12 @@
         <div class="row talk" v-for="message in messages.items">
             <div class="col-sm-12">
                 <div class="avatar">
-                    <img v-bind:src="message.avatar_thumbnail_url" alt="">
+                    <img v-bind:src="message.profile.avatar" alt="">
                 </div>
                 <div class="message">
-                    <div class="speaker">{{message.speaker.name}}</div>
-                    <div class="timeleft pull-right">{{message.postedAt}}</div>
-                    <div class="filtered_text">{{message.text}}</div>
+                    <div class="speaker">{{message.profile.display_name}}</div>
+                    <div class="timeleft pull-right">{{message.published_at}}</div>
+                    <div class="filtered_text">{{message.content}}</div>
                 </div>
             </div>
         </div>
@@ -39,8 +39,13 @@
         },
 
         mounted(){
-            this.eventBus.$on('say', (room, message) => {
-                this.roomMessages[room.id].items.push(message);
+            this.eventBus.$on('postingMessage', (room, message) => {
+                this.roomMessages[room.screen_name].items.push(message);
+            });
+            this.eventBus.$on('commitMessage', (room, removalMessage, commitedMessage) => {
+                const messages = this.roomMessages[room.screen_name];
+                messages.items = messages.items.filter(message => !!message.id);
+                messages.items.push(commitedMessage);
             });
             this.eventBus.$on('changeRoom', this.changeRoom);
         },
@@ -48,14 +53,27 @@
         methods: {
             changeRoom(room){
                 console.log('changeRoom', room);
-                if(!this.roomMessages[room.id])
+                if(!this.roomMessages[room.screen_name])
                 {
-                    this.roomMessages[room.id] = {
+                    this.roomMessages[room.screen_name] = {
                         room: room,
                         items: [],
                     };
                 }
-                Object.assign(this.messages, this.roomMessages[room.id]);
+                // set reference
+                const messages = this.roomMessages[room.screen_name];
+                this.messages = messages;
+
+                // read initial data
+                const promise = this.$http.get(`/v1/rooms/${room.screen_name}/messages`, {
+                    params: {
+                        limit: 30,
+                        offset: 0,
+                    },
+                });
+                promise.then(response => {
+                    (response.data || []).forEach(message => messages.items.push(message));
+                });
             },
         },
     };
