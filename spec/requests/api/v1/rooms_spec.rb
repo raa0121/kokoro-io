@@ -20,7 +20,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
   end
 
   describe 'POST /api/v1/rooms' do
-    let(:request) { post path, params: { room: @params.to_json}, headers: headers }
+    let(:request) { post path, params: { room: @params }, headers: headers }
     context 'can create a new room' do
       it 'status is 201' do
         @params = {
@@ -96,7 +96,7 @@ RSpec.describe API::Root::V1::Rooms, type: :request do
 
   describe 'PUT /api/v1/rooms/:screen_name' do
     let(:room) { user.administrator_rooms.first }
-    let(:request) { put "#{path}/#{room.screen_name}", params: { room: @params.to_json }, headers: headers }
+    let(:request) { put "#{path}/#{room.screen_name}", params: { room: @params }, headers: headers }
     context 'can update an administrable room' do
       it 'status is 204' do
         @params = { description: 'hoge' }

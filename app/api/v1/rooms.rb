@@ -38,7 +38,7 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        optional :room, type: JSON do
+        optional :room, type: Hash do
           requires :display_name, type: String
           requires :screen_name, type: String
           requires :description, type: String
@@ -58,7 +58,7 @@ module V1
       }
       params do
         requires :screen_name, type: String
-        optional :room, type: JSON do
+        optional :room, type: Hash do
           optional :screen_name, type: String
           optional :display_name, type: String
           optional :description, type: String
