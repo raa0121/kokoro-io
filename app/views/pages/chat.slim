@@ -12,10 +12,10 @@
     = link_to t('create_room'), new_room_path, class: 'btn btn-primary btn-block btn-sm'
     = link_to t('join_room'), rooms_path, class: 'btn btn-default btn-block btn-sm'
   .col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2.main
-    .col-md-12
-      = render partial: 'flash_messages', flash: flash
+    / .col-md-12
+    /   = render partial: 'flash_messages', flash: flash
     .talkboards
       .talkboard
         .talks
-        .say.col-sm-9.col-md-10.col-sm-offset-3.col-md-offset-2
+        .say
           textarea#say_text[ placeholder="Lets talk!" autofocus ]

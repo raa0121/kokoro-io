@@ -1,15 +1,12 @@
 <template>
     <div class="talks">
-        <div class="row talk" v-for="message in messages.items">
-            <div class="col-sm-12">
-                <div class="avatar">
-                    <img v-bind:src="message.profile.avatar" alt="">
-                </div>
-                <div class="message">
-                    <div class="speaker">{{message.profile.display_name}}</div>
-                    <div class="timeleft pull-right">{{message.published_at}}</div>
-                    <div class="filtered_text">{{message.content}}</div>
-                </div>
+        <div class="talk" v-for="message in messages.items">
+            <div class="avatar">
+                <img v-bind:src="message.profile.avatar" alt="">
+            </div>
+            <div class="message">
+                <div class="speaker">{{message.profile.display_name}}<small class="timeleft text-muted">{{message.published_at}}</small></div>
+                <div class="filtered_text">{{message.content}}</div>
             </div>
         </div>
     </div>

@@ -1,4 +1,12 @@
 
+body {
+  position: absolute;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  padding-top: 60px;
+}
+
 /*
  * Sidebar
  */
@@ -64,46 +72,122 @@
     display: block;
 }
 
-.talkboards{
-    position: relative;
-    .talkboard{
-        position: relative;
-        .talks{
-            .talk{
-                :hover{
-                    background: #eee;
+body{
+    > .container-fluid {
+        height: 100%;
+        > #chatapp{
+            height: 100%;
+            > .main{
+                height: 100%;
+                > .talkboards {
+                    height: 100%;
+                    > .talkboard{
+                        height: 100%;
+                    }
                 }
-                min-height: 50px;
-                position: relative;
+            }
+        }
+    }
+}
+
+.talkboards{
+    /* margin: 0 -15px 0 -10px; */
+    .talkboard{
+        height: 100%;
+        flex-direction: column;
+        display: flex;
+        .talks{
+            padding-top: 10px;
+            overflow: auto;
+            flex-grow: 1;
+            .talk{
+                display: flex;
+                flex-direction: row;
                 .avatar{
-                    position: absolute;
-                    top: 5px;
-                    left: 30px;
+                    display: flex;
+                    flex-grow: 0;
+                    img {
+                        width: 32px;
+                        height: 32px;
+                    }
+                    padding: 0 10px;
+                    min-height: 42px;
                 }
                 .message{
-                    padding-left: 60px;
+                    flex-grow: 1;
+                    padding: 0 0 15px 0;
+                    .speaker{
+                        font-weight: bold;
+                        font-size: 0.9em;
+                    }
                     .filtered_text{
                         font-size: 1.1em;
                     }
                     .timeleft{
-                        padding-right: 20px;
+                        padding-left: 5px;
                     }
                 }
             }
         }
         .say{
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            padding: 10px 20px;
+            flex-grow: 0;
+            padding: 10px 10px;
             textarea{
                 width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 5px 10px;
+                vertical-align: top;
+            }
+            ::-webkit-input-placeholder{
+                color: #ccc;
             }
             background: #f9f9f9;
             border-top: 1px solid #ddd;
         }
     }
 }
+
+/* .talkboards{ */
+/*     position: relative; */
+/*     .talkboard{ */
+/*         position: relative; */
+/*         .talks{ */
+/*             .talk{ */
+/*                 :hover{ */
+/*                     background: #eee; */
+/*                 } */
+/*                 min-height: 50px; */
+/*                 position: relative; */
+/*                 .avatar{ */
+/*                     position: absolute; */
+/*                     top: 5px; */
+/*                     left: 30px; */
+/*                 } */
+/*                 .message{ */
+/*                     padding-left: 60px; */
+/*                     .filtered_text{ */
+/*                         font-size: 1.1em; */
+/*                     } */
+/*                     .timeleft{ */
+/*                         padding-right: 20px; */
+/*                     } */
+/*                 } */
+/*             } */
+/*         } */
+/*         .say{ */
+/*             position: fixed; */
+/*             bottom: 0; */
+/*             right: 0; */
+/*             padding: 10px 20px; */
+/*             textarea{ */
+/*                 width: 100%; */
+/*             } */
+/*             background: #f9f9f9; */
+/*             border-top: 1px solid #ddd; */
+/*         } */
+/*     } */
+/* } */
 
 .main{
     position: relative;
