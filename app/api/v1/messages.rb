@@ -1,7 +1,5 @@
 module V1
   class MessageEntity < Grape::Entity
-    include ActionView::Helpers::AssetUrlHelper
-    include Refile::AttachmentHelper
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
     expose :content, documentation: {type: String, desc: "発言内容"}
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"}
@@ -22,7 +20,7 @@ module V1
         m.profile.display_name
       end
       expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
-        attachment_url(m.profile, :avatar, :fill, 18, 18, format: 'png', fallback: 'default_avatar_18.png')
+        ActionController::Base.helpers.attachment_url(m.profile, :avatar, :fill, 32, 32, format: 'png', fallback: 'default_avatar_32.png')
       end
     end
   end
