@@ -2,7 +2,7 @@
     <textarea id="say_text" placeholder="Let's talk!" v-bind:rows="inputLines" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
 </template>
 
-<script>
+<script lang="typescript">
     import moment from 'moment';
     import KeyCode from 'keycode-js';
     import * as model from '../model/';
