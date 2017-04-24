@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/actioncable": "0.0.2",
+    "@types/bootstrap": "^3.3.33",
     "babel-core": "^6.20.0",
     "babel-loader": "^6.2.9",
     "babel-plugin-transform-runtime": "^6.15.0",
@@ -36,14 +37,15 @@
     "webpack": "^1.14.0"
   },
   "dependencies": {
+    "actioncable": "^5.0.2",
     "axios": "^0.16.1",
+    "bootstrap": "^3.3.7",
     "bootstrap-sass": "^3.3.7",
     "bootswatch": "^3.3.7",
     "font-awesome": "^4.7.0",
     "keycode-js": "0.0.4",
     "moment": "^2.17.1",
     "rx": "^4.1.0",
-    "vue": "^2.1.6",
-    "actioncable": "^5.0.2"
+    "vue": "^2.1.6"
   }
 }
