@@ -39,7 +39,7 @@
           li= link_to destroy_user_session_path, method: :delete do
             = icon :'sign-out', t('auth.sign_out')
     - else
-      li= link_to new_user_registration_path do
+      li= link_to new_user_session_path do
         = icon('sign-in', t('auth.sign_in'))
       li= link_to new_user_registration_path do
         = icon('user-plus', t('auth.sign_up'))
