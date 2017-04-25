@@ -74,6 +74,7 @@
                                 display_name: "posting...",
                                 avatar: '',
                             },
+                            transitNumber: window.performance.now(),
                         };
                         const promise = this.$http.post(`/v1/rooms/${this.room.screen_name}/messages`, {
                             message: text,
@@ -82,8 +83,8 @@
                         promise.then((response) => {
                             this.text = '';
                             // commit transit message
-                            this.$emit('commitMessage', room, transitMessage, response.data);
-                            this.eventBus.$emit('commitMessage', room, transitMessage, response.data);
+                            this.$emit('removeTemporaryMessage', room, transitMessage, response.data);
+                            this.eventBus.$emit('removeTemporaryMessage', room, transitMessage, response.data);
                         });
                         this.$emit('postingMessage', room, transitMessage);
                         this.eventBus.$emit('postingMessage', room, transitMessage);

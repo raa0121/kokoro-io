@@ -39,10 +39,13 @@
             this.eventBus.$on('postingMessage', (room, message) => {
                 this.roomMessages[room.screen_name].items.push(message);
             });
-            this.eventBus.$on('commitMessage', (room, removalMessage, commitedMessage) => {
+            this.eventBus.$on('removeTemporaryMessage', (room, removalMessage) => {
                 const messages = this.roomMessages[room.screen_name];
-                messages.items = messages.items.filter(message => !!message.id);
-                messages.items.push(commitedMessage);
+                messages.items = messages.items.filter(
+                    message => !!message.id &&
+                        !( message.transitNumber &&
+                           message.transitNumber == removalMessage.transitNumber)
+                );
             });
             this.eventBus.$on('messageReceived', (room, message) => {
                 this.roomMessages[room.screen_name].items.push(message);
