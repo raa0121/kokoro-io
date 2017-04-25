@@ -73,7 +73,7 @@
                     },
                 });
                 promise.then(response => {
-                    (response.data || []).forEach(message => messages.items.push(message));
+                    (response.data || []).reverse().forEach(message => messages.items.push(message));
                 });
             },
 
