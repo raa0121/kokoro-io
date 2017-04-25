@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as Vue from 'vue';
 import * as model from './model/';
 declare function require(name: string);
-// const roomChannel= require('./channels/room.ts');
+const chatChannel= require('./channels/chat.ts');
 const messagesView = require('./view/messages.vue');
 const messageInputView = require('./view/message-input.vue');
 const roomsView = require('./view/rooms.vue');
@@ -13,6 +13,8 @@ const roomsView = require('./view/rooms.vue');
 const App = {
     cable: ActionCable.createConsumer(),
 };
+// Handle ActionCable's ChatChannel
+chatChannel(App);
 
 class ApiClient {
     constructor(public baseUrl: string) {}

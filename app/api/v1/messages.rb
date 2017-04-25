@@ -71,7 +71,9 @@ module V1
               )
               if message
                 status 201
-                present message, with: MessageEntity
+                message_entity = present message, with: MessageEntity
+                ActionCable.server.broadcast room.id, message_entity
+                message_entity
               else
                 status 400
               end
