@@ -45,6 +45,7 @@
     "bootswatch": "^3.3.7",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "jquery-ujs": "^1.2.2",
     "keycode-js": "0.0.4",
     "moment": "^2.17.1",
     "rx": "^4.1.0",

@@ -1,5 +1,6 @@
-import * as $ from "jquery";
-import * as bootstrap from "bootstrap";
+
+import "bootstrap";
+import "jquery-ujs";
 
 $('.popover-userinfo').popover({
     placement: 'auto',

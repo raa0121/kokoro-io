@@ -1,4 +1,5 @@
 import path from 'path';
+const webpack = require('webpack');
 
 export default {
     entry: {
@@ -15,6 +16,12 @@ export default {
             vue: 'vue/dist/vue.js',
         },
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            jQuery: "jquery",
+            $: "jquery"
+        })
+    ],
     module: {
         loaders: [
             { test: /\.ts$/,  loaders: ['babel', 'ts'], exclude: /node_modules/ },
