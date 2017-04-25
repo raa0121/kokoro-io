@@ -44,6 +44,9 @@
                 messages.items = messages.items.filter(message => !!message.id);
                 messages.items.push(commitedMessage);
             });
+            this.eventBus.$on('messageReceived', (room, message) => {
+                this.roomMessages[room.screen_name].items.push(message);
+            });
             this.eventBus.$on('changeRoom', this.changeRoom);
         },
 

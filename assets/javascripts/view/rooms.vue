@@ -40,7 +40,11 @@
             promise.then(response => {
                 console.log(response);
                 this.rooms = [];
-                (response.data || []).forEach(room => this.rooms.push(room));
+                (response.data || []).forEach(room => {
+                    this.rooms.push(room);
+                    this.$emit('subscribeRoom', room);
+                    this.eventBus.$emit('subscribeRoom', room);
+                });
                 if(this.rooms.length > 0) {
                   this.changeRoom(this.rooms[0]);
                 }

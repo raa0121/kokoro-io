@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as Vue from 'vue';
 import * as model from './model/';
 declare function require(name: string);
-const chatChannel= require('./channels/chat.ts');
+const createChatChannel= require('./channels/chat.ts');
 const messagesView = require('./view/messages.vue');
 const messageInputView = require('./view/message-input.vue');
 const roomsView = require('./view/rooms.vue');
@@ -12,9 +12,8 @@ const roomsView = require('./view/rooms.vue');
 // Initialize global context
 const App = {
     cable: ActionCable.createConsumer(),
+    chat: {}
 };
-// Handle ActionCable's ChatChannel
-chatChannel(App);
 
 class ApiClient {
     constructor(public baseUrl: string) {}
@@ -55,6 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const RoomsView = Vue.extend(roomsView);
 
     const eventBus = new Vue();
+    // Add chat channel
+    App.chat = createChatChannel(App, eventBus);
+    eventBus.$on('subscribeRoom', (room) => {
+        const screenNames = [room.screen_name];
+        const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
+        ( App.chat as any ).subscribe(accessToken, screenNames);
+    });
     new RoomsView({
         el: '#chatapp .sidebar',
         propsData: {
