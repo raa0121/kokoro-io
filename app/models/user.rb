@@ -16,11 +16,26 @@ class User < ApplicationRecord
   has_many :bots
 
   # Has scoped rooms by each authority
-  has_many :administrator_memberships, -> { administrator }, as: :memberable, class_name: 'Membership'
-  has_many :maintainer_memberships, -> { maintainer }, as: :memberable, class_name: 'Membership'
-  has_many :member_memberships,     -> { member     }, as: :memberable, class_name: 'Membership'
-  has_many :invited_memberships,    -> { invited    }, as: :memberable, class_name: 'Membership'
-  has_many :chattable_memberships,  -> { administrator || maintainer || member }, as: :memberable, class_name: 'Membership'
+  has_many :administrator_memberships, -> {
+    where(authority: Membership.authorities[:administrator])
+  }, as: :memberable, class_name: 'Membership'
+
+  has_many :maintainer_memberships, -> {
+    where(authority: Membership.authorities[:maintainer])
+  }, as: :memberable, class_name: 'Membership'
+
+  has_many :member_memberships, -> {
+    where(authority: Membership.authorities[:member])
+  }, as: :memberable, class_name: 'Membership'
+
+  has_many :invited_memberships, -> {
+    where(authority: Membership.authorities[:invited])
+  }, as: :memberable, class_name: 'Membership'
+
+  has_many :chattable_memberships, -> {
+    where(authority: Membership.authorities.select {|k, v| ["administrator", "maintainer", "member"].include? k}.values)
+  }, as: :memberable, class_name: 'Membership'
+
   has_many :administrator_rooms, source: :room, through: :administrator_memberships
   has_many :maintainer_rooms, source: :room, through: :maintainer_memberships
   has_many :member_rooms,     source: :room, through: :member_memberships
