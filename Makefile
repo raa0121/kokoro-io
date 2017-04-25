@@ -77,4 +77,4 @@ tslint:
 
 .PHONY: bi
 bi:
-	docker-compose exec web bundle install
+	docker-compose run spring bundle install

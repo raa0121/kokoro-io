@@ -37,7 +37,7 @@ gem 'refile-s3'
 # gem 'cancancan', '~> 1.13.1'
 gem 'pundit'
 
-gem 'unicorn'
+gem 'puma'
 gem 'foreman'
 
 ## Faye
