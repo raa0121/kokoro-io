@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script lang="typescript">
+<script>
     export default {
         props: {
             eventBus: {

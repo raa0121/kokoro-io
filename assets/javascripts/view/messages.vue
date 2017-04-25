@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script lang="typescript">
+<script>
     import moment from 'moment';
 
     export default {
