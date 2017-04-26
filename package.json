@@ -9,8 +9,8 @@
     "build": "npm-run-all --parallel build:css build:js",
     "font:file": "cp node_modules/font-awesome/fonts/* ./assets/dist/fonts/",
     "font:dir": "mkdir -p ./assets/dist/fonts/",
-    "font": "npm-run-all --serial font:dir font:file",
-    "start": "npm-run-all --serial font build watch",
+    "font": "npm-run-all font:dir font:file",
+    "start": "npm-run-all font build watch",
     "tslint": "tslint -p .",
     "tslint:fix": "tslint -p . --fix"
   },
@@ -35,7 +35,7 @@
     "vue-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.1.6",
-    "webpack": "^1.14.0"
+    "webpack": "^2.4.1"
   },
   "dependencies": {
     "actioncable": "^5.0.2",
