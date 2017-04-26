@@ -1,3 +1,5 @@
+import { Room } from './room';
+
 // MessageEntity {
 //     id (integer, optional): メッセージID ,
 //     content (string, optional): 発言内容 ,

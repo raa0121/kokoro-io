@@ -3,8 +3,8 @@ import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import * as moment from 'moment';
 import * as Vue from 'vue';
 import * as model from './model/';
+import createChatChannel from './channels/chat.ts';
 declare function require(name: string);
-const createChatChannel= require('./channels/chat.ts');
 const messagesView = require('./view/messages.vue');
 const messageInputView = require('./view/message-input.vue');
 const roomsView = require('./view/rooms.vue');
@@ -12,7 +12,7 @@ const roomsView = require('./view/rooms.vue');
 // Initialize global context
 const App = {
     cable: ActionCable.createConsumer(),
-    chat: {}
+    chat: {},
 };
 
 class ApiClient {
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const eventBus = new Vue();
     // Add chat channel
-    App.chat = createChatChannel(App, eventBus);
+    App.chat = createChatChannel(App.cable, eventBus);
     eventBus.$on('subscribeRoom', (room) => {
         const screenNames = [room.screen_name];
         const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
