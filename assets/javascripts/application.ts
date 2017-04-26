@@ -1,8 +1,5 @@
-
-import "bootstrap";
-import "jquery-ujs";
-
-$('.popover-userinfo').popover({
-    placement: 'auto',
-    trigger: 'hover'
-})
+import * as jQuery from 'jquery';
+// XXX: bootstrap requires global "jQuery" variable
+(<any>window).$ = (<any>window).jQuery = jQuery;
+import 'bootstrap';
+import 'jquery-ujs';

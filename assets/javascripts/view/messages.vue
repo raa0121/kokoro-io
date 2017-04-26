@@ -1,7 +1,7 @@
 <template>
     <div class="talks">
         <div class="talk" v-for="message in messages.items">
-            <div class="avatar">
+            <div class="avatar" ref="avatar" data-toggle="popover" data-content="Some content">
                 <img v-bind:src="message.profile.avatar" alt="">
             </div>
             <div class="message">
@@ -55,6 +55,13 @@
 
         updated(){
             this.scrollToLatestTalk();
+
+            (this.$refs.avatar || []).forEach(el => {
+                $(el).popover({
+                    placement: 'auto',
+                    trigger: 'hover',
+                });
+            });
         },
 
         methods: {

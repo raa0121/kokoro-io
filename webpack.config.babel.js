@@ -16,12 +16,7 @@ export default {
             vue: 'vue/dist/vue.js',
         },
     },
-    plugins: [
-        // new webpack.ProvidePlugin({
-        //     jQuery: "jquery",
-        //     $: "jquery"
-        // })
-    ],
+    plugins: [],
     module: {
         loaders: [
             { test: /\.ts$/,  loaders: ['babel-loader', 'ts-loader'], exclude: /node_modules/ },
