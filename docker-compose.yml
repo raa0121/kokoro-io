@@ -26,10 +26,11 @@ services:
       dockerfile: Dockerfile.assets.dev
       args:
         - APP_HOME=${PWD}
-    command: npm start
+    command: yarn start
     volumes:
       - './.babelrc:${PWD}/.babelrc'
       - './package.json:${PWD}/package.json'
+      - './yarn.lock:${PWD}/yarn.lock'
       - './tsconfig.json:${PWD}/tsconfig.json'
       - './webpack.config.babel.js:${PWD}/webpack.config.babel.js'
       - './assets/:${PWD}/assets/'

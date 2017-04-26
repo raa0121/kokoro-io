@@ -1,14 +1,23 @@
 FROM node:7.2.1-alpine
 
+# Install yarn latest stable
+WORKDIR /opt
+RUN apk add --no-cache curl
+RUN curl -L -O https://github.com/yarnpkg/yarn/releases/download/v0.23.2/yarn-v0.23.2.tar.gz
+RUN tar -xvf yarn-v0.23.2.tar.gz
+RUN mv dist yarn
+ENV PATH /opt/yarn/bin/:$PATH
+
 ARG APP_HOME
 
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 ADD .babelrc                $APP_HOME/
+ADD yarn.lock               $APP_HOME/
 ADD package.json            $APP_HOME/
 ADD tsconfig.json           $APP_HOME/
 ADD webpack.config.babel.js $APP_HOME/
 ADD tslint.json             $APP_HOME/
 
-RUN npm install
+RUN yarn install
