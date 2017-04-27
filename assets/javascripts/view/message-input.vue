@@ -1,5 +1,5 @@
 <template>
-    <textarea id="say_text" placeholder="Let's talk!" v-bind:rows="inputLines" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
+    <textarea ref="sayWidget" id="say_text" placeholder="Let's talk!" v-bind:rows="inputLines" v-bind:disabled="disabled" v-model="text" v-on:keypress="maybeSay($event)"></textarea>
 </template>
 
 <script>
@@ -85,6 +85,10 @@
                             // commit transit message
                             this.$emit('removeTemporaryMessage', room, transitMessage, response.data);
                             this.eventBus.$emit('removeTemporaryMessage', room, transitMessage, response.data);
+
+                            this.$nextTick(() => {
+                                this.$refs.sayWidget.focus();
+                            });
                         });
                         this.$emit('postingMessage', room, transitMessage);
                         this.eventBus.$emit('postingMessage', room, transitMessage);
