@@ -11,8 +11,6 @@ services:
     command: bundle exec puma -p 3000 -C ./config/puma.rb
     links:
       - db-prod
-    volumes_from:
-      - bundle-prod
     volumes:
       - data-prod:/usr/src/app
       - data-prod:/bundle
