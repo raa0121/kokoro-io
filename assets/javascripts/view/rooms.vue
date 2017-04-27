@@ -37,6 +37,10 @@
 
         mounted(){
             const promise = this.$http.get(`/v1/rooms`);
+            this.eventBus.$on('chatChannelConnected', () => {
+                this.$emit('subscribeRoom', rooms);
+                this.eventBus.$emit('subscribeRoom', rooms);
+            });
             promise.then(response => {
                 console.log(response);
                 this.rooms = [];

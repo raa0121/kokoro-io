@@ -6,6 +6,7 @@ function createChatChannel(cable: ActionCable.Cable, eventBus: Vue) {
         connected() {
             // Called when the subscription is ready for use on the server
             console.log("chatChannel connected.");
+            eventBus.$emit('chatChannelConnected');
         },
 
         disconnected() {
