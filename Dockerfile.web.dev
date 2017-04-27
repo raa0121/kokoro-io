@@ -6,7 +6,9 @@ RUN apk --update --no-cache add \
     nodejs \
     git \
     postgresql-dev \
-    linux-headers
+    linux-headers \
+    imagemagick-dev \
+    imagemagick
 
 ARG APP_HOME
 
