@@ -39,6 +39,8 @@ services:
     restart: always
     ports:
       - "55000:80"
+    links:
+      - web-prod
     volumes:
       - data-prod:/use/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
