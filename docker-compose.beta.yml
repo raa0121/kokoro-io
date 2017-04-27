@@ -11,6 +11,7 @@ services:
     command: bundle exec puma -p 3000 -C ./config/puma.rb
     links:
       - db-prod
+      - redis-prod
     volumes:
       - ./data/app/log:/usr/src/app/log
       - ./data/bundle:/bundle
@@ -46,6 +47,11 @@ services:
       - ./data/nginx/log:/var/log/nginx
       - ./data/assets:/usr/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
+  redis-prod:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./data/redis/data:/data
   command-prod:
     <<: *app_base
     restart: 'no'
