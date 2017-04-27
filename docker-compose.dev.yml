@@ -1,0 +1,91 @@
+version: '2'
+services:
+  web: &app_base
+    build:
+      context: .
+      dockerfile: Dockerfile.web.dev
+      args:
+        - APP_HOME=/usr/src/app
+    restart: always
+    command: bundle exec puma -p 3000 -C ./config/puma.rb
+    links:
+      - db-dev
+      - redis
+    volumes:
+      - ./app:/usr/src/app/app
+      - ./config:/usr/src/app/config
+      - ./data/app/log:/usr/src/app/log
+      - bundle:/bundle
+    environment:
+      DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
+      RACK_ENV: development
+      RAILS_ENV: development
+  assets:
+    build:
+      context: .
+      dockerfile: Dockerfile.assets.dev
+      args:
+        - APP_HOME=/usr/src/assets
+    restart: 'no'
+    command: yarn start
+    volumes:
+      - ./data/assets:/usr/src/assets/assets/dist
+      - ./.babelrc:/usr/src/assets/.babelrc
+      - ./package.json:/usr/src/assets/package.json
+      - ./yarn.lock:/usr/src/assets/yarn.lock
+      - ./tsconfig.json:/usr/src/assets/tsconfig.json
+      - ./webpack.config.babel.js:/usr/src/assets/webpack.config.babel.js
+      - ./assets/:/usr/src/assets/assets/
+      - ./tslint.json:/usr/src/assets/tslint.json
+  db-dev:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_DB: kokoroio_development
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+  db-test:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_DB: kokoroio_test
+  test:
+    <<: *app_base
+    restart: 'no'
+    ports: []
+    command: rake spec
+    links:
+      - db-test
+    environment:
+      DATABASE_URL: postgres://postgres:mysecretpassword@db-test:5432
+      RACK_ENV: test
+      RAILS_ENV: test
+  nginx:
+    image: nginx:1.13-alpine
+    restart: always
+    ports:
+      - "5000:80"
+    links:
+      - web
+    volumes:
+      - ./data/nginx/log:/var/log/nginx
+      - ./data/assets:/usr/src/assets:ro
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./data/redis/data:/data
+  spring:
+    <<: *app_base
+    restart: 'no'
+    ports: []
+    command: bundle exec spring server
+    stdin_open: true
+    tty: true
+    pid: host
+    volumes:
+      - .:/usr/src/app
+      - spring:/tmp/spring
+      - bundle:/bundle
+volumes:
+  bundle:
+  spring:

@@ -51,3 +51,4 @@ npm-debug.log
 
 # docker data dir
 data
+docker-compose.yml

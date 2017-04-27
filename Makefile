@@ -12,7 +12,7 @@ restart:
 
 .PHONY:	migrate
 migrate:
-	docker-compose run spring rake db:migrate
+	docker-compose exec spring bundle exec rake db:migrate
 
 .PHONY: clear
 clear:
@@ -20,7 +20,7 @@ clear:
 
 .PHONY:	guard
 guard:
-	docker-compose run spring guard
+	docker-compose exec spring guard
 
 .PHONY:	test
 test:
@@ -77,4 +77,4 @@ tslint:
 
 .PHONY: bi
 bi:
-	docker-compose run spring bundle install
+	docker-compose run --rm spring bundle install
