@@ -12,6 +12,7 @@ services:
     links:
       - db-prod
     volumes:
+      - data-prod:/usr/src/app/log
       - data-prod:/bundle
     environment:
       RACK_ENV: production
@@ -42,6 +43,7 @@ services:
     links:
       - web-prod
     volumes:
+      - data-prod:/var/log/nginx
       - data-prod:/use/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
   command-prod:
