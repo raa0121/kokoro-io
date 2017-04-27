@@ -15,18 +15,10 @@ services:
       - bundle-prod
     volumes:
       - data-prod:/usr/src/app
+      - data-prod:/bundle
     environment:
       RACK_ENV: production
       RAILS_ENV: production
-  bundle-prod:
-    env_file: .env.production
-    build:
-      context: .
-      dockerfile: Dockerfile.web.dev
-      args:
-        - APP_HOME=/usr/src/app
-    volumes:
-      - data-prod:/bundle
   assets-prod:
     build:
       context: .
