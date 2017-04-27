@@ -21,3 +21,5 @@ ADD webpack.config.babel.js $APP_HOME/
 ADD tslint.json             $APP_HOME/
 
 RUN yarn install
+
+COPY ./assets /usr/src/assets/assets

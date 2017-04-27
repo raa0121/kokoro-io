@@ -48,3 +48,6 @@ assets/dist
 node_modules/
 npm-debug.log
 .tern-port
+
+# docker data dir
+data

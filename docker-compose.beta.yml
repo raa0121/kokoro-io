@@ -12,8 +12,8 @@ services:
     links:
       - db-prod
     volumes:
-      - data-prod:/usr/src/app/log
-      - data-prod:/bundle
+      - ./data/app/log:/usr/src/app/log
+      - ./data/bundle:/bundle
     environment:
       RACK_ENV: production
       RAILS_ENV: production
@@ -24,9 +24,9 @@ services:
       args:
         - APP_HOME=/usr/src/assets
     restart: 'no'
-    command: yarn run font build
+    command: yarn font build
     volumes:
-      - data-prod:/usr/src/assets
+      - ./data/assets:/usr/src/assets/assets/dist
   db-prod:
     env_file: .env.production
     image: postgres:9.6-alpine
@@ -34,7 +34,7 @@ services:
     environment:
       POSTGRES_DB: kokoroio_production
     volumes:
-      - data-prod:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
   nginx-prod:
     image: nginx:1.13-alpine
     restart: always
@@ -43,12 +43,9 @@ services:
     links:
       - web-prod
     volumes:
-      - data-prod:/var/log/nginx
-      - data-prod:/use/src/assets:ro
+      - ./data/nginx/log:/var/log/nginx
+      - ./data/assets:/usr/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
   command-prod:
     <<: *app_base
     restart: 'no'
-
-volumes:
-  data-prod:
