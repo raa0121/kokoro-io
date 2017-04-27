@@ -3,7 +3,7 @@
 require ::File.expand_path('../config/environment',  __FILE__)
 use Rack::ETag
 use Rack::Deflater
-use Rack::Static, urls: ['/stylesheets', '/javascripts', '/fonts'],
+use Rack::Static, urls: ['/stylesheets', '/javascripts', '/fonts', '/sounds'],
                   root: 'assets/dist',
                   header_rules: [
                     [:all, {

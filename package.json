@@ -10,7 +10,10 @@
     "font:file": "cp node_modules/font-awesome/fonts/* ./assets/dist/fonts/",
     "font:dir": "mkdir -p ./assets/dist/fonts/",
     "font": "npm-run-all font:dir font:file",
-    "start": "npm-run-all font build watch",
+    "sound:file": "cp ./assets/sounds/* ./assets/dist/sounds/",
+    "sound:dir": "mkdir -p ./assets/dist/sounds/",
+    "sound": "npm-run-all sound:dir sound:file",
+    "start": "npm-run-all font sound build watch",
     "tslint": "tslint -p .",
     "tslint:fix": "tslint -p . --fix"
   },

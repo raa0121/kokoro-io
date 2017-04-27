@@ -61,6 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
         ( App.chat as any ).subscribe(accessToken, screenNames);
     });
+    // Play sound when received a message
+    eventBus.$on('messageReceived', (room, message) => {
+        const ring = document.body.querySelector('audio.ring') as HTMLAudioElement;
+        ring.play();
+    });
+
     new RoomsView({
         el: '#chatapp .sidebar',
         propsData: {

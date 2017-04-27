@@ -36,13 +36,13 @@
         },
 
         mounted(){
-            const promise = this.$http.get(`/v1/rooms`);
             this.eventBus.$on('chatChannelConnected', () => {
                 this.rooms.forEach(room => {
                     this.$emit('subscribeRoom', room);
                     this.eventBus.$emit('subscribeRoom', room);
                 });
             });
+            const promise = this.$http.get(`/v1/rooms`);
             promise.then(response => {
                 console.log(response);
                 this.rooms = [];
