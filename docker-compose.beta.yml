@@ -1,6 +1,6 @@
 version: '2'
 services:
-  web-prod:
+  web-prod: &app_base
     env_file: .env.production
     build:
       context: .
@@ -44,5 +44,9 @@ services:
     volumes:
       - data-prod:/use/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
+  bundle-prod:
+    <<: *app_base
+    restart: 'no'
+
 volumes:
   data-prod:
