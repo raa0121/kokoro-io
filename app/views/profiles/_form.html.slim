@@ -4,8 +4,8 @@
   .form-inputs
     = f.input :display_name
     = f.input :screen_name
-    = f.input :avatar_id
-    = f.input :available
+    = f.input :avatar, as: :attachment
+    = image_tag attachment_url(@profile, :avatar, :fit, 48, 48, format: 'png', fallback: 'default_avatar_48.png')
 
   .form-actions
     = f.button :submit
