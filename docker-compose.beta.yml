@@ -12,7 +12,6 @@ services:
     links:
       - db-prod
     volumes:
-      - data-prod:/usr/src/app
       - data-prod:/bundle
     environment:
       RACK_ENV: production
