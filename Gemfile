@@ -34,6 +34,8 @@ gem 'refile-mini_magick'
 gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'
 gem 'refile-s3'
 
+gem 'redis'
+
 # gem 'cancancan', '~> 1.13.1'
 gem 'pundit'
 
