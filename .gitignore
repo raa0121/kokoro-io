@@ -26,6 +26,7 @@ tmp
 !.gitkeep
 
 .env
+.env.production
 Projectfile
 
 .vagrant
