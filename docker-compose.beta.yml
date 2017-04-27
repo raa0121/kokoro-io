@@ -12,7 +12,7 @@ services:
     links:
       - db-prod
     volumes_from:
-      - bundle
+      - bundle-prod
     volumes:
       - data-prod:/usr/src/app
     environment:
