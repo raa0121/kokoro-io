@@ -32,7 +32,6 @@ services:
     restart: always
     environment:
       POSTGRES_DB: kokoroio_production
-      POSTGRES_USER: kokoroio_production
     volumes:
       - data-prod:/var/lib/postgresql/data
   nginx-prod:
