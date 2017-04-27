@@ -44,7 +44,7 @@ services:
     volumes:
       - data-prod:/use/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
-  bundle-prod:
+  command-prod:
     <<: *app_base
     restart: 'no'
 
