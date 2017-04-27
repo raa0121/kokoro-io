@@ -6,14 +6,18 @@ kokoro.io is the most kokoro-pyon-pyon-able chat service ever.
 
 ### How to run in your local machine with docker
 
-1. `make serve`
-1. `make migrate`
+1. `ln -s ./docker-compose.dev.yml ./docker-compose.yml`
+1. `make build` to build container images.
+1. `make serve` to run containers.
+1. `make bi` to bundle instal.
+1. `make migrate` to migrate database.
+1. `make dbseed` to seeding test data.
 1. Access to `http://lvh.me:5000` with your web browser.
 
 ### Run command via spring
 
 1. `make serve`
-1. `docker-compose run spring [command]`
+1. `docker-compose exec spring [command]`
 
 ### Watch assets files and compile
 
