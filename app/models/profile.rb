@@ -15,4 +15,12 @@ class Profile < ApplicationRecord
   def type
     publisher_type.downcase.to_sym
   end
+
+  def available?
+    available
+  end
+
+  def unavailable?
+    !available?
+  end
 end

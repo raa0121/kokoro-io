@@ -29,7 +29,7 @@
           - if current_user.profile
             li= link_to profile_path(current_user.profile) do
               = icon :user, t('your_profile')
-          li= link_to edit_profile_path(current_user.profile) do
+          li= link_to edit_profile_path do
             = icon :edit, t('edit_your_profile')
           li= link_to edit_registration_path(current_user) do
             = icon :edit, t('edit_your_account')

@@ -1,4 +1,4 @@
-p#notice = notice
+
 
 p
   strong Display name:
@@ -8,11 +8,4 @@ p
   = @profile.screen_name
 p
   strong Avatar:
-  = @profile.avatar_id
-p
-  strong Available:
-  = @profile.available
-
-= link_to 'Edit', edit_profile_path(@profile)
-'  |
-= link_to 'Back', profiles_path
+  = image_tag attachment_url(@profile, :avatar, :fill, 245, 245, format: 'png', fallback: 'default_avatar_245.png')
