@@ -16,7 +16,7 @@ elif test $cmd = "restart"; then
 elif test $cmd = "migrate"; then
   run "${d} exec spring bundle exec rake db:migrate"
 elif test $cmd = "clear"; then
-  run "${d} stop && yes | {d} rm"
+  run "${d} stop && yes | ${d} rm"
 elif test $cmd = "guard"; then
   run "${d} exec spring guard"
 elif test $cmd = "test"; then
