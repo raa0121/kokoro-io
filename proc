@@ -1,0 +1,51 @@
+#!/bin/bash
+
+function run() {
+  echo $1
+  eval $1
+}
+
+env=$1
+cmd=$2
+d="docker-compose -f docker-compose.${env}.yml"
+
+if test $cmd = "serve"; then
+  run "${d} up -d"
+elif test $cmd = "restart"; then
+  run "${d} stop && yes | ${d} rm | ${serve}"
+elif test $cmd = "migrate"; then
+  run "${d} exec spring bundle exec rake db:migrate"
+elif test $cmd = "clear"; then
+  run "${d} stop && yes | {d} rm"
+elif test $cmd = "guard"; then
+  run "${d} exec spring guard"
+elif test $cmd = "test"; then
+  run "${d} run test"
+elif test $cmd = "testm"; then
+  run "${d} run test bundle exec rake spec:models"
+elif test $cmd = "testv"; then
+  run "${d} run test bundle exec rake spec:views"
+elif test $cmd = "testc"; then
+  run "${d} run test bundle exec rake spec:controllers"
+elif test $cmd = "testr"; then
+  run "${d} run test bundle exec rake spec:requests"
+elif test $cmd = "testh"; then
+  run "${d} run test bundle exec rake spec:helpers"
+elif test $cmd = "testp"; then
+  P=$3
+  run "${d} run test bundle exec rspec -P spec/${P}"
+elif test $cmd = "console"; then
+  run "${d} exec web bundle exec rails c --sandbox"
+elif test $cmd = "dbdrop"; then
+  run "${d} exec web bundle exec rails db:drop"
+elif test $cmd = "dbreset"; then
+  run "${d} exec web bundle exec rails db:reset"
+elif test $cmd = "dbsetup"; then
+  run "${d} exec web bundle exec rails db:setup"
+elif test $cmd = "dbseed"; then
+  run "${d} exec web bundle exec rails db:seed"
+elif test $cmd = "tslint"; then
+  run "${d} exec assets npm run tslint"
+else
+  run "${d} ${cmd}"
+fi
