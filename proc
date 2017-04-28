@@ -12,7 +12,7 @@ d="docker-compose -f docker-compose.${env}.yml"
 if test $cmd = "serve"; then
   run "${d} up -d"
 elif test $cmd = "restart"; then
-  run "${d} stop && yes | ${d} rm | ${serve}"
+  run "${d} stop && yes | ${d} rm | ${d} up -d"
 elif test $cmd = "migrate"; then
   run "${d} exec spring bundle exec rake db:migrate"
 elif test $cmd = "clear"; then
