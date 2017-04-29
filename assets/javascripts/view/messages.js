@@ -65,22 +65,22 @@ export default {
                     room: room,
                     items: [],
                 };
+                // read initial data
+                const promise = this.$http.get(`/v1/rooms/${room.screen_name}/messages`, {
+                    params: {
+                        limit: 30,
+                        offset: 0,
+                    },
+                });
+                promise.then(response => {
+                    (response.data || []).reverse().forEach(message => messages.items.push(message));
+                });
             }
             // set reference
             const messages = this.roomMessages[room.screen_name];
             this.messages = messages;
 
-            // read initial data
-            const promise = this.$http.get(`/v1/rooms/${room.screen_name}/messages`, {
-                params: {
-                    limit: 30,
-                    offset: 0,
-                },
-            });
-            promise.then(response => {
-                (response.data || []).reverse().forEach(message => messages.items.push(message));
-                this.$nextTick(() => this.scrollToLatestTalk());
-            });
+            this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         scrollToLatestTalk(){
