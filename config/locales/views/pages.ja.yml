@@ -1,7 +1,7 @@
 ja:
   pages:
     index:
-      super_cool_chat_service_ever: かなりすごいチャットサービス（かなり）
+      super_cool_chat_service_ever: 現在クローズドβにつき、データがリセットされる可能性があります
       rooms: ルーム一覧
       invited_rooms: 招待されたルーム一覧
       there_is_no_joined_room: 招待されたルームはありません
