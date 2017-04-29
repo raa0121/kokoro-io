@@ -1,5 +1,8 @@
 import moment from 'moment';
-window.moment= moment;
+import Rx from 'rx';
+
+// tick! tack! globaly
+const ticker$ = Rx.Observable.interval(1000);
 
 export default {
     props: {
@@ -10,6 +13,8 @@ export default {
 
     data(){
         return {
+            now: moment.utc(),
+
             messages: {
                 room: {},
 
@@ -37,6 +42,11 @@ export default {
             this.roomMessages[room.screen_name].items.push(message);
         });
         this.eventBus.$on('changeRoom', this.changeRoom);
+
+        ticker$.subscribe(() => {
+            this.now = moment.utc();
+            console.log('tick! tack!', this.now);
+        });
     },
 
     updated(){
@@ -82,9 +92,8 @@ export default {
         },
 
         timestamp(message){
-            const now = moment.utc();
             const publishedAt = moment.utc(message.published_at);
-            const durationSeconds = now.unix() - publishedAt.unix();
+            const durationSeconds = this.now.unix() - publishedAt.unix();
             const duration = moment.duration(durationSeconds, 'seconds');
             // in this minute
             if(durationSeconds < 60)
