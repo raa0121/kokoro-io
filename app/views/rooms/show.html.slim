@@ -38,7 +38,7 @@ h1= @room.display_name
           span.badge.badge-default.pull-right= @room.send("#{authority}_users").size
         .panel-body
           - @room.send("#{authority}_users").each do |user|
-            = link_to image_tag(attachment_url(user&.profile, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')), user_registration_path(user), class: 'popover-userinfo', data: { title: user.display_name, content: "Hi, I'm #{user.display_name}." }
+            = link_to image_tag(attachment_url(user&.profile, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')), profile_path(user&.profile), class: 'popover-userinfo', data: { title: user.display_name, content: "Hi, I'm #{user.display_name}." }
     .panel.panel-default
       .panel-heading
         = t('bots')
