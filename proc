@@ -19,6 +19,8 @@ elif test $cmd = "clear"; then
   run "${d} stop && yes | ${d} rm"
 elif test $cmd = "guard"; then
   run "${d} exec spring guard"
+elif test $cmd = "bi"; then
+  run "${d} exec spring bundle exec bundle install"
 elif test $cmd = "test"; then
   run "${d} run test"
 elif test $cmd = "testm"; then
