@@ -2,6 +2,7 @@ class BotsController < ApplicationController
   before_action :set_bot, only: [:edit, :update, :destroy]
 
   def index
+    @bots = policy_scope(Bot)
   end
 
   def new
