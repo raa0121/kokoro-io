@@ -82,7 +82,6 @@ export default {
         },
 
         timestamp(message){
-            console.log('message', JSON.stringify(message));
             const now = moment.utc();
             const publishedAt = moment.utc(message.published_at);
             const durationSeconds = now.unix() - publishedAt.unix();
