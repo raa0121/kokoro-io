@@ -7,6 +7,9 @@
   a.navbar-brand[ href="/" ] kokoro.io
 .navbar-collapse.collapse
   ul.nav.navbar-nav.navbar-right
+    - if current_user
+      li= link_to rooms_path, target: '_blank' do
+        = icon :comments, t('menu.rooms')
     li= link_to '/apidoc', target: '_blank' do
       = icon :book, t('menu.api-document')
     li= link_to '#' do

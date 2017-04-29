@@ -32,6 +32,7 @@ ja:
     signed_out: ログアウトしました
     signed_in: ログインしました
   menu:
+    rooms: 部屋を探す
     api-document: APIドキュメント
     document: ドキュメント
     help: ヘルプ

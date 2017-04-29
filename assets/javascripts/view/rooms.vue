@@ -5,9 +5,6 @@
                 <a v-bind:href="roomUrl(room)"><span class="badge pull-right">1</span>{{room.screen_name}}<i class="fa fa-lock" v-if="room.private" /></a>
             </li>
         </ul>
-        <hr>
-        <a class="btn btn-primary btn-block btn-sm" href="/rooms/new">Create room</a>
-        <a class="btn btn-default btn-block btn-sm" href="/rooms">Join room</a>
     </div>
 </template>
 
