@@ -9,6 +9,7 @@ declare function require(name: string);
 const messagesView = require('./view/messages.vue');
 const messageInputView = require('./view/message-input.vue');
 const roomsView = require('./view/rooms.vue');
+const roomMenuView = require('./view/room-menu.vue');
 
 // Initialize global context
 const App = {
@@ -61,6 +62,7 @@ class Chat {
         const MessagesView = Vue.extend(messagesView);
         const MessageInputView = Vue.extend(messageInputView);
         const RoomsView = Vue.extend(roomsView);
+        const RoomMenuView = Vue.extend(roomMenuView);
 
         const eventBus = new Vue();
         // Add chat channel
@@ -83,6 +85,18 @@ class Chat {
 
         new RoomsView({
             el: '#chatapp .sidebar',
+            propsData: {
+                eventBus,
+            },
+        });
+        new RoomMenuView({
+            el: '#chatapp .room-menu',
+            propsData: {
+                eventBus,
+            },
+        });
+        new MessageInputView({
+            el: '#say_text',
             propsData: {
                 eventBus,
             },

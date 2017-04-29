@@ -3,3 +3,4 @@ import * as jQuery from 'jquery';
 (<any>window).$ = (<any>window).jQuery = jQuery;
 import 'bootstrap';
 import 'jquery-ujs';
+
