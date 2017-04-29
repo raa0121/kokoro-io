@@ -1,8 +1,5 @@
 class AccessTokensController < ApplicationController
-  before_action :set_access_token, only: [:show, :edit, :update, :destroy]
-
-  def show
-  end
+  before_action :set_access_token, only: [:edit, :update, :destroy]
 
   def index
     @access_tokens = policy_scope(AccessToken)
@@ -21,7 +18,7 @@ class AccessTokensController < ApplicationController
     authorize @access_token
 
     if @access_token.save
-      redirect_to @access_token, notice: t('AccessToken was successfully destroyed.')
+      redirect_to access_tokens_path, notice: t('AccessToken was successfully destroyed.')
     else
       render :new
     end
