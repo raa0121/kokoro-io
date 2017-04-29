@@ -16,6 +16,14 @@ class Profile < ApplicationRecord
     publisher_type.downcase.to_sym
   end
 
+  def user?
+    type == :user
+  end
+
+  def bot?
+    type == :bot
+  end
+
   def available?
     available
   end

@@ -26,6 +26,10 @@ class Room < ApplicationRecord
       { through: :memberships, source: :user, class_name: 'User' }
   end
 
+  has_many :chattable_users,
+    -> { where memberships: {memberable_type: 'User', authority: [:administrator, :maintainer, :member]}},
+    { through: :memberships, source: :user, class_name: 'User' }
+
   accepts_nested_attributes_for :users
 
   scope :public_rooms, -> { where private: false }
