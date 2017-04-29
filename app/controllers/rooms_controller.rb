@@ -1,9 +1,11 @@
 class RoomsController < ApplicationController
+  before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   def create
-    @room = current_user.rooms.create(permitted_params[:room])
+    @room = current_user.rooms.create(room_params)
     membership = @room.memberships.first
     membership.administrator! if membership
+    authorize @room
 
     # FIXME: error handling
     if @room.persisted?
@@ -13,25 +15,36 @@ class RoomsController < ApplicationController
 
   def new
     @room = Room.new
+    authorize @room
   end
 
   def show
-    @room = Room.friendly.find(params[:id])
   end
 
   def index
-    @rooms = Room.public_rooms
+    @rooms = policy_scope(Room).public_rooms
+  end
+
+  def edit
+  end
+
+  def update
+    if @room.update(room_params)
+      redirect_to @room, notice: t('Room was successfully updated.')
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @room = current_user.rooms.find_by(id: params[:id])
-    # TODO:Authority check
+    authorize @room
   end
 
   def join
-    room = Room.find_by(screen_name: params[:screen_name])
+    room = Room.friendly.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
+    authorize room
 
     if room.users.include? current_user
       room.memberships.find_by(memberable: current_user)&.member!
@@ -43,9 +56,10 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    room = Room.find_by(screen_name: params[:screen_name])
+    room = Room.friendly.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_leaveable') unless room.leaveable? current_user
+    authorize room
 
     room.users.delete current_user
     room.save
@@ -54,9 +68,10 @@ class RoomsController < ApplicationController
   end
 
   def invite
-    room = Room.find_by(screen_name: params[:screen_name])
+    room = Room.friendly.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_invitable') unless room.invitable? current_user
+    authorize room
 
     user_to_invite = User.find_by(id: params[:user_id])
     return redirect_to :back, alert: t('alert.users.not_exist') unless user_to_invite
@@ -78,7 +93,13 @@ class RoomsController < ApplicationController
   end
 
   private
-  def permitted_params
-    params.permit(room: [:screen_name, :display_name, :description, :private])
+  def room_params
+    params.require(:room).permit(:screen_name, :display_name, :description, :private)
   end
+
+  def set_room
+    @room = Room.friendly.find(params[:id])
+    authorize @room
+  end
+
 end

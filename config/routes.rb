@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get '/@:screen_name' => 'profiles#show', as: :profile
-  get '/profiles/archived/:id' => 'profiles#archived', as: :archived_profil
+  get '/profiles/:id' => 'profiles#archived', as: :archived_profil
   resource :profile, only: [ :edit, :update ]
 
   devise_for :users, controllers: {

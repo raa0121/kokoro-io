@@ -12,9 +12,8 @@ services:
       - db-dev
       - redis
     volumes:
-      - ./app:/usr/src/app/app
+      - .:/usr/src/app
       - ./config:/usr/src/app/config
-      - ./data/app/log:/usr/src/app/log
       - bundle:/bundle
     environment:
       DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
@@ -51,7 +50,7 @@ services:
     <<: *app_base
     restart: 'no'
     ports: []
-    command: rake spec
+    command: bundle exec rake spec
     links:
       - db-test
     environment:
@@ -83,7 +82,6 @@ services:
     tty: true
     pid: host
     volumes:
-      - .:/usr/src/app
       - spring:/tmp/spring
       - bundle:/bundle
 volumes:

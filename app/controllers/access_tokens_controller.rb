@@ -1,20 +1,46 @@
-class AccessTokensController < InheritedResources::Base
-  actions :all
+class AccessTokensController < ApplicationController
+  before_action :set_access_token, only: [:show, :edit, :update, :destroy]
+
+  def show
+  end
+
+  def index
+    @access_tokens = policy_scope(AccessToken)
+  end
+
+  def new
+    @access_token = AccessToken.new
+    authorize @access_token
+  end
 
   def create
-    @access_token = AccessToken.new(permitted_params[:access_token])
+    @access_token = AccessToken.new(access_token_params)
     @access_token.token = AccessToken.generate_token
     @access_token.essential = false
     @access_token.user = current_user
-    create! do |success, failure|
-      success.html { redirect_to access_tokens_path }
+    authorize @access_token
+
+    if @access_token.save
+      redirect_to @access_token, notice: t('AccessToken was successfully destroyed.')
+    else
+      render :new
     end
   end
 
+  def edit
+  end
+
   def update
-    super do |success, failure|
-      success.html { redirect_to access_tokens_path }
+    if @access_token.update(access_token_params)
+      redirect_to access_tokens_path, notice: t('AccessToken was successfully updated.')
+    else
+      render :edit
     end
+  end
+
+  def destroy
+    @access_token.destroy
+    redirect_to access_tokens_url, notice: t('AccessToken was successfully destroyed.')
   end
 
   protected
@@ -23,9 +49,13 @@ class AccessTokensController < InheritedResources::Base
   end
 
   private
-  def permitted_params
-    params.permit(access_token: [:name])
-    # params.require(:access_token).permit(:name)
+  def access_token_params
+    params.require(:access_token).permit(:name)
+  end
+
+  def set_access_token
+    @access_token = AccessToken.find(params[:id])
+    authorize @access_token
   end
 
 end

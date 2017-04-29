@@ -29,6 +29,8 @@ elif test $cmd = "testc"; then
   run "${d} run test bundle exec rake spec:controllers"
 elif test $cmd = "testr"; then
   run "${d} run test bundle exec rake spec:requests"
+elif test $cmd = "testro"; then
+  run "${d} run test bundle exec rake spec:routing"
 elif test $cmd = "testh"; then
   run "${d} run test bundle exec rake spec:helpers"
 elif test $cmd = "testp"; then
