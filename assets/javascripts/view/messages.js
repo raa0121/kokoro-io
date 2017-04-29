@@ -1,4 +1,5 @@
 import moment from 'moment';
+window.moment= moment;
 
 export default {
     props: {
@@ -78,6 +79,34 @@ export default {
         scrollToLatestTalk(){
             const talksPane = document.querySelector(".talks");
             talksPane.scrollTop = talksPane.scrollHeight;
+        },
+
+        timestamp(message){
+            console.log('message', JSON.stringify(message));
+            const now = moment.utc();
+            const publishedAt = moment.utc(message.published_at);
+            const durationSeconds = now.unix() - publishedAt.unix();
+            const duration = moment.duration(durationSeconds, 'seconds');
+            // in this minute
+            if(durationSeconds < 60)
+            {
+                return 'Now';
+            }
+            // in this hour
+            else if(durationSeconds < 3600)
+            {
+                return `${duration.minutes()} minutes ago`;
+            }
+            // in this day
+            else if(durationSeconds < 86400)
+            {
+                return `${duration.hours()} hours ago`;
+            }
+            // other
+            else
+            {
+                return `${duration.days()} days ago`;
+            }
         },
     },
 };

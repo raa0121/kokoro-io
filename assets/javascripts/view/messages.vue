@@ -5,7 +5,7 @@
                 <img v-bind:src="message.profile.avatar" alt="">
             </div>
             <div class="message">
-                <div class="speaker">{{message.profile.display_name}}<small class="timeleft text-muted">{{message.published_at}}</small></div>
+                <div class="speaker">{{message.profile.display_name}}<small class="timeleft text-muted">{{timestamp(message)}}</small></div>
                 <div class="filtered_text">{{message.content}}</div>
             </div>
         </div>
