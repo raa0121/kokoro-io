@@ -41,7 +41,7 @@ class RoomsController < ApplicationController
   end
 
   def join
-    room = Room.friendly.find(params[:id])
+    room = Room.friendly.find(params[:screen_name])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
     authorize room
@@ -56,7 +56,7 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    room = Room.friendly.find(params[:id])
+    room = Room.friendly.find(params[:screen_name])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_leaveable') unless room.leaveable? current_user
     authorize room
@@ -68,7 +68,7 @@ class RoomsController < ApplicationController
   end
 
   def invite
-    room = Room.friendly.find(params[:id])
+    room = Room.friendly.find(params[:screen_name])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_invitable') unless room.invitable? current_user
     authorize room
