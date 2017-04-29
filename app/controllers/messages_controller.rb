@@ -1,3 +1,7 @@
-class MessagesController < InheritedResources::Base
-  actions :all, except: [ :index, :show, :new, :create, :edit, :update, :destroy ]
+class MessagesController < ApplicationController
+
+  def index
+    @messages = policy_scope(Message).all
+  end
+
 end
