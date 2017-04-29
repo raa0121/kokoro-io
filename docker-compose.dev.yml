@@ -14,6 +14,7 @@ services:
     volumes:
       - .:/usr/src/app
       - ./config:/usr/src/app/config
+      - /etc/localtime:/etc/localtime:ro
       - bundle:/bundle
     environment:
       DATABASE_URL: postgres://postgres:mysecretpassword@db-dev:5432
