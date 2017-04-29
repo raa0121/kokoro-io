@@ -40,18 +40,14 @@ export default {
         });
         this.eventBus.$on('messageReceived', (room, message) => {
             this.roomMessages[room.screen_name].items.push(message);
+            this.$nextTick(() => this.scrollToLatestTalk());
         });
         this.eventBus.$on('changeRoom', this.changeRoom);
 
-        ticker$.subscribe(() => {
-            this.now = moment.utc();
-            console.log('tick! tack!', this.now);
-        });
+        ticker$.subscribe(() => this.now = moment.utc());
     },
 
     updated(){
-        this.scrollToLatestTalk();
-
         (this.$refs.avatar || []).forEach(el => {
             $(el).popover({
                 placement: 'auto',
@@ -83,12 +79,16 @@ export default {
             });
             promise.then(response => {
                 (response.data || []).reverse().forEach(message => messages.items.push(message));
+                this.$nextTick(() => this.scrollToLatestTalk());
             });
         },
 
         scrollToLatestTalk(){
-            const talksPane = document.querySelector(".talks");
-            talksPane.scrollTop = talksPane.scrollHeight;
+            const el = this.$refs.talksPane;
+            if(!!el)
+            {
+                el.scrollTop = el.scrollHeight;
+            }
         },
 
         timestamp(message){
