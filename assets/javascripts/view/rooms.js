@@ -37,9 +37,15 @@ export default {
                 this.$emit('subscribeRoom', room);
                 this.eventBus.$emit('subscribeRoom', room);
             });
-            if(this.rooms.length > 0) {
-              this.changeRoom(this.rooms[0]);
-            }
+
+            // select initial room
+            this.$config.getActiveRoom().then(room => {
+                room || (room = this.rooms[0]);
+                if(!!room)
+                {
+                    this.changeRoom(room);
+                }
+            });
         });
     },
 

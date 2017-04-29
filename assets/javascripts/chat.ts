@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import * as Vue from 'vue';
 import * as model from './model/';
 import createChatChannel from './channels/chat.ts';
+import AppConfig from './config.ts';
 declare function require(name: string);
 const messagesView = require('./view/messages.vue');
 const messageInputView = require('./view/message-input.vue');
@@ -13,6 +14,7 @@ const roomsView = require('./view/rooms.vue');
 const App = {
     cable: ActionCable.createConsumer(),
     chat: {},
+    config: new AppConfig(),
 };
 
 class ApiClient {
@@ -48,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             'X-Access-Token': accessToken,
         },
     });
+    // can access global configuration
+    (Vue.prototype as any).$config = App.config;
 
     const MessagesView = Vue.extend(messagesView);
     const MessageInputView = Vue.extend(messageInputView);
@@ -63,9 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // Play sound when received a message
     eventBus.$on('messageReceived', (room, message) => {
-        const ring = document.body.querySelector('audio.ring') as HTMLAudioElement;
-        ring.play();
+        App.config.isSoundEnabled().then((enabled: boolean) => {
+            if(enabled) {
+                const ring = document.body.querySelector('audio.ring') as HTMLAudioElement;
+                ring.play();
+            }
+        });
     });
+    // store latest choosen room
+    eventBus.$on('changeRoom', room => App.config.setActiveRoom(room));
 
     new RoomsView({
         el: '#chatapp .sidebar',
