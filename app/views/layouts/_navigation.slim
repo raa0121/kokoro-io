@@ -7,8 +7,8 @@
   a.navbar-brand[ href="/" ] kokoro.io
 .navbar-collapse.collapse
   ul.nav.navbar-nav.navbar-right
-    li= link_to '#' do
-      = icon :book, t('menu.document')
+    li= link_to '/apidoc', target: '_blank' do
+      = icon :book, t('menu.api-document')
     li= link_to '#' do
       = icon :question, t('menu.help')
     - if current_user
