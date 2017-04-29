@@ -20,7 +20,7 @@ module V1
         m.profile.display_name
       end
       expose :avatar, documentation: {type: String, desc: "発言時のアバターURL"} do |m|
-        ActionController::Base.helpers.attachment_url(m.profile, :avatar, :fill, 32, 32, format: 'png', fallback: 'default_avatar_32.png')
+        ActionController::Base.helpers.attachment_url(m.profile, :avatar, :fill, 40, 40, format: 'png', fallback: 'default_avatar_32.png')
       end
     end
   end
