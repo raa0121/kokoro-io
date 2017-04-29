@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/activeadmin/inherited_resources.git
-  revision: 0839b077a791013e741ea12cb793b6809a007317
-  specs:
-    inherited_resources (1.7.1)
-      actionpack (>= 3.2, < 5.1)
-      has_scope (~> 0.6)
-      railties (>= 3.2, < 5.1)
-      responders
-
-GIT
   remote: git://github.com/norman/friendly_id.git
   revision: 718b1bcad8e47ccde8a4b559b734505a49d313a7
   specs:
@@ -188,9 +178,6 @@ GEM
       sass (>= 3.1)
     guard-webpack (0.1.2)
       guard (< 3.0)
-    has_scope (0.7.0)
-      actionpack (>= 4.1, < 5.1)
-      activesupport (>= 4.1, < 5.1)
     hashie (3.5.5)
     hashie-forbidden_attributes (0.1.1)
       hashie (>= 3.0)
@@ -400,7 +387,6 @@ DEPENDENCIES
   guard-sass
   guard-webpack
   hashie-forbidden_attributes
-  inherited_resources!
   jquery-turbolinks
   kaminari
   mina

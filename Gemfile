@@ -22,7 +22,6 @@ gem 'rake', '10.4.2'
 # gem 'sdoc', '~> 0.4.1',          group: :doc
 
 # gem 'activeadmin', github: 'gregbell/active_admin'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
 gem 'simple_form', github: 'plataformatec/simple_form'
 gem 'friendly_id', github: 'norman/friendly_id'
