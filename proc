@@ -23,7 +23,8 @@ case $cmd in
   "testr") run "${d} run test bundle exec rake spec:requests";;
   "testro") run "${d} run test bundle exec rake spec:routing";;
   "testh") run "${d} run test bundle exec rake spec:helpers";;
-  "testp") P=$3; run "${d} run test bundle exec rspec -P spec/${P}";;
+  "testp") run "${d} run test bundle exec rake spec:policies";;
+  "testptn") P=$3; run "${d} run test bundle exec rspec -P ${P}";;
   "console") run "${d} exec web bundle exec rails c --sandbox";;
   "dbdrop") run "${d} exec web bundle exec rails db:drop";;
   "dbreset") run "${d} exec web bundle exec rails db:reset";;

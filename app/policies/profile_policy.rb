@@ -10,7 +10,7 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    @record.publisher == @user
+    @record.available?
   end
 
   def update?

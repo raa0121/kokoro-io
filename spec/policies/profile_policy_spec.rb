@@ -1,28 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe ProfilePolicy do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:profile) { Profile.find_by(publisher: user) }
 
-  let(:user) { User.new }
-
-  subject { described_class }
-
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "for a publisher" do
+    subject { ProfilePolicy.new(user, profile) }
+    it { should authorize(:show) }
+    it { should authorize(:update) }
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context 'for a not publisher' do
+    let(:other) { FactoryGirl.create(:user) }
+    subject { ProfilePolicy.new(other, profile) }
+    it { should authorize(:show) }
+    it { should_not authorize(:update) }
   end
 
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context 'unavailable user' do
+    before do
+      profile.update_attribute(:available, false)
+    end
+    subject { ProfilePolicy.new(user, profile) }
+    it { should_not authorize(:show) }
   end
 end
