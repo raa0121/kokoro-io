@@ -1,28 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ProfilePolicy do
+  let(:user) { FactoryGirl.create(:user) }
+  let(:profile) { Profile.find_by(publisher: user) }
+  subject { ProfilePolicy.new(user, profile) }
 
-  let(:user) { User.new }
-
-  subject { described_class }
-
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  context "for a login user" do
+    it { should authorize(:show) }
   end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
 end
