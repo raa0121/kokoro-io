@@ -1,7 +1,8 @@
 module V1
   class MessageEntity < Grape::Entity
     expose :id, documentation: {type: Integer, desc: "メッセージID"}
-    expose :content, documentation: {type: String, desc: "発言内容"}
+    expose :filtered_content, as: :content, documentation: {type: String, desc: "発言内容"}
+    expose :content, as: :raw_contet, documentation: {type: String, desc: "発言内容（プレインテキスト）"}
     expose :published_at, documentation: {type: DateTime, desc: "発言日時"} do |m|
       m.published_at.to_s
     end

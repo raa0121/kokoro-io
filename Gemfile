@@ -28,6 +28,8 @@ gem 'friendly_id', github: 'norman/friendly_id'
 
 gem 'kaminari'
 
+gem 'redcarpet'
+
 gem 'refile', github: 'refile/refile', branch: 'master', require: 'refile/rails'
 gem 'refile-mini_magick'
 gem 'sinatra', require: nil, github: 'sinatra/sinatra', branch: 'master'

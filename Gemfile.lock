@@ -280,6 +280,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
+    redcarpet (3.4.0)
     redis (3.3.3)
     refile-mini_magick (0.2.0)
       mini_magick (~> 4.0)
@@ -397,6 +398,7 @@ DEPENDENCIES
   rails (~> 5.0.2)
   rails-controller-testing
   rake (= 10.4.2)
+  redcarpet
   redis
   refile!
   refile-mini_magick

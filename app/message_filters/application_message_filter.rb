@@ -1,0 +1,2 @@
+class ApplicationMessageFilter < BaseMessageFilter
+end

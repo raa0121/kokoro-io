@@ -6,10 +6,11 @@
             </div>
             <div class="message">
                 <div class="speaker">{{message.profile.display_name}}<small class="timeleft text-muted">{{timestamp(message)}}</small></div>
-                <div class="filtered_text">{{message.content}}</div>
+                <div class="filtered_text" v-html="message.content"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script src="./messages.js"></script>
+<style src="./messages.css"></style>

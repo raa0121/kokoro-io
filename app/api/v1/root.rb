@@ -25,7 +25,7 @@ module V1
     end
 
     rescue_from :all do |e|
-      Root.logger.error(e.message.to_s << "\n" << e.backtrace.join("\n"))
+      Rails.logger.error(e.message.to_s << "\n" << e.backtrace.join("\n"))
       error!({ message: "Server Error"}, 500)
     end
 

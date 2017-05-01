@@ -8,4 +8,12 @@ class Message < ApplicationRecord
 
   scope :recent, -> { order 'published_at DESC' }
 
+  def filtered_content
+    s = content
+    s = HTMLEscapeMessageFilter.filter(s)
+    s = ImageTagMessageFilter.filter(s)
+    s = YoutubeMessageFilter.filter(s)
+    s = MarkdownMessageFilter.filter(s)
+  end
+
 end
