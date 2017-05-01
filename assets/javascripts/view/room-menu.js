@@ -19,6 +19,9 @@ export default {
         this.$config.isSoundEnabled().then((enabled) => {
             this.isSoundEnabled = enabled;
         });
+    },
+
+    updated(){
         $('.room-menu a[data-toggle="tooltip"]').tooltip(
             {
                 container: 'body'
