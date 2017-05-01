@@ -28,11 +28,23 @@ export default {
                 this.eventBus.$emit('subscribeRoom', room);
             });
         });
+        this.eventBus.$on('messageReceived', (room, message) => {
+            if(this.room.id != room.id){
+                const targetRoom = this.rooms.find((elm, idx, arr) => {
+                    return elm.id == room.id;
+                })
+                if(targetRoom){
+                    targetRoom.unread_count += 1;
+                }
+            }
+        });
         const promise = this.$http.get(`/v1/rooms`);
         promise.then(response => {
             console.log(response);
             this.rooms = [];
             (response.data || []).forEach(room => {
+                room.unread_count = 0;
+                room.shown = false;
                 this.rooms.push(room);
                 this.$emit('subscribeRoom', room);
                 this.eventBus.$emit('subscribeRoom', room);
@@ -56,6 +68,8 @@ export default {
 
         changeRoom(room){
             this.room = room;
+            this.room.unread_count = 0;
+            this.room.shown = true;
             this.$emit('changeRoom', room);
             this.eventBus.$emit('changeRoom', room);
         },
