@@ -34,7 +34,7 @@ services:
       - ./package.json:/usr/src/assets/package.json
       - ./yarn.lock:/usr/src/assets/yarn.lock
       - ./tsconfig.json:/usr/src/assets/tsconfig.json
-      - ./webpack.config.babel.js:/usr/src/assets/webpack.config.babel.js
+      - ./webpack.config:/usr/src/assets/webpack.config
       - ./assets/:/usr/src/assets/assets/
       - ./tslint.json:/usr/src/assets/tslint.json
   db-dev:
