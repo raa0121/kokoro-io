@@ -13,12 +13,6 @@ const roomMenuView = require('./view/room-menu.vue');
 
 // Initialize global context
 
-// SAIAKU Workaround
-const WebSocketOrigin = ( window as any ).WebSocket;
-( window as any ).WebSocket = (url, protocols) => {
-    const accessToken = document.head.querySelector('meta[name="access-token"]').getAttribute('content');
-    return new WebSocketOrigin(url, protocols.concat(`access-token-${accessToken}`))
-};
 const App = {
     cable: ActionCable.createConsumer(),
     chat: {},

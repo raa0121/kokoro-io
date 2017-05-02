@@ -4,7 +4,7 @@ if Rails.env.development?
     Rails.application.reload_routes!
   }
 
-  ActionDispatch::Callbacks.to_prepare do
+  ActiveSupport::Reloader.to_prepare do
     reloader.execute_if_updated
   end
 

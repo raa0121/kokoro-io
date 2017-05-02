@@ -8,16 +8,15 @@ module ApplicationCable
 
     protected
     def find_verified_user
-      sec_websocket_protocol = request.headers[:HTTP_SEC_WEBSOCKET_PROTOCOL]
-      access_token = sec_websocket_protocol.split(/,\s*/).find { |t|
-        t.start_with?('access-token-')
-      }&.sub(/^access-token-/, '')
-      user = AccessToken.find_by(token: access_token)&.user
-      if user
-        user
+      if ( access_token = request.headers['X-Access-Token'] )
+        # For WebSocket client which supports additional custom headers at upgrade request
+        AccessToken.find_by(token: access_token).user
       else
-        reject_unauthoried_connection
+        # For webbrowser's WebSocket object
+        User.find(env['warden'].user.id)
       end
+    rescue
+      reject_unauthorized_connection
     end
 
   end
