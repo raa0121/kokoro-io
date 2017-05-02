@@ -7,7 +7,7 @@ export default {
         application: path.join(__dirname, '..' ,'assets', 'javascripts', 'application.ts'),
     },
     output: {
-        path: path.join(__dirname, '../assets', 'dist', 'javascripts'),
+        path: path.join(__dirname, '..', 'assets', 'dist', 'javascripts'),
         filename: '[name].js',
     },
     resolve: {
