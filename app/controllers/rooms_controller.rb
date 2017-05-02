@@ -2,14 +2,18 @@ class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
 
   def create
-    @room = current_user.rooms.create(room_params)
-    membership = @room.memberships.first
-    membership.administrator! if membership
+    @room = Room.new(room_params)
+    @room.memberships.build(
+      memberable: current_user,
+      authority: :administrator
+    )
     authorize @room
 
     # FIXME: error handling
-    if @room.persisted?
+    if @room.save
       redirect_to(room_path(@room), notice: t('rooms.created'))
+    else
+      render :new
     end
   end
 
