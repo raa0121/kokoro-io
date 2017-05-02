@@ -1,11 +1,14 @@
-= simple_form_for(@profile, url: '/profile') do |f|
-  = f.error_notification
+.panel.panel-default
+  .panel-body
+    = simple_form_for(@profile, url: '/profile') do |f|
+      = f.error_notification
 
-  .form-inputs
-    = f.input :display_name
-    = f.input :screen_name
-    = f.input :avatar, as: :attachment
-    = image_tag attachment_url(@profile, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')
+      .form-inputs
+        = f.input :display_name
+        = f.input :screen_name
+        = f.input :avatar, wrapper: :vertical_input_group do
+          = image_tag attachment_url(@profile, :avatar, :fill, 48, 48, format: 'png', fallback: 'default_avatar_48.png')
+          = f.input_field :avatar, as: :attachment
 
-  .form-actions
-    = f.button :submit
+      .form-actions
+        = f.button :submit
