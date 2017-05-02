@@ -13,12 +13,12 @@ ARG APP_HOME
 RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
-ADD .babelrc       $APP_HOME/
-ADD yarn.lock      $APP_HOME/
-ADD package.json   $APP_HOME/
-ADD tsconfig.json  $APP_HOME/
-ADD webpack.config $APP_HOME/
-ADD tslint.json    $APP_HOME/
+ADD .babelrc        $APP_HOME/
+ADD yarn.lock       $APP_HOME/
+ADD package.json    $APP_HOME/
+ADD tsconfig.json   $APP_HOME/
+ADD webpack.config/ $APP_HOME/
+ADD tslint.json     $APP_HOME/
 
 RUN yarn install
 

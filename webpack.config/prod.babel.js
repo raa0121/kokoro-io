@@ -6,5 +6,10 @@ conf.plugins = [
     comments: false,
     sourceMap: false,
   }),
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: '"production"',
+    }
+  }),
 ];
 export default conf;

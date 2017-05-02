@@ -3,8 +3,8 @@ import path from 'path';
 
 export default {
     entry: {
-        chat: path.join(__dirname, '../assets', 'javascripts', 'chat.ts'),
-        application: path.join(__dirname, '../assets', 'javascripts', 'application.ts'),
+        chat: path.join(__dirname, '..', 'assets', 'javascripts', 'chat.ts'),
+        application: path.join(__dirname, '..' ,'assets', 'javascripts', 'application.ts'),
     },
     output: {
         path: path.join(__dirname, '../assets', 'dist', 'javascripts'),
