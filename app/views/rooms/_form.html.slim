@@ -1,8 +1,9 @@
-.well.well-sm
-  = simple_form_for(room) do |f|
-    = f.error_notification
-    = f.input :display_name
-    = f.input :screen_name
-    = f.input :description
-    = f.input :private
-    = f.button :submit, class: 'btn btn-primary'
+.panel.panel-default
+  .panel-body
+    = simple_form_for(room) do |f|
+      = f.error_notification
+      = f.input :display_name
+      = f.input :screen_name
+      = f.input :description
+      = f.input :private, as: :boolean, wrapper: :vertical_boolean
+      = f.button :submit, class: 'btn btn-primary'
