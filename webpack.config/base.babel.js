@@ -18,9 +18,17 @@ export default {
     },
     plugins: [],
     module: {
-        loaders: [
-            { test: /\.ts$/,  loaders: ['babel-loader', 'ts-loader'], exclude: /node_modules/ },
-            { test: /\.vue$/, loaders: ['vue-loader'],                exclude: /node_modules/ },
+        rules: [
+            {
+                use: ['babel-loader', 'ts-loader'],
+                test: /\.ts$/,
+                exclude: /node_modules/
+            },
+            {
+                use: ['vue-loader'],
+                test: /\.vue$/,
+                exclude: /node_modules/
+            },
         ],
     },
 };
