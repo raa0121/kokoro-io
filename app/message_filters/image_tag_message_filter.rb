@@ -3,7 +3,7 @@ class ImageTagMessageFilter < ApplicationMessageFilter
   def self.filter(text)
     text.gsub(IMAGE_URL_REGEX) { |s|
       m = s.match(IMAGE_URL_REGEX)
-      %`<div><img class="thumb" src="#{m[1]}" /></div>`
+      %`<div><a href="#{m[1]}" target="_blank"><img class="thumb" src="#{m[1]}" /></a></div>`
     }
   end
 end
