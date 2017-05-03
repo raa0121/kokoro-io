@@ -1,7 +1,7 @@
 import webpack from 'webpack';
 import conf from './base.babel.js';
 
-conf.plugins = [
+conf.plugins = conf.plugins.concat([
     new webpack.optimize.UglifyJsPlugin({
         comments: false,
         sourceMap: false,
@@ -11,5 +11,5 @@ conf.plugins = [
             NODE_ENV: '"production"'
         }
     })
-];
+]);
 export default conf;
