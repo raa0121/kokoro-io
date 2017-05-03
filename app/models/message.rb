@@ -6,7 +6,7 @@ class Message < ApplicationRecord
   validates :room, :profile, :content, :published_at, presence: true
   validates :content, length: { in: 1..2000 }
 
-  scope :recent, -> { order 'published_at DESC' }
+  scope :recent, -> { order 'id DESC' }
 
   def filtered_content
     s = content

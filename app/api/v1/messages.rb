@@ -48,11 +48,11 @@ module V1
           }
           params do
             optional :limit, type: Integer, default: 30
-            optional :offset, type: Integer, default: 0
+            optional :before_id, type: Integer, default: 0
           end
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
-            messages = room.messages.recent.offset(params[:offset]).limit(params[:limit])
+            messages = room.messages.where("id > ?", params[:before_id]).recent.limit(params[:limit])
             present messages, with: MessageEntity
           end
 
