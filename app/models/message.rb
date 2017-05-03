@@ -9,10 +9,18 @@ class Message < ApplicationRecord
   scope :recent, -> { order 'id DESC' }
 
   def filtered_content
-    s = content
-    s = HTMLEscapeMessageFilter.filter(s)
-    s = URLMessageFilter.filter(s)
-    s = MarkdownMessageFilter.filter(s)
+    filters.inject(content) { |s, f|
+      f.send(:filter, s)
+    }
+  end
+
+  private
+  def filters
+    [
+      HTMLEscapeMessageFilter,
+      URLMessageFilter,
+      MarkdownMessageFilter
+    ]
   end
 
 end
