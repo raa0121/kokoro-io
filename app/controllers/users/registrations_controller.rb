@@ -45,7 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     params[:user][:profile_attributes][:display_name] = params[:user][:profile_attributes][:screen_name]
-    params[:user][:profile_attributes][:available] = true
+    params[:user][:profile_attributes][:archived] = false
     devise_parameter_sanitizer.permit(:sign_up, keys: [profile_attributes: [:display_name, :screen_name, :availabble]])
   end
 

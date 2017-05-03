@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
 
   belongs_to :publisher, polymorphic: true
   validates :display_name, :screen_name, presence: true
-  validates :available, inclusion: {in: [true, false]}
+  validates :archived, inclusion: {in: [true, false]}
   validates :screen_name, uniqueness: true
   validates :screen_name, length: { maximum: 64 }
 
@@ -24,11 +24,8 @@ class Profile < ApplicationRecord
     type == :bot
   end
 
-  def available?
-    available
+  def archived?
+    archived
   end
 
-  def unavailable?
-    !available?
-  end
 end

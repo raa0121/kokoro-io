@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170424144143) do
+ActiveRecord::Schema.define(version: 20170503043433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170424144143) do
     t.string   "display_name"
     t.string   "screen_name"
     t.string   "avatar_id"
-    t.boolean  "available",      default: true
+    t.boolean  "archived",       default: true
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.index ["publisher_type", "publisher_id"], name: "index_profiles_on_publisher_type_and_publisher_id", using: :btree

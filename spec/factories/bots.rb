@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:access_token) { Bot.generate_token }
 
     after(:create) do |bot|
-      bot.profile = Profile.create(publisher: bot, screen_name: "bot#{bot.id}", display_name: "BotName#{bot.id}", available: true)
+      bot.profile = Profile.create(publisher: bot, screen_name: "bot#{bot.id}", display_name: "BotName#{bot.id}", available: false)
     end
   end
 end

@@ -17,9 +17,9 @@ RSpec.describe ProfilePolicy do
     it { should_not authorize(:update) }
   end
 
-  context 'unavailable user' do
+  context 'archived user' do
     before do
-      profile.update_attribute(:available, false)
+      profile.update_attribute(:archived, true)
     end
     subject { ProfilePolicy.new(user, profile) }
     it { should_not authorize(:show) }

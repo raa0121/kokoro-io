@@ -15,7 +15,7 @@ class BotsController < ApplicationController
     @bot = Bot.new(bot_params)
     @bot.access_token = Bot.generate_token
     @bot.user = current_user
-    @bot.profile.available = true
+    @bot.profile.archived = false
     authorize @bot
     if @bot.save
       redirect_to bots_path, notice: t('Bot was successfully destroyed.')

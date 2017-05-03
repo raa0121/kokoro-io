@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:password_confirmation) { |n| "changeme" }
 
     after(:create) do |user|
-      user.profile = Profile.create(publisher: user, screen_name: "user#{user.id}", display_name: "Name#{user.id}", available: true)
+      user.profile = Profile.create(publisher: user, screen_name: "user#{user.id}", display_name: "Name#{user.id}", archived: false)
 
       rooms = create_list :room, 4, users: [user]
       rooms.map(&:memberships).flatten.map(&:administrator!)

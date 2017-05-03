@@ -6,7 +6,7 @@ table
       th Display name
       th Screen name
       th Avatar
-      th Available
+      th Archived
       th
       th
       th
@@ -17,7 +17,7 @@ table
         td = profile.display_name
         td = profile.screen_name
         td = profile.avatar_id
-        td = profile.available
+        td = profile.archived
         td = link_to 'Show', profile
         td = link_to 'Edit', edit_profile_path(profile)
         td = link_to 'Destroy', profile, data: { confirm: 'Are you sure?' }, method: :delete

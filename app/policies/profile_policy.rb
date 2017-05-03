@@ -10,10 +10,10 @@ class ProfilePolicy < ApplicationPolicy
   end
 
   def show?
-    @record.available?
+    !@record.archived?
   end
 
   def update?
-    @record.available? && @record.publisher == @user
+    !@record.archived? && @record.publisher == @user
   end
 end
