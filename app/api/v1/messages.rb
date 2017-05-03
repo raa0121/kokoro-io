@@ -47,8 +47,8 @@ module V1
             response: {isArray: true, entity: MessageEntity}
           }
           params do
-            requires :limit, type: Integer, default: 30
-            requires :offset, type: Integer, default: 0
+            optional :limit, type: Integer, default: 30
+            optional :offset, type: Integer, default: 0
           end
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
