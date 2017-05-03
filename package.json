@@ -1,11 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "watch:js": "webpack --watch",
+    "build-dev:css": "node-sass --recursive --output ./assets/dist/stylesheets/ --source-map true ./assets/stylesheets/",
+    "watch:js": "webpack --watch --config ./webpack.config/dev.babel.js",
     "watch:css": "node-sass --watch --recursive --output ./assets/dist/stylesheets/ --source-map true ./assets/stylesheets/",
     "watch": "npm-run-all --parallel watch:css watch:js",
-    "build:js": "webpack",
-    "build:css": "node-sass --recursive --output ./assets/dist/stylesheets/ --source-map true ./assets/stylesheets/",
+    "build:js": "webpack --config ./webpack.config/prod.babel.js",
+    "build:css": "node-sass --recursive --output ./assets/dist/stylesheets/ ./assets/stylesheets/",
     "build": "npm-run-all --parallel build:css build:js",
     "font:file": "cp node_modules/font-awesome/fonts/* ./assets/dist/fonts/",
     "font:dir": "mkdir -p ./assets/dist/fonts/",
@@ -13,7 +14,7 @@
     "sound:file": "cp ./assets/sounds/* ./assets/dist/sounds/",
     "sound:dir": "mkdir -p ./assets/dist/sounds/",
     "sound": "npm-run-all sound:dir sound:file",
-    "start": "npm-run-all font sound build watch",
+    "start": "npm-run-all font sound build-dev:css watch",
     "tslint": "tslint -p .",
     "tslint:fix": "tslint -p . --fix"
   },
