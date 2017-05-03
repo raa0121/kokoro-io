@@ -36,4 +36,12 @@ class Profile < ApplicationRecord
     archived
   end
 
+  def user
+    publisher if publisher_type == 'User'
+  end
+
+  def bot
+    publisher if publisher_type == 'Bot'
+  end
+
 end
