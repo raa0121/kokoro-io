@@ -12,5 +12,5 @@
     </div>
 </template>
 
-<script src="./messages.js"></script>
-<style src="./messages.css"></style>
+<script src="./script.js"></script>
+<style src="./style.css"></style>

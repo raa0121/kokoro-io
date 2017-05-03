@@ -12,5 +12,5 @@
     </div>
 </template>
 
-<script src="./room-menu.js"></script>
-<style src="./room-menu.css"></style>
+<script src="./script.js"></script>
+<style src="./style.css"></style>

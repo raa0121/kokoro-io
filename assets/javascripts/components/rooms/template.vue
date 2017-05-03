@@ -14,5 +14,5 @@
     </div>
 </template>
 
-<script src="./rooms.js"></script>
-<style src="./rooms.css"></style>
+<script src="./script.js"></script>
+<style src="./style.css"></style>
