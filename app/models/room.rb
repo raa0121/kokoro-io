@@ -3,7 +3,6 @@ class Room < ApplicationRecord
   friendly_id :screen_name
 
   validates :screen_name, :display_name, :description, presence: true
-  validates :screen_name, friendly_id: true
   validates :screen_name, length: { in: 1..255 }
   validates :screen_name, uniqueness: true
   validates :display_name, length: { in: 2..64 }
