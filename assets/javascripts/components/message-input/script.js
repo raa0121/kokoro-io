@@ -1,6 +1,6 @@
 import moment from 'moment';
 import KeyCode from 'keycode-js';
-import * as model from '../model/';
+import * as model from '../../model/';
 
 export default {
     props: {

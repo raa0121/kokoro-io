@@ -6,10 +6,10 @@ import * as model from './model/';
 import createChatChannel from './channels/chat.ts';
 import AppConfig from './config.ts';
 declare function require(name: string);
-const messagesView = require('./view/messages.vue');
-const messageInputView = require('./view/message-input.vue');
-const roomsView = require('./view/rooms.vue');
-const roomMenuView = require('./view/room-menu.vue');
+const messagesView = require('./components/messages/template.vue');
+const messageInputView = require('./componets/message-input/template.vue');
+const roomsView = require('./components/rooms/template.vue');
+const roomMenuView = require('./components/room-menu/template.vue');
 
 // Initialize global context
 
