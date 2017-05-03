@@ -52,8 +52,7 @@ module V1
           end
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
-            # TODO: use offset
-            messages = room.messages.recent.limit(params[:limit])
+            messages = room.messages.recent.offset(params[:offset]).limit(params[:limit])
             present messages, with: MessageEntity
           end
 
