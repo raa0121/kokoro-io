@@ -7,11 +7,13 @@ class Bot < ApplicationRecord
   delegate :display_name, to: :profile, prefix: false, allow_nil: true
   delegate :messages, to: :profile, prefix: false, allow_nil: true
   delegate :avatar, to: :profile, prefix: false, allow_nil: true
-  has_many :memberships, as: :memberable
+  has_many :memberships, as: :memberable, dependent: :destroy
   has_many :rooms, through: :memberships
 
   validates :user, :access_token, :status, presence: true
   validates :access_token, uniqueness: true
+
+  after_destroy :archive_profile
 
   enum status: {
     enabled: 10,
@@ -28,6 +30,11 @@ class Bot < ApplicationRecord
 
   def owner? user
     self.user == user
+  end
+
+  private
+  def archive_profile
+    self.profile.archive!
   end
 
 end

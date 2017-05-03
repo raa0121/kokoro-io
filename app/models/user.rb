@@ -4,16 +4,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :profile, as: :publisher
+  has_one :profile, as: :publisher, dependent: :nullify
   accepts_nested_attributes_for :profile
   delegate :screen_name, to: :profile, prefix: false, allow_nil: true
   delegate :display_name, to: :profile, prefix: false, allow_nil: true
   delegate :messages, to: :profile, prefix: false, allow_nil: true
   delegate :avatar, to: :profile, prefix: false, allow_nil: true
-  has_many :access_tokens
-  has_many :memberships, as: :memberable
+  has_many :access_tokens, dependent: :destroy
+  has_many :memberships, as: :memberable, dependent: :destroy
   has_many :rooms, through: :memberships
-  has_many :bots
+  has_many :bots, dependent: :destroy
+
+  after_destroy :archive_profile
 
   # Has scoped rooms by each authority
   has_many :administrator_memberships, -> {
@@ -55,5 +57,10 @@ class User < ApplicationRecord
         essential: true
       )
     end
+  end
+
+  private
+  def archive_profile
+    self.profile.archive!
   end
 end
