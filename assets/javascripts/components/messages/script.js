@@ -74,13 +74,12 @@ export default {
                 });
                 promise.then(response => {
                     (response.data || []).reverse().forEach(message => messages.items.push(message));
+                    this.$nextTick(() => this.scrollToLatestTalk());
                 });
             }
             // set reference
             const messages = this.roomMessages[room.screen_name];
             this.messages = messages;
-
-            this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         scrollToLatestTalk(){
