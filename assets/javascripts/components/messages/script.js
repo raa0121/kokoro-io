@@ -22,13 +22,8 @@ export default {
     data(){
         return {
             fetching: false,
-            requestParams: {  // REVIEW: モジュールグローバルな変数でもいい気がする
-                limit: 30,
-                before_id: null,
-            },
             now: moment.utc(),
             messages: {
-                room: {},
                 items: [],
             },
             // room.id => messages
@@ -74,11 +69,15 @@ export default {
             if(!this.roomMessages[this.currentRoom.screen_name])
             {
                 this.roomMessages[this.currentRoom.screen_name] = {
-                    room: this.currentRoom,
                     items: [],
+                    requestParams: { limit: 30, before_id: null },
+                    initialized: false,
                 };
                 // fetch initial data
-                this.fetch().then(() => this.$nextTick(() => this.scrollToLatestTalk()));
+                this.fetch().then(() => {
+                    this.$nextTick(() => this.scrollToLatestTalk())
+                    this.roomMessages[this.currentRoom.screen_name].initialized = true;
+                });
             }
             // set reference
             this.messages = this.roomMessages[this.currentRoom.screen_name];
@@ -89,11 +88,10 @@ export default {
             this.fetching = true;
             return this.$http.get(
                 `/v1/rooms/${this.currentRoom.screen_name}/messages`,
-                { params: { limit: this.requestParams.limit, before_id: this.requestParams.before_id }}
+                { params: this.roomMessages[this.currentRoom.screen_name].requestParams }
             ).then(response => {
                 this.fetching = false;
                 (response.data || []).forEach(message => this.messages.items.unshift(message));
-                console.log(this.messages.items.length);
             });
         },
 
@@ -131,11 +129,12 @@ export default {
             }
         },
 
-        scroll(el) {
-            if ((el.target.scrollTop === 0)) {
-                if (this.messages.items.length > 0) {
-                    this.requestParams.limit = Math.min(Math.round(this.requestParams.limit * 1.5), MAX_LIMIT);
-                    this.requestParams.before_id = this.messages.items[0].id;
+        scroll(ev) {
+            const room = this.roomMessages[this.currentRoom.screen_name];
+            if (ev.target.scrollTop === 0 && room.initialized) {
+                if (room.items.length > 0) {
+                    room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
+                    room.requestParams.before_id = this.messages.items[0].id;
                 }
                 this.fetch();
             }
