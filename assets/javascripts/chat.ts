@@ -1,7 +1,7 @@
 import * as ActionCable from 'actioncable';
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import * as moment from 'moment';
-import * as Vue from 'vue';
+import Vue from 'vue';
 import createChatChannel from './channels/chat.ts';
 import AppConfig from './config.ts';
 import * as model from './model/';

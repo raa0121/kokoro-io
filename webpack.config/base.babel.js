@@ -13,7 +13,7 @@ export default {
     resolve: {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js', '.vue'],
         alias: {
-            vue: 'vue/dist/vue.js',
+            'vue$': 'vue/dist/vue.esm.js',
         },
     },
     plugins: [],
