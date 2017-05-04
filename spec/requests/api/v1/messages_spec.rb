@@ -17,6 +17,7 @@ RSpec.describe API::Root::V1::Messages, type: :request do
   }
   let(:outdated_message) { messages.order('id ASC').first }
   let(:latest_message) { messages.order('id DESC').first }
+  let(:chattable_messages_desc) { room.messages.order('id DESC') }
 
   let(:headers) { {'X-Access-Token' => user.primary_access_token.token} }
   let(:path) { "/api/v1/rooms/#{ room.screen_name }/messages" }
@@ -37,22 +38,33 @@ RSpec.describe API::Root::V1::Messages, type: :request do
       expect(json(response.body).length).to eq(30)
     end
 
-    it 'returns messages with limit' do
-      @params = { limit: 10 }
-      request
-      expect(json(response.body).length).to eq(10)
+    context 'passed a limit parameter' do
+      it 'returns number of specified.' do
+        @params = { limit: 10 }
+        request
+        expect(json(response.body).length).to eq(10)
+      end
+
+      it 'returns datas which are ordered descending by primary key' do
+        limit = 10
+        @params = { limit: limit }
+        request
+        expect(json(response.body).map {|i| i['id'] }).to eq(chattable_messages_desc.limit(limit).map {|i| i.id})
+      end
     end
 
-    it 'returns messages with before_id' do
-      @params = { before_id: latest_message.id - 20 }
-      request
-      expect(json(response.body).length).to eq(20)
+    context 'passed a before_id parameter' do
+      it 'returns datas which do not include passed id' do
+        @params = { before_id: latest_message.id }
+        request
+        expect(json(response.body).map {|i| i['id'] }.include?(latest_message.id)).to be false
+      end
     end
 
     it 'returns messages with limit and before_id' do
-      @params = { limit: 10, before_id: latest_message.id - 5 }
+      @params = { limit: 10, before_id: latest_message.id }
       request
-      expect(json(response.body).length).to eq(5)
+      expect(json(response.body).length).to eq(10)
     end
 
     context 'messages' do
