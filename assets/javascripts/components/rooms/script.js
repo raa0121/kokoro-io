@@ -7,15 +7,6 @@ export default {
 
     data(){
         return {
-            // memo: [{
-            //   "id":1,
-            //   "display_name":"aaaa",
-            //   "screen_name":"aaaa",
-            //   "private":false,
-            //   "created_at":"2017-04-22T11:00:02.354Z",
-            //   "updated_at":"2017-04-22T11:00:02.354Z",
-            //   "description":"eeee",
-            // }]
             rooms: [],
             room: {},
         };
