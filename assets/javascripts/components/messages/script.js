@@ -5,6 +5,9 @@ import LoadingView from '../loading/template.vue';
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
 
+// max number of fetching messages once.
+const MAX_LIMIT = 200;
+
 export default {
     props: {
         eventBus: {
@@ -19,6 +22,10 @@ export default {
     data(){
         return {
             fetching: false,
+            requestParams: {
+                limit: 20,
+                before_id: null,
+            },
             now: moment.utc(),
             messages: {
                 room: {},
@@ -26,6 +33,7 @@ export default {
             },
             // room.id => messages
             roomMessages: {},
+            currentRoom: null,
         };
     },
 
@@ -61,29 +69,32 @@ export default {
 
     methods: {
         changeRoom(room){
-            console.log('changeRoom', room);
-            if(!this.roomMessages[room.screen_name])
+            this.currentRoom = room;
+            console.log('changeRoom', this.currentRoom);
+            if(!this.roomMessages[this.currentRoom.screen_name])
             {
-                this.roomMessages[room.screen_name] = {
-                    room: room,
+                this.roomMessages[this.currentRoom.screen_name] = {
+                    room: this.currentRoom,
                     items: [],
                 };
-                // read initial data
-                const promise = this.$http.get(`/v1/rooms/${room.screen_name}/messages`, {
-                    params: {
-                        limit: 30,
-                        offset: 0,
-                    },
-                });
-                promise.then(response => {
-                    (response.data || []).reverse().forEach(message => messages.items.push(message));
-                });
+                // fetch initial data
+                this.fetch();
             }
             // set reference
-            const messages = this.roomMessages[room.screen_name];
-            this.messages = messages;
+            this.messages = this.roomMessages[this.currentRoom.screen_name];
 
             this.$nextTick(() => this.scrollToLatestTalk());
+        },
+
+        fetch() {
+            this.fetching = true;
+            this.$http.get(
+                `/v1/rooms/${this.currentRoom.screen_name}/messages`,
+                { params: { limit: this.requestParams.limit, before_id: this.requestParams.before_id }}
+            ).then(response => {
+                this.fetching = false;
+                (response.data || []).reverse().forEach(message => this.messages.items.push(message));
+            });
         },
 
         scrollToLatestTalk(){
@@ -122,7 +133,11 @@ export default {
 
         scroll(el) {
             if ((el.target.scrollTop === 0)) {
-                this.fetching = true;
+                if (this.messages.items.length > 0) {
+                    this.requestParams.limit = Math.min(Math.round(this.requestParams.limit * 1.5), MAX_LIMIT);
+                    this.requestParams.before_id = this.messages.items.slice(-1)[0].id;
+                }
+                this.fetch();
             }
         },
     },
