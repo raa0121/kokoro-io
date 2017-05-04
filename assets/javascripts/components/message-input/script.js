@@ -19,6 +19,12 @@ export default {
         };
     },
 
+    directives: {
+        focus: {
+            componentUpdated: el => el.focus()
+        }
+    },
+
     mounted(){
         this.eventBus.$on('changeRoom', room => this.room = room);
     },
