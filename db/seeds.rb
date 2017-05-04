@@ -24,7 +24,7 @@ membership.save
 
 rooms = supermomonga.rooms
 rooms.each do |r|
-  30.times do |i|
+  500.times do |i|
     m = FactoryGirl.create :message,
                            room: r,
                            profile: supermomonga.profile,

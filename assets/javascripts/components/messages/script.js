@@ -22,8 +22,8 @@ export default {
     data(){
         return {
             fetching: false,
-            requestParams: {
-                limit: 20,
+            requestParams: {  // REVIEW: モジュールグローバルな変数でもいい気がする
+                limit: 30,
                 before_id: null,
             },
             now: moment.utc(),
@@ -78,7 +78,7 @@ export default {
                     items: [],
                 };
                 // fetch initial data
-                this.fetch();
+                this.fetch().then(() => this.$nextTick(() => this.scrollToLatestTalk()));
             }
             // set reference
             this.messages = this.roomMessages[this.currentRoom.screen_name];
@@ -87,13 +87,13 @@ export default {
 
         fetch() {
             this.fetching = true;
-            this.$http.get(
+            return this.$http.get(
                 `/v1/rooms/${this.currentRoom.screen_name}/messages`,
                 { params: { limit: this.requestParams.limit, before_id: this.requestParams.before_id }}
             ).then(response => {
                 this.fetching = false;
-                (response.data || []).reverse().forEach(message => this.messages.items.push(message));
-                this.$nextTick(() => this.scrollToLatestTalk());
+                (response.data || []).forEach(message => this.messages.items.unshift(message));
+                console.log(this.messages.items.length);
             });
         },
 
@@ -135,7 +135,7 @@ export default {
             if ((el.target.scrollTop === 0)) {
                 if (this.messages.items.length > 0) {
                     this.requestParams.limit = Math.min(Math.round(this.requestParams.limit * 1.5), MAX_LIMIT);
-                    this.requestParams.before_id = this.messages.items.slice(-1)[0].id;
+                    this.requestParams.before_id = this.messages.items[0].id;
                 }
                 this.fetch();
             }

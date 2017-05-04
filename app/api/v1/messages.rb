@@ -54,7 +54,13 @@ module V1
           end
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
-            messages = room.messages.where("id > ?", params[:before_id]).recent.limit(params[:limit])
+
+            # FIXME: いい加減な実装
+            if params[:before_id] > 0 then
+              messages = room.messages.where("id < ?", params[:before_id]).recent.limit(params[:limit])
+            else
+              messages = room.messages.recent.limit(params[:limit])
+            end
             present messages, with: MessageEntity
           end
 
