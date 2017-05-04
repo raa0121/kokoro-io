@@ -31,6 +31,7 @@ case $cmd in
   "dbsetup") run "${d} exec web bundle exec rails db:setup";;
   "dbseed") run "${d} exec web bundle exec rails db:seed";;
   "jsbuild") run "${d} exec assets yarn build";;
-  "tslint") run "${d} exec assets npm run tslint";;
+  "tslint") run "${d} exec assets yarn tslint";;
+  "tslint:fix") run "${d} exec assets yarn tslint:fix";;
   *) run "${d} ${cmd}";;
 esac

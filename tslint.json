@@ -8,7 +8,11 @@
         "no-var-requires": false,
         "object-literal-sort-keys": false,
         "object-literal-shorthand": false,
-        "member-access": false
+        "member-access": false,
+        "max-classes-per-file": false,
+        "no-console": false,
+        "variable-name": [true, "allow-snake-case", "allow-pascal-case"],
+        "interface-name": false
     },
     "rulesDirectory": []
 }

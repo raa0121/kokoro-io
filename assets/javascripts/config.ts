@@ -7,7 +7,7 @@ export default class Config {
     getActiveRoom(): Promise<model.Room> {
         return new Promise((resolve, reject) => {
             const value = localStorage.getItem(KeyActiveRoom);
-            if(!!value) {
+            if (!!value) {
                 resolve(JSON.parse(value));
             } else {
                 resolve(null);
@@ -22,7 +22,7 @@ export default class Config {
     isSoundEnabled(): Promise<boolean> {
         return new Promise((resolve, reject) => {
             const value = localStorage.getItem(KeySoundEnabled);
-            if(!!value) {
+            if (!!value) {
                 resolve(JSON.parse(value));
             } else {
                 resolve(true);

@@ -2,9 +2,9 @@ import * as ActionCable from 'actioncable';
 import axios, { AxiosPromise, AxiosRequestConfig } from 'axios';
 import * as moment from 'moment';
 import * as Vue from 'vue';
-import * as model from './model/';
 import createChatChannel from './channels/chat.ts';
 import AppConfig from './config.ts';
+import * as model from './model/';
 declare function require(name: string);
 const messagesView = require('./components/messages/template.vue');
 const messageInputView = require('./components/message-input/template.vue');
@@ -75,14 +75,14 @@ class Chat {
         // Play sound when received a message
         eventBus.$on('messageReceived', (room, message) => {
             App.config.isSoundEnabled().then((enabled: boolean) => {
-                if(enabled) {
+                if (enabled) {
                     const ring = document.body.querySelector('audio.ring') as HTMLAudioElement;
                     ring.play();
                 }
             });
         });
         // store latest choosen room
-        eventBus.$on('changeRoom', room => App.config.setActiveRoom(room));
+        eventBus.$on('changeRoom', (room) => App.config.setActiveRoom(room));
 
         new RoomsView({
             el: '#chatapp .sidebar',
