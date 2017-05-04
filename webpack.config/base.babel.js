@@ -20,12 +20,20 @@ export default {
     module: {
         rules: [
             {
-                use: ['babel-loader', 'ts-loader'],
+                use: ['babel-loader', 'vue-ts-loader'],
                 test: /\.ts$/,
                 exclude: /node_modules/
             },
             {
-                use: ['vue-loader'],
+                use: ['babel-loader', {
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            js: 'vue-ts-loader',
+                        },
+                        esModule: true,
+                    },
+                }],
                 test: /\.vue$/,
                 exclude: /node_modules/
             },
