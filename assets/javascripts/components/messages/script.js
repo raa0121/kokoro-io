@@ -82,7 +82,6 @@ export default {
             }
             // set reference
             this.messages = this.roomMessages[this.currentRoom.screen_name];
-
             this.$nextTick(() => this.scrollToLatestTalk());
         },
 
@@ -94,6 +93,7 @@ export default {
             ).then(response => {
                 this.fetching = false;
                 (response.data || []).reverse().forEach(message => this.messages.items.push(message));
+                this.$nextTick(() => this.scrollToLatestTalk());
             });
         },
 
