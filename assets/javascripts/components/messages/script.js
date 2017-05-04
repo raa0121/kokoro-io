@@ -80,6 +80,7 @@ export default {
             // set reference
             const messages = this.roomMessages[room.screen_name];
             this.messages = messages;
+            this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         scrollToLatestTalk(){
