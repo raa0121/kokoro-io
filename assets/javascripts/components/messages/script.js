@@ -1,5 +1,6 @@
 import moment from 'moment';
 import Rx from 'rx';
+import LoadingView from '../loading/template.vue';
 
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
@@ -11,16 +12,18 @@ export default {
         },
     },
 
+    components: {
+        loading: LoadingView
+    },
+
     data(){
         return {
+            fetching: false,
             now: moment.utc(),
-
             messages: {
                 room: {},
-
                 items: [],
             },
-
             // room.id => messages
             roomMessages: {},
         };
@@ -114,6 +117,12 @@ export default {
             else
             {
                 return `${duration.days()} days ago`;
+            }
+        },
+
+        scroll(el) {
+            if ((el.target.scrollTop === 0)) {
+                this.fetching = true;
             }
         },
     },
