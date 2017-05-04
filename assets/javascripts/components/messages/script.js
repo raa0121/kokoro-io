@@ -23,29 +23,27 @@ export default {
         return {
             fetching: false,
             now: moment.utc(),
-            messages: {
-                items: [],
+            currentRoom: {
+                messages: [],
+                screenName: null,
             },
-            // room.id => messages
-            roomMessages: {},
-            currentRoom: null,
+            rooms: {},
         };
     },
 
     mounted(){
         this.eventBus.$on('postingMessage', (room, message) => {
-            this.roomMessages[room.screen_name].items.push(message);
+            this.rooms[room.screen_name].messages.push(message);
         });
         this.eventBus.$on('removeTemporaryMessage', (room, removalMessage) => {
-            const messages = this.roomMessages[room.screen_name];
-            messages.items = messages.items.filter(
+            this.currentRoom.messages = this.rooms[room.screen_name].messages.filter(
                 message => !!message.id &&
                     !( message.transitNumber &&
                        message.transitNumber == removalMessage.transitNumber)
             );
         });
         this.eventBus.$on('messageReceived', (room, message) => {
-            this.roomMessages[room.screen_name].items.push(message);
+            this.rooms[room.screen_name].messages.push(message);
             this.$nextTick(() => this.scrollToLatestTalk());
         });
         this.eventBus.$on('changeRoom', this.changeRoom);
@@ -64,34 +62,34 @@ export default {
 
     methods: {
         changeRoom(room){
-            this.currentRoom = room;
-            console.log('changeRoom', this.currentRoom);
-            if(!this.roomMessages[this.currentRoom.screen_name])
+            console.log('changeRoom', room);
+            this.currentRoom.screenName = room.screen_name;
+            if(!this.rooms[room.screen_name])
             {
-                this.roomMessages[this.currentRoom.screen_name] = {
-                    items: [],
+                this.rooms[room.screen_name] = {
                     requestParams: { limit: 30, before_id: null },
                     initialized: false,
+                    messages: [],
                 };
                 // fetch initial data
                 this.fetch().then(() => {
                     this.$nextTick(() => this.scrollToLatestTalk())
-                    this.roomMessages[this.currentRoom.screen_name].initialized = true;
+                    this.rooms[room.screen_name].initialized = true;
                 });
             }
             // set reference
-            this.messages = this.roomMessages[this.currentRoom.screen_name];
+            this.currentRoom.messages = this.rooms[room.screen_name].messages;
             this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         fetch() {
             this.fetching = true;
             return this.$http.get(
-                `/v1/rooms/${this.currentRoom.screen_name}/messages`,
-                { params: this.roomMessages[this.currentRoom.screen_name].requestParams }
+                `/v1/rooms/${this.currentRoom.screenName}/messages`,
+                { params: this.rooms[this.currentRoom.screenName].requestParams }
             ).then(response => {
                 this.fetching = false;
-                (response.data || []).forEach(message => this.messages.items.unshift(message));
+                (response.data || []).forEach(message => this.currentRoom.messages.unshift(message));
             });
         },
 
@@ -130,11 +128,11 @@ export default {
         },
 
         scroll(ev) {
-            const room = this.roomMessages[this.currentRoom.screen_name];
+            const room = this.rooms[this.currentRoom.screenName];
             if (ev.target.scrollTop === 0 && room.initialized) {
-                if (room.items.length > 0) {
+                if (this.currentRoom.messages.length > 0) {
                     room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
-                    room.requestParams.before_id = this.messages.items[0].id;
+                    room.requestParams.before_id = this.currentRoom.messages[0].id;
                 }
                 this.fetch();
             }
