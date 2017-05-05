@@ -13,12 +13,12 @@ ARG APP_HOME
 RUN mkdir -p /usr/src/assets
 WORKDIR /usr/src/assets
 
-ADD .babelrc        /usr/src/assets/
-ADD yarn.lock       /usr/src/assets/
-ADD package.json    /usr/src/assets/
-ADD tsconfig.json   /usr/src/assets/
-ADD webpack.config/ /usr/src/assets/
-ADD tslint.json     /usr/src/assets/
+COPY .babelrc       /usr/src/assets/
+COPY yarn.lock      /usr/src/assets/
+COPY package.json   /usr/src/assets/
+COPY tsconfig.json  /usr/src/assets/
+COPY webpack.config /usr/src/assets/webpack.config/
+COPY tslint.json    /usr/src/assets/
 
 RUN yarn install
 
