@@ -10,15 +10,15 @@ ENV PATH /opt/yarn/bin/:$PATH
 
 ARG APP_HOME
 
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+RUN mkdir -p /usr/src/assets
+WORKDIR /usr/src/assets
 
-ADD .babelrc        $APP_HOME/
-ADD yarn.lock       $APP_HOME/
-ADD package.json    $APP_HOME/
-ADD tsconfig.json   $APP_HOME/
-ADD webpack.config/ $APP_HOME/
-ADD tslint.json     $APP_HOME/
+ADD .babelrc        /usr/src/assets/
+ADD yarn.lock       /usr/src/assets/
+ADD package.json    /usr/src/assets/
+ADD tsconfig.json   /usr/src/assets/
+ADD webpack.config/ /usr/src/assets/
+ADD tslint.json     /usr/src/assets/
 
 RUN yarn install
 

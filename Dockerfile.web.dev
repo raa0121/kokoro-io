@@ -12,17 +12,17 @@ RUN apk --update --no-cache add \
 
 ARG APP_HOME
 
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
 
-ADD ./ $APP_HOME/
-ADD Gemfile $APP_HOME/
-ADD Gemfile.lock $APP_HOME/
+ADD ./ /usr/src/app/
+ADD Gemfile /usr/src/app/
+ADD Gemfile.lock /usr/src/app/
 
 # for some reason, we need both of nodejs and node command
 RUN ln -s /usr/bin/node /usr/bin/nodejs
 
-ENV BUNDLE_GEMFILE=$APP_HOME/Gemfile \
+ENV BUNDLE_GEMFILE=/usr/src/app/Gemfile \
     BUNDLE_JOBS=2 \
     BUNDLE_PATH=/bundle
 
