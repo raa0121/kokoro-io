@@ -1,8 +1,12 @@
 import * as moment from 'moment';
 import * as Rx from 'rx';
+import LoadingView from '../loading/template.vue';
 
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
+
+const MAX_LIMIT = 200;
+const OFFSET = 3;
 
 export default {
     props: {
@@ -11,35 +15,35 @@ export default {
         },
     },
 
+    components: {
+        loading: LoadingView
+    },
+
     data(){
         return {
+            fetching: false,
             now: moment.utc(),
-
-            messages: {
-                room: {},
-
-                items: [],
+            currentRoom: {
+                messages: [],
+                screenName: null,
             },
-
-            // room.id => messages
-            roomMessages: {},
+            rooms: {},
         };
     },
 
     mounted(){
         this.eventBus.$on('postingMessage', (room, message) => {
-            this.roomMessages[room.screen_name].items.push(message);
+            this.rooms[room.screen_name].messages.push(message);
         });
         this.eventBus.$on('removeTemporaryMessage', (room, removalMessage) => {
-            const messages = this.roomMessages[room.screen_name];
-            messages.items = messages.items.filter(
+            this.currentRoom.messages = this.rooms[room.screen_name].messages.filter(
                 message => !!message.id &&
                     !( message.transitNumber &&
                        message.transitNumber == removalMessage.transitNumber)
             );
         });
         this.eventBus.$on('messageReceived', (room, message) => {
-            this.roomMessages[room.screen_name].items.push(message);
+            this.rooms[room.screen_name].messages.push(message);
             this.$nextTick(() => this.scrollToLatestTalk());
         });
         this.eventBus.$on('changeRoom', this.changeRoom);
@@ -59,28 +63,35 @@ export default {
     methods: {
         changeRoom(room){
             console.log('changeRoom', room);
-            if(!this.roomMessages[room.screen_name])
+            this.currentRoom.screenName = room.screen_name;
+            if(!this.rooms[room.screen_name])
             {
-                this.roomMessages[room.screen_name] = {
-                    room: room,
-                    items: [],
+                this.rooms[room.screen_name] = {
+                    requestParams: { limit: 30, before_id: null },
+                    initialized: false,
+                    messages: [],
                 };
-                // read initial data
-                const promise = this.$http.get(`/v1/rooms/${room.screen_name}/messages`, {
-                    params: {
-                        limit: 30,
-                        offset: 0,
-                    },
-                });
-                promise.then(response => {
-                    (response.data || []).reverse().forEach(message => messages.items.push(message));
-                    this.$nextTick(() => this.scrollToLatestTalk());
+                // fetch initial data
+                this.fetch().then(() => {
+                    this.$nextTick(() => this.scrollToLatestTalk())
+                    this.rooms[room.screen_name].initialized = true;
                 });
             }
             // set reference
-            const messages = this.roomMessages[room.screen_name];
-            this.messages = messages;
+            this.currentRoom.messages = this.rooms[room.screen_name].messages;
             this.$nextTick(() => this.scrollToLatestTalk());
+        },
+
+        fetch() {
+            this.fetching = true;
+            return this.$http.get(
+                `/v1/rooms/${this.currentRoom.screenName}/messages`,
+                { params: this.rooms[this.currentRoom.screenName].requestParams }
+            ).then(response => {
+                this.fetching = false;
+                (response.data || []).forEach(message => this.currentRoom.messages.unshift(message));
+                return response.data;
+            });
         },
 
         scrollToLatestTalk(){
@@ -114,6 +125,27 @@ export default {
             else
             {
                 return `${duration.days()} days ago`;
+            }
+        },
+
+        scroll(ev) {
+            const room = this.rooms[this.currentRoom.screenName];
+            if (ev.target.scrollTop === 0 && room.initialized) {
+                if (this.currentRoom.messages.length > 0) {
+                    room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
+                    room.requestParams.before_id = this.currentRoom.messages[0].id;
+                }
+                this.fetch().then(fetchedData => {
+                    // FIXME: MAYBE BUGGY
+                    const len = fetchedData.length;
+                    const rowHeight = this.$refs.talkRow[0].clientHeight;
+                    const offsetRows = len > OFFSET ? len - OFFSET - 1 : len;  // magical
+                    const scrollRange = rowHeight * offsetRows;
+                    const el = this.$refs.talksPane;
+                    if(!!el) {
+                        el.scrollTop = el.scrollHeight - scrollRange;;
+                    }
+                });
             }
         },
     },

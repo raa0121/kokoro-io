@@ -1,8 +1,23 @@
-
 p {
     margin: 0;
 }
 img.thumb {
     max-width: 350px;
     max-height: 300px;
+}
+
+.unread {
+    display: table;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #FAAC58;
+}
+
+.unread:after, .unread:before {
+    content: '';
+    display: table-cell;
+    width: 50%;
+    background: linear-gradient(transparent 50%, currentColor 50%, currentColor calc(50% + 1px), transparent calc(50% + 1px));
+    -webkit-background-clip: padding;
 }
