@@ -13,19 +13,27 @@ export default {
     resolve: {
         extensions: ['*', '.webpack.js', '.web.js', '.ts', '.js', '.vue'],
         alias: {
-            vue: 'vue/dist/vue.js',
+            'vue$': 'vue/dist/vue.esm.js',
         },
     },
     plugins: [],
     module: {
         rules: [
             {
-                use: ['babel-loader', 'ts-loader'],
+                use: ['babel-loader', 'vue-ts-loader'],
                 test: /\.ts$/,
                 exclude: /node_modules/
             },
             {
-                use: ['vue-loader'],
+                use: ['babel-loader', {
+                    loader: 'vue-loader',
+                    options: {
+                        loaders: {
+                            js: 'vue-ts-loader',
+                        },
+                        esModule: true,
+                    },
+                }],
                 test: /\.vue$/,
                 exclude: /node_modules/
             },

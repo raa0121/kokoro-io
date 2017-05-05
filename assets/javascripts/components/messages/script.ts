@@ -1,5 +1,5 @@
-import moment from 'moment';
-import Rx from 'rx';
+import * as moment from 'moment';
+import * as Rx from 'rx';
 import LoadingView from '../loading/template.vue';
 
 // tick! tack! globaly

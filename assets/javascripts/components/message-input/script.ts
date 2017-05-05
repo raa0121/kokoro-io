@@ -1,6 +1,6 @@
-import moment from 'moment';
-import KeyCode from 'keycode-js';
-import * as model from '../../model/';
+import * as moment from 'moment';
+import * as KeyCode from 'keycode-js';
+import * as model from '../../model';
 
 export default {
     props: {
@@ -9,7 +9,7 @@ export default {
         },
     },
 
-    data(){
+    data(): object {
         return {
             suppressingInput: false,
 
@@ -49,7 +49,7 @@ export default {
     },
 
     methods: {
-        maybeSay(evt){
+        maybeSay(evt: KeyboardEvent): boolean {
             switch(evt.keyCode || evt.which)
             {
                 case KeyCode.KEY_ENTER:

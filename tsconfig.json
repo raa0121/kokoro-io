@@ -4,7 +4,8 @@
         "target": "es2015",
         "noImplicitAny": false,
         "sourceMap": true,
-        "alwaysStrict": true
+        "alwaysStrict": true,
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "./assets/javascripts/**/*.ts"

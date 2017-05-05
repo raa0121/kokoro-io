@@ -1,2 +1,2 @@
-export * from './room.ts';
-export * from './message.ts';
+export * from './room';
+export * from './message';

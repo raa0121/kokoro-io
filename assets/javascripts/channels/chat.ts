@@ -1,5 +1,5 @@
 import * as ActionCable from 'actioncable';
-import * as Vue from 'vue';
+import Vue from 'vue';
 
 function createChatChannel(cable: ActionCable.Cable, eventBus: Vue) {
     return cable.subscriptions.create('ChatChannel', {

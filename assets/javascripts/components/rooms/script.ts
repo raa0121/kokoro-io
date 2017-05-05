@@ -65,7 +65,7 @@ export default {
             this.eventBus.$emit('changeRoom', room);
         },
 
-        isActive(room){
+        isActive(room): boolean {
             return this.room.id == room.id;
         },
     },
