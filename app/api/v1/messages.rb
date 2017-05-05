@@ -50,17 +50,23 @@ module V1
           }
           params do
             optional :limit, type: Integer, default: 30
-            optional :before_id, type: Integer, default: 0
+            optional :before_id, type: Integer
           end
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
 
-            # FIXME: いい加減な実装
-            if params[:before_id] > 0 then
-              messages = room.messages.where("id < ?", params[:before_id]).recent.limit(params[:limit])
-            else
-              messages = room.messages.recent.limit(params[:limit])
-            end
+            # messages = room.messages
+            # messages = messages.where("id < ?", params[:before_id]) if params[:before_id]
+            # messages = messages recent. limit(params[:limit])
+            # if params[:before_id]
+            #   messages = room.messages.where("id < ?", params[:before_id])
+            # else
+            #   messages = room.messages
+            # end
+            # messages = messages.recent.limit(params[:limit])
+            messages = room.messages.recent.limit(params[:limit])
+            messages = messages.where("id < ?", params[:before_id]) if params[:before_id]
+
             present messages, with: MessageEntity
           end
 
