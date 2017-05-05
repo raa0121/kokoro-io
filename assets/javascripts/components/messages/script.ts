@@ -5,8 +5,8 @@ import LoadingView from '../loading/template.vue';
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
 
-// max number of fetching messages once.
 const MAX_LIMIT = 200;
+const OFFSET = 3;
 
 export default {
     props: {
@@ -90,6 +90,7 @@ export default {
             ).then(response => {
                 this.fetching = false;
                 (response.data || []).forEach(message => this.currentRoom.messages.unshift(message));
+                return response.data;
             });
         },
 
@@ -134,7 +135,17 @@ export default {
                     room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
                     room.requestParams.before_id = this.currentRoom.messages[0].id;
                 }
-                this.fetch();
+                this.fetch().then(fetchedData => {
+                    // FIXME: MAYBE BUGGY
+                    const len = fetchedData.length;
+                    const rowHeight = this.$refs.talkRow[0].clientHeight;
+                    const offsetRows = len > OFFSET ? len - OFFSET - 1 : len;  // magical
+                    const scrollRange = rowHeight * offsetRows;
+                    const el = this.$refs.talksPane;
+                    if(!!el) {
+                        el.scrollTop = el.scrollHeight - scrollRange;;
+                    }
+                });
             }
         },
     },
