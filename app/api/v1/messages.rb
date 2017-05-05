@@ -55,15 +55,6 @@ module V1
           get do
             room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
 
-            # messages = room.messages
-            # messages = messages.where("id < ?", params[:before_id]) if params[:before_id]
-            # messages = messages recent. limit(params[:limit])
-            # if params[:before_id]
-            #   messages = room.messages.where("id < ?", params[:before_id])
-            # else
-            #   messages = room.messages
-            # end
-            # messages = messages.recent.limit(params[:limit])
             messages = room.messages.recent.limit(params[:limit])
             messages = messages.where("id < ?", params[:before_id]) if params[:before_id]
 
