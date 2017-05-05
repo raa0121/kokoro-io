@@ -1,6 +1,6 @@
 version: '2'
 services:
-  web-prod: &app_base
+  web: &app_base
     env_file: .env.production
     build:
       context: .
@@ -8,15 +8,15 @@ services:
     restart: always
     command: bundle exec puma -p 3000 -C ./config/puma.rb
     links:
-      - db-prod
-      - redis-prod
+      - db
+      - redis
     volumes:
       - ./data/app/log:/usr/src/app/log
       - ./data/bundle:/bundle
     environment:
       RACK_ENV: production
       RAILS_ENV: production
-  assets-prod:
+  assets:
     build:
       context: .
       dockerfile: Dockerfile.assets.dev
@@ -24,7 +24,7 @@ services:
     command: yarn font sound build
     volumes:
       - ./data/assets:/usr/src/assets/assets/dist
-  db-prod:
+  db:
     env_file: .env.production
     image: postgres:9.6-alpine
     restart: always
@@ -32,22 +32,22 @@ services:
       POSTGRES_DB: kokoroio_production
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
-  nginx-prod:
+  nginx:
     image: nginx:1.13-alpine
     restart: always
     ports:
       - "55000:80"
     links:
-      - web-prod
+      - web
     volumes:
       - ./data/nginx/log:/var/log/nginx
       - ./data/assets:/usr/src/assets:ro
       - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
-  redis-prod:
+  redis:
     image: redis:alpine
     restart: always
     volumes:
       - ./data/redis/data:/data
-  command-prod:
+  command:
     <<: *app_base
     restart: 'no'
