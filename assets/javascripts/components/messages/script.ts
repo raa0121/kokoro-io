@@ -6,7 +6,6 @@ import LoadingView from '../loading/template.vue';
 const ticker$ = Rx.Observable.interval(1000);
 
 const MAX_LIMIT = 200;
-const OFFSET = 3;
 
 export default {
     props: {
@@ -139,11 +138,10 @@ export default {
                     // FIXME: MAYBE BUGGY
                     const len = fetchedData.length;
                     const rowHeight = this.$refs.talkRow[0].clientHeight;
-                    const offsetRows = len > OFFSET ? len - OFFSET - 1 : len;  // magical
-                    const scrollRange = rowHeight * offsetRows;
+                    const offsetRows = len > 0 ? len - 3 : 0;
                     const el = this.$refs.talksPane;
                     if(!!el) {
-                        el.scrollTop = el.scrollHeight - scrollRange;;
+                        el.scrollTop = rowHeight * offsetRows;
                     }
                 });
             }
