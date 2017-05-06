@@ -294,6 +294,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rouge (2.0.7)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -403,6 +404,7 @@ DEPENDENCIES
   refile!
   refile-mini_magick
   refile-s3
+  rouge
   rspec-rails
   sass-rails (~> 5.0.4)
   simple_form!

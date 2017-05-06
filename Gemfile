@@ -14,6 +14,7 @@ gem 'tzinfo-data'
 gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'bootstrap-sass', '~> 3.3.7'
+gem 'rouge'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.0'
