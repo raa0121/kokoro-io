@@ -138,7 +138,6 @@ export default {
                 this.fetch().then(fetchedData => {
                     this.$nextTick(() => {
                         if (fetchedData.length === 0) return
-                        // NOTE: Array does not have list comprehension feature or range function.
                         let scrollRange = 0;
                         for (let i=0; i < displayUnreadNum; i++) {
                             scrollRange = scrollRange + document.querySelector(`.talk[data-message-id="${fetchedData[i].id}"]`).clientHeight;
