@@ -5,8 +5,6 @@ import LoadingView from '../loading/template.vue';
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
 
-const MAX_LIMIT = 200;
-
 export default {
     props: {
         eventBus: {
@@ -128,21 +126,25 @@ export default {
         },
 
         scroll(ev) {
+            const MAX_LIMIT = 200;
+            const displayUnreadNum = 1;
             const room = this.rooms[this.currentRoom.screenName];
             if (ev.target.scrollTop === 0 && room.initialized) {
                 if (this.currentRoom.messages.length > 0) {
                     room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
                     room.requestParams.before_id = this.currentRoom.messages[0].id;
                 }
+                const displayedHeight = this.$refs.talksPane.scrollHeight;
                 this.fetch().then(fetchedData => {
-                    // FIXME: MAYBE BUGGY
-                    const len = fetchedData.length;
-                    const rowHeight = this.$refs.talkRow[0].clientHeight;
-                    const offsetRows = len > 0 ? len - 3 : 0;
-                    const el = this.$refs.talksPane;
-                    if(!!el) {
-                        el.scrollTop = rowHeight * offsetRows;
-                    }
+                    this.$nextTick(() => {
+                        if (fetchedData.length === 0) return
+                        // NOTE: Array does not have list comprehension feature or range function.
+                        let scrollRange = 0;
+                        for (let i=0; i < displayUnreadNum; i++) {
+                            scrollRange = scrollRange + document.querySelector(`.talk[data-message-id="${fetchedData[i].id}"]`).clientHeight;
+                        }
+                        this.$refs.talksPane.scrollTop = this.$refs.talksPane.scrollHeight - displayedHeight - scrollRange;
+                    });
                 });
             }
         },
