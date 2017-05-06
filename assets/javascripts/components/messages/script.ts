@@ -5,6 +5,10 @@ import LoadingView from '../loading/template.vue';
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
 
+// controling scroll
+const MAX_LIMIT = 200;
+const displayUnreadNum = 1;
+
 export default {
     props: {
         eventBus: {
@@ -21,8 +25,9 @@ export default {
             fetching: false,
             now: moment.utc(),
             currentRoom: {
-                messages: [],
                 screenName: null,
+                messages:[],
+                reachedEnd: false,
             },
             rooms: {},
         };
@@ -60,22 +65,22 @@ export default {
     methods: {
         changeRoom(room){
             console.log('changeRoom', room);
-            this.currentRoom.screenName = room.screen_name;
-            if(!this.rooms[room.screen_name])
-            {
-                this.rooms[room.screen_name] = {
+            this.currentRoom = this.rooms[room.screen_name];
+            if(!this.currentRoom) {
+                this.rooms[room.screen_name] = this.currentRoom = {
+                    screenName: room.screen_name,
                     requestParams: { limit: 30, before_id: null },
                     initialized: false,
                     messages: [],
+                    reachedEnd: false,
                 };
                 // fetch initial data
                 this.fetch().then(() => {
                     this.$nextTick(() => this.scrollToLatestTalk())
-                    this.rooms[room.screen_name].initialized = true;
+                    this.currentRoom.initialized = true;
                 });
             }
             // set reference
-            this.currentRoom.messages = this.rooms[room.screen_name].messages;
             this.$nextTick(() => this.scrollToLatestTalk());
         },
 
@@ -83,7 +88,7 @@ export default {
             this.fetching = true;
             return this.$http.get(
                 `/v1/rooms/${this.currentRoom.screenName}/messages`,
-                { params: this.rooms[this.currentRoom.screenName].requestParams }
+                { params: this.currentRoom.requestParams }
             ).then(response => {
                 this.fetching = false;
                 (response.data || []).forEach(message => this.currentRoom.messages.unshift(message));
@@ -126,10 +131,8 @@ export default {
         },
 
         scroll(ev) {
-            const MAX_LIMIT = 200;
-            const displayUnreadNum = 1;
             const room = this.rooms[this.currentRoom.screenName];
-            if (ev.target.scrollTop === 0 && room.initialized) {
+            if (ev.target.scrollTop === 0 && room.initialized && !room.reachedEnd) {
                 if (this.currentRoom.messages.length > 0) {
                     room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);
                     room.requestParams.before_id = this.currentRoom.messages[0].id;
@@ -137,7 +140,10 @@ export default {
                 const displayedHeight = this.$refs.talksPane.scrollHeight;
                 this.fetch().then(fetchedData => {
                     this.$nextTick(() => {
-                        if (fetchedData.length === 0) return
+                        if (fetchedData.length === 0) {
+                            room.reachedEnd = this.currentRoom.reachedEnd = true;
+                            return
+                        }
                         let scrollRange = 0;
                         for (let i=0; i < displayUnreadNum; i++) {
                             scrollRange = scrollRange + document.querySelector(`.talk[data-message-id="${fetchedData[i].id}"]`).clientHeight;

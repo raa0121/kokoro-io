@@ -6,6 +6,10 @@ img.thumb {
     max-height: 300px;
 }
 
+.no_message_notice {
+    text-align: center;
+}
+
 .unread {
     display: table;
     text-align: center;
