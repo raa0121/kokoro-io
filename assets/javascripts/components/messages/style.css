@@ -6,7 +6,7 @@ img.thumb {
     max-height: 300px;
 }
 
-.no_message_notice {
+.no_message_notice, .nobody_post {
     text-align: center;
 }
 

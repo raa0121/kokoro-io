@@ -28,6 +28,7 @@ export default {
                 screenName: null,
                 messages:[],
                 reachedEnd: false,
+                nobodyPost: false,
             },
             rooms: {},
         };
@@ -35,6 +36,7 @@ export default {
 
     mounted(){
         this.eventBus.$on('postingMessage', (room, message) => {
+            this.rooms[room.screen_name].nobodyPost = false;
             this.rooms[room.screen_name].messages.push(message);
         });
         this.eventBus.$on('removeTemporaryMessage', (room, removalMessage) => {
@@ -73,9 +75,11 @@ export default {
                     initialized: false,
                     messages: [],
                     reachedEnd: false,
+                    nobodyPost: false,
                 };
                 // fetch initial data
-                this.fetch().then(() => {
+                this.fetch().then(fetchedData => {
+                    if (fetchedData.length === 0) this.currentRoom.nobodyPost = true;
                     this.$nextTick(() => this.scrollToLatestTalk())
                     this.currentRoom.initialized = true;
                 });
@@ -92,6 +96,7 @@ export default {
             ).then(response => {
                 this.fetching = false;
                 (response.data || []).forEach(message => this.currentRoom.messages.unshift(message));
+                this.currentRoom.reachedEnd = response.data.length === 0 || response.data.length < this.currentRoom.requestParams.limit;
                 return response.data;
             });
         },
@@ -131,6 +136,8 @@ export default {
         },
 
         scroll(ev) {
+            // NOTE: This handler is also called when a room is changed.
+            //       So `this.currentRoom` maybe a previous room.
             const room = this.rooms[this.currentRoom.screenName];
             if (ev.target.scrollTop === 0 && room.initialized && !room.reachedEnd) {
                 if (this.currentRoom.messages.length > 0) {
@@ -140,10 +147,7 @@ export default {
                 const displayedHeight = this.$refs.talksPane.scrollHeight;
                 this.fetch().then(fetchedData => {
                     this.$nextTick(() => {
-                        if (fetchedData.length === 0) {
-                            room.reachedEnd = this.currentRoom.reachedEnd = true;
-                            return
-                        }
+                        if (fetchedData.length === 0) return;
                         let scrollRange = 0;
                         for (let i=0; i < displayUnreadNum; i++) {
                             scrollRange = scrollRange + document.querySelector(`.talk[data-message-id="${fetchedData[i].id}"]`).clientHeight;

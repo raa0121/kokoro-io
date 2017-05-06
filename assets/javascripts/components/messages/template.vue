@@ -1,7 +1,10 @@
 <template>
     <div ref="talksPane" class="talks" @scroll="scroll">
         <loading v-if="fetching" />
-        <div v-if="currentRoom.reachedEnd" class="no_message_notice">
+        <div v-if="currentRoom.nobodyPost" class="nobody_post">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>発言がまだありません
+        </div>
+        <div v-else-if="currentRoom.reachedEnd" class="no_message_notice">
             <i class="fa fa-rocket" aria-hidden="true"></i>これより過去の発言はありません<i class="fa fa-rocket" aria-hidden="true"></i>
         </div>
         <div class="talk" v-for="message in currentRoom.messages" v-bind:data-message-id="message.id">
