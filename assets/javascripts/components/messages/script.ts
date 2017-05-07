@@ -25,10 +25,12 @@ export default {
             fetching: false,
             now: moment.utc(),
             currentRoom: {
+                requestParams: { limit: 30, before_id: null },
                 screenName: null,
                 messages:[],
                 reachedEnd: false,
                 nobodyPost: false,
+                initialized: false,
             },
             rooms: {},
         };
@@ -80,12 +82,21 @@ export default {
                 // fetch initial data
                 this.fetch().then(fetchedData => {
                     if (fetchedData.length === 0) this.currentRoom.nobodyPost = true;
-                    this.$nextTick(() => this.scrollToLatestTalk())
+                    this.$nextTick(() => {
+                        this.scrollToLatestTalk();
+                        const images = document.querySelectorAll('img.thumb');
+                        let loaded = 0;
+                        for (let i=0; i < images.length; i++) {
+                            // NOTE: Wait for finishing load all of images.
+                            images[i].addEventListener('load', () => {
+                                loaded = loaded + 1;
+                                if (loaded === images.length) this.scrollToLatestTalk();
+                            });
+                        }
+                    });
                     this.currentRoom.initialized = true;
                 });
             }
-            // set reference
-            this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         fetch() {
