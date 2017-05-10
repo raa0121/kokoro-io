@@ -1,21 +1,21 @@
 class ProfilesController < ApplicationController
   before_action :set_current_profile, only: [:edit, :update]
 
-  def archived
-    # for not archived profile
+  def show
+    # for archived profile
     @profile = Profile.find(params[:id])
     authorize @profile
     unless @profile.archived?
-      redirect_to @profile
+      redirect_to profile_friendly_path(@profile.screen_name)
     end
   end
 
-  def show
-    # for archived profile
-    @profile = Profile.friendly.find(params[:screen_name])
+  def show_friendly
+    # for not archived profile
+    @profile = Profile.find_by(screen_name: params[:screen_name])
     authorize @profile
     if @profile.archived?
-      redirect_to archived_profile_path(@profile)
+      redirect_to profile_path(@profile)
     end
   end
 

@@ -5,12 +5,12 @@ class ProfilePolicy < ApplicationPolicy
     end
   end
 
-  def archived?
+  def show_friendly?
     true
   end
 
   def show?
-    !@record.archived?
+    true
   end
 
   def update?
