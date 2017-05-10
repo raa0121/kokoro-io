@@ -12,7 +12,7 @@ d="docker-compose -f docker-compose.${env}.yml"
 case $cmd in
   "serve") run "${d} up -d";;
   "restart") run "${d} stop && yes | ${d} rm | ${d} up -d";;
-  "migrate") run "${d} exec spring bundle exec rake db:migrate";;
+  "migrate") run "${d} exec web bundle exec rake db:migrate";;
   "clear") run "${d} stop && yes | ${d} rm";;
   "guard") run "${d} exec spring guard";;
   "bi") run "${d} exec spring bundle exec bundle install";;
