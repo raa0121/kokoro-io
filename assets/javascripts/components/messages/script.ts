@@ -97,6 +97,7 @@ export default {
                     this.currentRoom.initialized = true;
                 });
             }
+            this.$nextTick(() => this.scrollToLatestTalk());
         },
 
         fetch() {
