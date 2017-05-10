@@ -33,4 +33,8 @@ export default class Config {
     setSoundEnabled(v: boolean): void {
         localStorage.setItem(KeySoundEnabled, JSON.stringify(v));
     }
+
+    updateTitle(count: number): void {
+        document.head.querySelector("title").innerHTML = `(${count}) kokoro.io`;
+    }
 }

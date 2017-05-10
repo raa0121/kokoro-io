@@ -12,6 +12,16 @@ export default {
         };
     },
 
+    computed: {
+        unreadMessageCount(){
+            return this.rooms.map((room) => {
+                return room.unread_count;
+            }).reduce((a, b) => {
+                return a + b;
+            });
+        },
+    },
+
     mounted(){
         this.eventBus.$on('chatChannelConnected', () => {
             this.rooms.forEach(room => {
@@ -26,6 +36,7 @@ export default {
                 })
                 if(targetRoom){
                     targetRoom.unread_count += 1;
+                    this.$config.updateTitle(this.unreadMessageCount);
                 }
             }
         });
