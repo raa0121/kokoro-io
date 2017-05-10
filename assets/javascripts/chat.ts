@@ -5,7 +5,6 @@ import Vue from 'vue';
 import createChatChannel from './channels/chat';
 import AppConfig from './config';
 import * as model from './model';
-declare function require(name: string): any;
 const messagesView = require('./components/messages/template.vue').default;
 const messageInputView = require('./components/message-input/template.vue').default;
 const roomsView = require('./components/rooms/template.vue').default;

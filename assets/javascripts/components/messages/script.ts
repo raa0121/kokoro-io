@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import * as Rx from 'rx';
-import LoadingView from '../loading/template.vue';
+const LoadingView = require('../loading/template.vue');
 
 // tick! tack! globaly
 const ticker$ = Rx.Observable.interval(1000);
