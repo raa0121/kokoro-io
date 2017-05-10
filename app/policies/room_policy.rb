@@ -25,4 +25,8 @@ class RoomPolicy < ApplicationPolicy
     @record.invitable?(@user)
   end
 
+  def show_friendly?
+    show?
+  end
+
 end

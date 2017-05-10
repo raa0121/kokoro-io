@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :set_room_by_screen_name, only: [:show_friendly]
 
   def create
     @room = Room.new(room_params)
@@ -22,7 +23,17 @@ class RoomsController < ApplicationController
     authorize @room
   end
 
+  def show_friendly
+    if @room.archived?
+      redirect_to room_path(@room)
+    end
+    render action: :show
+  end
+
   def show
+    unless @room.archived?
+      redirect_to room_friendly_path(@room.screen_name)
+    end
   end
 
   def index
@@ -45,7 +56,7 @@ class RoomsController < ApplicationController
   end
 
   def join
-    room = Room.friendly.find(params[:screen_name])
+    room = Room.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_joinbale') unless room.joinable? current_user
     authorize room
@@ -60,7 +71,7 @@ class RoomsController < ApplicationController
   end
 
   def leave
-    room = Room.friendly.find(params[:screen_name])
+    room = Room.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_leaveable') unless room.leaveable? current_user
     authorize room
@@ -72,7 +83,7 @@ class RoomsController < ApplicationController
   end
 
   def invite
-    room = Room.friendly.find(params[:screen_name])
+    room = Room.find(params[:id])
     return redirect_to :back, alert: t('alert.rooms.not_exist') unless room
     return redirect_to :back, alert: t('alert.rooms.not_invitable') unless room.invitable? current_user
     authorize room
@@ -102,7 +113,12 @@ class RoomsController < ApplicationController
   end
 
   def set_room
-    @room = Room.friendly.find(params[:id])
+    @room = Room.find(params[:id])
+    authorize @room
+  end
+
+  def set_room_by_screen_name
+    @room = Room.find_by(screen_name: params[:screen_name])
     authorize @room
   end
 

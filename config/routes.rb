@@ -8,8 +8,9 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :bots
-  post '/rooms/join/:screen_name' => 'rooms#join', as: :join_room
-  post '/rooms/leave/:screen_name' => 'rooms#leave', as: :leave_room
+  post '/rooms/join/:id' => 'rooms#join', as: :join_room
+  post '/rooms/leave/:id' => 'rooms#leave', as: :leave_room
+  get '/r/@:screen_name' => 'rooms#show_friendly', as: :room_friendly
   resources :rooms
   resources :access_tokens, except: [ :show ]
 

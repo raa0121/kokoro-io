@@ -1,6 +1,4 @@
 class Room < ApplicationRecord
-  extend FriendlyId
-  friendly_id :screen_name
 
   validates :screen_name, :display_name, :description, presence: true
   validates :screen_name, length: { in: 1..255 }
@@ -152,6 +150,11 @@ class Room < ApplicationRecord
 
   def has_member? user
     users.include? user
+  end
+
+  def archived?
+    # TODO: implement archived or not
+    false
   end
 
   before_validation :bind_default_values

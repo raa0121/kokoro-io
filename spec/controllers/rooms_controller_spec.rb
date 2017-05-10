@@ -103,7 +103,7 @@ RSpec.describe RoomsController, :type => :controller do
         login(user)
         post :create, params: param
         expect(response.status).to eq(302)
-        expect(response).to redirect_to(room_path(Room.last.friendly_id))
+        expect(response).to redirect_to(room_path(Room.last))
       end
     end
   end
