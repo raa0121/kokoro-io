@@ -32,7 +32,7 @@ class MarkdownMessageFilter < ApplicationMessageFilter
     }
     renderer = HTML.new(
       filter_html: false,
-      escape_html: false,
+      escape_html: true,
       no_images: false,
       no_links: false,
       no_styles: true,

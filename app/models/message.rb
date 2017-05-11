@@ -17,7 +17,6 @@ class Message < ApplicationRecord
   private
   def filters
     [
-      HTMLEscapeMessageFilter,
       MarkdownMessageFilter,
       URLMessageFilter,
       RoomNameMessageFilter

@@ -21,6 +21,7 @@ ccc
 ddd
 _text1_
 *text2*
+<span>foo</span>
     EOS
     room.messages.create(
       profile: profile,
@@ -56,6 +57,10 @@ _text1_
     it 'ルーム名をアンカータグに変換する' do
       expect(filtered_content).to include('<a href="/r/@room_name1" target="_blank">#room_name1</a>')
       expect(filtered_content).to include('<a href="/r/@group/room_name2" target="_blank">#group/room_name2</a>')
+    end
+
+    it 'html タグをエスケープする' do
+      expect(filtered_content).to include('&lt;span&gt;foo&lt;/span&gt;')
     end
 
   end
