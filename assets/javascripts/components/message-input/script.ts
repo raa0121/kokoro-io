@@ -48,8 +48,22 @@ export default {
         },
     },
 
+    watch: {
+        text(val, old) {
+            if (this.isBlank()) this.text = '';
+        }
+    },
+
     methods: {
+        isBlank() {
+            return !!/^\n$/.exec(this.text) || this.text.length === 0;
+        },
+
         maybeSay(evt: KeyboardEvent): boolean {
+            if (this.isBlank()) {
+                return false;
+                evt.preventDefault();
+            }
             switch(evt.keyCode || evt.which)
             {
                 case KeyCode.KEY_ENTER:
