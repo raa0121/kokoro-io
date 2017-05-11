@@ -10,6 +10,8 @@ RSpec.describe Message, type: :model do
 #Heading1
 # Heading2
 #    Heading3
+#room_name1
+#group/room_name2
 aaa
 bbb
 https://example.com/
@@ -49,6 +51,11 @@ _text1_
 
     it 'ホワイトスペースがない場合は見出し変換をかけない' do
       expect(filtered_content).to include('#Heading1')
+    end
+
+    it 'ルーム名をアンカータグに変換する' do
+      expect(filtered_content).to include('<a href="/r/@room_name1" target="_blank">#room_name1</a>')
+      expect(filtered_content).to include('<a href="/r/@group/room_name2" target="_blank">#group/room_name2</a>')
     end
 
   end

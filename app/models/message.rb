@@ -19,7 +19,8 @@ class Message < ApplicationRecord
     [
       HTMLEscapeMessageFilter,
       MarkdownMessageFilter,
-      URLMessageFilter
+      URLMessageFilter,
+      RoomNameMessageFilter
     ]
   end
 
