@@ -17,6 +17,7 @@ class ProfilesController < ApplicationController
     if @profile.archived?
       redirect_to profile_path(@profile)
     end
+    render action: :show
   end
 
   def edit
