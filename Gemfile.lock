@@ -393,6 +393,7 @@ DEPENDENCIES
   kaminari
   mina
   mina-unicorn
+  nokogiri
   pg
   puma
   pundit

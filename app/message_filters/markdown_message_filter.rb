@@ -3,20 +3,32 @@ require 'rouge/plugins/redcarpet'
 class MarkdownMessageFilter < ApplicationMessageFilter
   class HTML < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
+
+    def emphasis(text)
+      nil
+    end
+
   end
 
   def self.filter(text)
     extensions = {
       no_infra_emphasis: true,
-      autolink: false,
-      disable_indented_code_blocks: true,
+      tables: false,
       fenced_code_blocks: true,
+      autolink: true,
+      disable_indented_code_blocks: true,
       strikethrough: false,
       lax_spacing: true,
-      underline: true,
-      highlight: true,
-      quote: true,
+      space_after_headers: true,
+      superscript: false,
+      underline: false,
+      highlight: false,
+      quote: false,
       footnotes: false,
+      with_toc_data: false,
+      head_wrap: true,
+      xhtml: false,
+      pretty: false,
     }
     renderer = HTML.new(
       filter_html: false,

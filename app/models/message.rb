@@ -18,8 +18,8 @@ class Message < ApplicationRecord
   def filters
     [
       HTMLEscapeMessageFilter,
-      URLMessageFilter,
-      MarkdownMessageFilter
+      MarkdownMessageFilter,
+      URLMessageFilter
     ]
   end
 
