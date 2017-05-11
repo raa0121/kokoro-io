@@ -4,11 +4,11 @@ RSpec.describe ProfilesController, type: :routing do
   describe "routing" do
 
     it "routes to #show" do
-      expect(:get => "/@hoge").to route_to("profiles#show", :screen_name => "hoge")
+      expect(:get => "/@hoge").to route_to("profiles#show_friendly", :screen_name => "hoge")
     end
 
     it "routes to #archived" do
-      expect(:get => "/profiles/1").to route_to("profiles#archived", :id => "1")
+      expect(:get => "/profiles/1").to route_to("profiles#show", :id => "1")
     end
 
     it "routes to #edit" do

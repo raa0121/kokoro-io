@@ -22,6 +22,6 @@ RSpec.describe ProfilePolicy do
       profile.update_attribute(:archived, true)
     end
     subject { ProfilePolicy.new(user, profile) }
-    it { should_not authorize(:show) }
+    it { should authorize(:show) }
   end
 end
