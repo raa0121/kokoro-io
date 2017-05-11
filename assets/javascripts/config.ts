@@ -35,6 +35,10 @@ export default class Config {
     }
 
     updateTitle(count: number): void {
-        document.head.querySelector("title").innerHTML = `(${count}) kokoro.io`;
+        if(count == 0) {
+            document.head.querySelector("title").innerHTML = `kokoro.io`;
+        } else {
+            document.head.querySelector("title").innerHTML = `[${count}] kokoro.io`;
+        }
     }
 }

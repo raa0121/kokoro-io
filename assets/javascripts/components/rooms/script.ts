@@ -71,6 +71,7 @@ export default {
         changeRoom(room){
             this.room = room;
             this.room.unread_count = 0;
+            this.$config.updateTitle(this.unreadMessageCount);
             this.room.shown = true;
             this.$emit('changeRoom', room);
             this.eventBus.$emit('changeRoom', room);
