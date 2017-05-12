@@ -3,6 +3,10 @@ class Profile < ApplicationRecord
   belongs_to :publisher, polymorphic: true
   validates :display_name, presence: true
   validates :screen_name, presence: true, unless: :archived?
+  validates :screen_name, format: {
+    with: %r`[a-zA-Z0-9_-]+`,
+    message: 'screen_name only can contain lowser alphabet and digits, and some symbols(- and _).'
+  }
   validates :archived, inclusion: {in: [true, false]}
   validates :screen_name, uniqueness: true
   validates :screen_name, length: { maximum: 64 }

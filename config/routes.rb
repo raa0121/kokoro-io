@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   post '/rooms/join/:id' => 'rooms#join', as: :join_room
   post '/rooms/leave/:id' => 'rooms#leave', as: :leave_room
   post '/rooms/invite/:id' => 'rooms#invite', as: :invite_room
-  get '/r/@:screen_name' => 'rooms#show_friendly', as: :room_friendly
+  get '/r/*screen_name' => 'rooms#show_friendly', as: :room_friendly, screen_name: %r`(?:[a-z0-9_-]+/)?[a-z0-9_-]+`
   resources :rooms
   resources :access_tokens, except: [ :show ]
 

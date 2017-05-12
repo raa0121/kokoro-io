@@ -3,9 +3,14 @@ class Room < ApplicationRecord
   validates :screen_name, :display_name, :description, presence: true
   validates :screen_name, length: { in: 1..255 }
   validates :screen_name, uniqueness: true
+  validates :screen_name, format: {
+    with: %r`(?:[a-z0-9_-]+/)?[a-z0-9_-]+`,
+    message: 'screen_name only can contain lowser alphabet and digits, and some symbols(-, _ and /). Only one slash can be contained.'
+  }
   validates :display_name, length: { in: 2..64 }
   validates :description, length: { in: 1..1000 }
   validates :private, inclusion: {in: [true, false]}
+
 
   has_many :messages
   has_many :memberships
