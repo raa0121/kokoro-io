@@ -143,8 +143,9 @@ class Room < ApplicationRecord
 
   def invitable? user
     # Anyone can join or be invited on public room
-    true if public?
+    return true if public?
 
+    # Only Administrator or maintainer can invite in provate room
     [:administrator, :maintainer].include? authority(user)
   end
 
