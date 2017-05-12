@@ -65,7 +65,7 @@ export default {
 
     methods: {
         roomUrl(room){
-            return `/rooms/${room.display_name}`;
+            return `/rooms/${room.id}`;
         },
 
         changeRoom(room){

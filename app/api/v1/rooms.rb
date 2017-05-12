@@ -59,7 +59,7 @@ module V1
         response: {isArray: false, entity: RoomEntity}
       }
       params do
-        requires :screen_name, type: String
+        requires :id, type: Integer
         optional :room, type: Hash do
           optional :screen_name, type: String
           optional :display_name, type: String
@@ -67,9 +67,9 @@ module V1
           optional :private, type: Boolean
         end
       end
-      route_param :screen_name do
+      route_param :id do
         put do
-          room = Room.find_by(screen_name: params[:screen_name])
+          room = Room.find_by(id: params[:id])
           if room && room.maintainable?(@user)
             if room.update(permitted_params)
               status 204
@@ -84,11 +84,11 @@ module V1
 
       desc 'Delete a room'
       params do
-        requires :screen_name, type: String
+        requires :id, type: Integer
       end
-      route_param :screen_name do
+      route_param :id do
         delete do
-          room = Room.find_by(screen_name: params[:screen_name])
+          room = Room.find_by(id: params[:id])
           if room && room.destroyable?(@user)
             if room.destroy
               status 204

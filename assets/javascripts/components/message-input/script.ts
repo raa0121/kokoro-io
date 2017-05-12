@@ -91,7 +91,7 @@ export default {
                         },
                         transitNumber: window.performance.now(),
                     };
-                    const promise = this.$http.post(`/v1/rooms/${this.room.screen_name}/messages`, {
+                    const promise = this.$http.post(`/v1/rooms/${this.room.id}/messages`, {
                         message: text,
                     });
                     promise.then(allowInput, allowInput);

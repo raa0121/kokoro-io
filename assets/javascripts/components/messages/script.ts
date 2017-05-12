@@ -25,6 +25,7 @@ export default {
             fetching: false,
             now: moment.utc(),
             currentRoom: {
+                id: null,
                 requestParams: { limit: 30, before_id: null },
                 screenName: null,
                 messages:[],
@@ -38,18 +39,18 @@ export default {
 
     mounted(){
         this.eventBus.$on('postingMessage', (room, message) => {
-            this.rooms[room.screen_name].nobodyPost = false;
-            this.rooms[room.screen_name].messages.push(message);
+            this.rooms[room.id].nobodyPost = false;
+            this.rooms[room.id].messages.push(message);
         });
         this.eventBus.$on('removeTemporaryMessage', (room, removalMessage) => {
-            this.currentRoom.messages = this.rooms[room.screen_name].messages.filter(
+            this.currentRoom.messages = this.rooms[room.id].messages.filter(
                 message => !!message.id &&
                     !( message.transitNumber &&
                        message.transitNumber == removalMessage.transitNumber)
             );
         });
         this.eventBus.$on('messageReceived', (room, message) => {
-            this.rooms[room.screen_name].messages.push(message);
+            this.rooms[room.id].messages.push(message);
             this.$nextTick(() => this.scrollToLatestTalk());
         });
         this.eventBus.$on('changeRoom', this.changeRoom);
@@ -69,9 +70,10 @@ export default {
     methods: {
         changeRoom(room){
             console.log('changeRoom', room);
-            this.currentRoom = this.rooms[room.screen_name];
+            this.currentRoom = this.rooms[room.id];
             if(!this.currentRoom) {
-                this.rooms[room.screen_name] = this.currentRoom = {
+                this.rooms[room.id] = this.currentRoom = {
+                    id: room.id,
                     screenName: room.screen_name,
                     requestParams: { limit: 30, before_id: null },
                     initialized: false,
@@ -103,7 +105,7 @@ export default {
         fetch() {
             this.fetching = true;
             return this.$http.get(
-                `/v1/rooms/${this.currentRoom.screenName}/messages`,
+                `/v1/rooms/${this.currentRoom.id}/messages`,
                 { params: this.currentRoom.requestParams }
             ).then(response => {
                 this.fetching = false;
@@ -150,7 +152,7 @@ export default {
         scroll(ev) {
             // NOTE: This handler is also called when a room is changed.
             //       So `this.currentRoom` maybe a previous room.
-            const room = this.rooms[this.currentRoom.screenName];
+            const room = this.rooms[this.currentRoom.id];
             if (ev.target.scrollTop === 0 && room.initialized && !room.reachedEnd) {
                 if (this.currentRoom.messages.length > 0) {
                     room.requestParams.limit = Math.min(Math.round(room.requestParams.limit * 1.5), MAX_LIMIT);

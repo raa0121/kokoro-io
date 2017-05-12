@@ -37,7 +37,7 @@ module V1
         authenticate!
       end
 
-      segment '/:screen_name' do
+      segment '/:id' do
 
         resource 'messages' do
           before do
@@ -53,7 +53,7 @@ module V1
             optional :before_id, type: Integer
           end
           get do
-            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
+            room = @user.chattable_rooms.find_by(id: params[:id])
 
             messages = room.messages.recent.limit(params[:limit])
             messages = messages.where("id < ?", params[:before_id]) if params[:before_id]
@@ -69,7 +69,7 @@ module V1
             requires :message, type: String
           end
           post do
-            room = @user.chattable_rooms.find_by(screen_name: params[:screen_name])
+            room = @user.chattable_rooms.find_by(id: params[:id])
             if room
               message = room.messages.create(
                 profile: @user.profile,
