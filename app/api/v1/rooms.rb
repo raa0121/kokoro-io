@@ -1,7 +1,9 @@
 module V1
   class RoomEntity < Grape::Entity
     expose :id, documentation: {type: Integer, desc: "レコードID"}
-    expose :screen_name, documentation: {type: String, desc: "ルームID"}
+    expose :screen_name, documentation: {type: String, desc: "スクリーンネーム"}
+    expose :group_name, documentation: {type: String, desc: "チャンネルグループ名"}
+    expose :channel_name, documentation: {type: String, desc: "チャンネル名"}
     expose :display_name, documentation: {type: String, desc: "ルーム名"}
     expose :description, documentation: {type: String, desc: "ルーム説明"}
     expose :private, documentation: {type: 'boolean', desc: "プライベートルームかどうか"}
@@ -30,7 +32,7 @@ module V1
         response: {isArray: true, entity: RoomEntity}
       }
       get do
-        @user.chattable_rooms
+        present @user.chattable_rooms, with: RoomEntity
       end
 
       desc 'Creates a new room.', {
@@ -49,7 +51,7 @@ module V1
         room = @user.rooms.create(permitted_params)
         membership = room.memberships.first
         membership.administrator! if membership
-        room
+        present room, with: RoomEntity
       end
 
       desc 'Updates a room.', {

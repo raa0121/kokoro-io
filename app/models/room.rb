@@ -37,6 +37,19 @@ class Room < ApplicationRecord
   scope :public_rooms, -> { where private: false }
   scope :private_rooms, -> { where private: true }
 
+  def group_name
+    xs = screen_name.split('/')
+    if xs.size == 1
+      nil
+    else
+      xs.first
+    end
+  end
+
+  def channel_name
+    screen_name.split('/').last
+  end
+
   def private?
     private
   end
