@@ -20,10 +20,10 @@ RSpec.describe API::Root::V1::Messages, type: :request do
   let(:chattable_messages_desc) { room.messages.order('id DESC') }
 
   let(:headers) { {'X-Access-Token' => user.primary_access_token.token} }
-  let(:path) { "/api/v1/rooms/#{ room.screen_name }/messages" }
+  let(:path) { "/api/v1/rooms/#{ room.id }/messages" }
   let(:params) { {} }
 
-  describe 'GET /api/v1/rooms/:screen_name/messages' do
+  describe 'GET /api/v1/rooms/:id/messages' do
     let (:request) do
       get path, headers: headers, params: @params
     end
