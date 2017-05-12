@@ -29,6 +29,20 @@ h1= @room.display_name
         = link_to leave_room_path(@room), method: :post, class: 'btn btn-danger btn-block' do
           = icon('minus-square', t('.cancel_invited'))
 
+- if @room.invitable? current_user
+  .row.voffset-bottom20
+    .col-sm-12
+      .panel.panel-default
+        .panel-heading ユーザーを招待する
+        .panel-body
+          = simple_form_for(:invitation, url: invite_room_path(@room)) do |f|
+            = f.input :screen_name, wrapper: :vertical_input_group do
+              .input-group-addon @
+              = f.input_field :screen_name, required: true, autofocus: true, class: 'form-control', placeholder: 'screen_name'
+            .form-actions
+              = f.button :submit, "Invite", class: 'btn btn-primary'
+
+
 .row
   .col-sm-12
     - Membership.authorities.keys.each do |authority|

@@ -35,11 +35,11 @@ class Profile < ApplicationRecord
   end
 
   def user
-    publisher if type == :user
+    publisher if user?
   end
 
   def bot
-    publisher if type == :bot
+    publisher if bot?
   end
 
 end

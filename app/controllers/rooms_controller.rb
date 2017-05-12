@@ -88,20 +88,20 @@ class RoomsController < ApplicationController
     return redirect_to :back, alert: t('alert.rooms.not_invitable') unless room.invitable? current_user
     authorize room
 
-    user_to_invite = User.find_by(id: params[:user_id])
+    user_to_invite = Profile.find_by(screen_name: params[:invitation][:screen_name])&.user
     return redirect_to :back, alert: t('alert.users.not_exist') unless user_to_invite
 
     if room.users.include? user_to_invite
-      membership = room.memberships.find(memberable: user_to_invite)
+      membership = room.memberships.find_by(memberable: user_to_invite)
       # Already have membership
-      if membership.administer? || membership.maintainer? || membership.member?
+      if membership.administrator? || membership.maintainer? || membership.member?
         return redirect_to :back, alert: t('alert.memberships.already_member')
       # Already invited
       else
         return redirect_to :back, alert: t('alert.memberships.already_invited')
       end
     else
-      room.users << user_to_invite
+      room.invited_users << user_to_invite
       room.save
     end
     redirect_to room_path(room), notice: t('notice.rooms.invited')

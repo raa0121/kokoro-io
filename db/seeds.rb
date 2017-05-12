@@ -4,7 +4,7 @@ Dir[Rails.root.join('spec/factories/*.rb')].each do |path|
   require path
 end
 
-[User, Room, Bot, AccessToken, Message, Membership].each do |model|
+[User, Room, Bot, Profile, AccessToken, Message, Membership].each do |model|
   model.delete_all
 end
 

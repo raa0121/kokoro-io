@@ -95,6 +95,8 @@ class Room < ApplicationRecord
       true
     when :member
       true
+    when :invited
+      true
     else
       false
     end
